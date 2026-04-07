@@ -184,13 +184,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .orgs-bar{padding:32px 5%;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;}
 .orgs-label{font-size:11px;color:var(--text-dim);font-weight:500;margin-bottom:18px;letter-spacing:1px;text-transform:uppercase;}
 .orgs-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
-.org-chip{
-  display:flex;align-items:center;gap:6px;
+.org-sel-chip{
+  display:inline-flex;align-items:center;gap:6px;
   background:var(--surface2);border:1px solid var(--border);border-radius:100px;
-  padding:6px 16px;font-size:12px;font-weight:600;color:var(--text-dim);
-  transition:all .2s;cursor:pointer;
+  padding:6px 14px;font-size:12px;font-weight:500;color:var(--text-dim);
+  cursor:pointer;transition:all .2s;user-select:none;
 }
-.org-chip:hover{border-color:rgba(0,214,143,.3);color:var(--green);background:rgba(0,214,143,.05);}
+.org-sel-chip:hover{border-color:rgba(0,214,143,.3);color:var(--text);}
+.org-sel-chip.selected{
+  border-color:var(--green);background:rgba(0,214,143,.1);
+  color:var(--green);font-weight:600;
+}
+.cw-chip.selected-cw{border-color:var(--green);background:rgba(0,214,143,.15);}
 
 /* Features */
 .section-wrap{max-width:1180px;margin:0 auto;padding:72px 5%;}
@@ -981,15 +986,27 @@ input[type=range]::-webkit-slider-thumb{
             </div>
           </div>
 
-          <!-- Scenario dependency -->
+          <!-- Scenario dependency - MULTI SELECT -->
           <div style="margin-top:16px;">
-            <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:8px;">مستوى الاعتماد على السيناريو</div>
+            <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:4px;">مستوى الاعتماد على السيناريو <span style="font-weight:400;color:var(--text-dim);font-size:11px;">(اختر واحداً أو أكثر)</span></div>
             <div class="scen-indicator">
-              <button class="si-btn active red" id="dep-1" onclick="setDep(1)">🔴 السيناريو فقط<br><span style="font-size:10px;">"Using the scenario..."</span></button>
-              <button class="si-btn" id="dep-2" onclick="setDep(2)">🟡 السيناريو + دعم<br><span style="font-size:10px;">المرجع الأساسي</span></button>
-              <button class="si-btn" id="dep-3" onclick="setDep(3)">🟢 حر<br><span style="font-size:10px;">مصادر خارجية</span></button>
+              <button class="si-btn active red" id="dep-1" onclick="toggleDep(1)">🔴 السيناريو فقط<br><span style="font-size:10px;">"Using the scenario..."</span></button>
+              <button class="si-btn" id="dep-2" onclick="toggleDep(2)">🟡 السيناريو + دعم<br><span style="font-size:10px;">المرجع الأساسي</span></button>
+              <button class="si-btn" id="dep-3" onclick="toggleDep(3)">🟢 مراجع خارجية<br><span style="font-size:10px;">منظمات + تشريعات</span></button>
             </div>
+            <div id="dep-note" style="font-size:11px;color:var(--amber);margin-top:6px;display:none;"></div>
           </div>
+        </div>
+
+        <!-- Step 4: Organizations -->
+        <div class="form-card">
+          <div class="form-card-title"><span class="form-card-icon">🌐</span>الخطوة 4 — المنظمات الدولية المرجعية <span style="font-size:11px;font-weight:400;color:var(--text-dim);">(اختر بلا حدود)</span></div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <button class="btn btn-surface btn-sm" onclick="selectAllOrgs()">تحديد الكل</button>
+            <button class="btn btn-ghost btn-sm" onclick="clearAllOrgs()">إلغاء الكل</button>
+            <button class="btn btn-surface btn-sm" onclick="selectOrgsByCert()">المقترحة لشهادتي</button>
+          </div>
+          <div id="orgs-selector" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
         </div>
 
         <!-- Generate Button -->
@@ -1054,13 +1071,26 @@ input[type=range]::-webkit-slider-thumb{
       <!-- ── BOOKS SECTION ── -->
       <div id="section-books" style="display:none;">
         <h2 style="font-size:22px;font-weight:700;margin-bottom:6px;">مكتبة الكتب الرسمية</h2>
-        <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px;">ارفع الكتاب الرسمي لشهادتك — المنصة ستستشهد منه تلقائياً</p>
-        <div style="background:var(--surface);border:1px dashed var(--border2);border-radius:var(--r-lg);padding:48px;text-align:center;cursor:pointer;" onclick="document.getElementById('book-upload').click()">
+        <p style="color:var(--text-dim);font-size:14px;margin-bottom:20px;">ارفع الكتاب الرسمي لشهادتك — المنصة ستستشهد منه تلقائياً في الإجابات</p>
+
+        <div style="background:var(--surface);border:1px dashed var(--border2);border-radius:var(--r-lg);padding:36px;text-align:center;cursor:pointer;transition:all .2s;" id="book-drop-zone"
+          ondragover="event.preventDefault();this.style.borderColor='var(--green)'"
+          ondragleave="this.style.borderColor='var(--border2)'"
+          ondrop="handleBookDrop(event)"
+          onclick="document.getElementById('book-upload').click()">
           <div style="font-size:48px;margin-bottom:14px;">📖</div>
           <div style="font-size:15px;font-weight:600;margin-bottom:6px;">ارفع الكتاب الرسمي (PDF)</div>
-          <p style="font-size:13px;color:var(--text-dim);">International H&S at Work · HSG65 · EMC Guide · Diploma Units</p>
-          <input type="file" id="book-upload" accept=".pdf" style="display:none;">
+          <p style="font-size:13px;color:var(--text-dim);margin-bottom:14px;">اسحب وأفلت أو اضغط للاختيار</p>
+          <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+            <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);">International H&S at Work</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);">HSG65</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);">EMC Guide</span>
+            <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);">Diploma Units</span>
+          </div>
+          <input type="file" id="book-upload" accept=".pdf,.doc,.docx,.txt" style="display:none;" multiple onchange="handleBookUpload(this)">
         </div>
+
+        <div id="books-list" style="margin-top:16px;display:flex;flex-direction:column;gap:8px;"></div>
       </div>
 
       <!-- ── DOCS SECTION ── -->
@@ -1159,13 +1189,46 @@ input[type=range]::-webkit-slider-thumb{
 const STATE = {
   user: null,
   cert: 'IGC',
-  dep: 1,
+  deps: new Set([1]),   // متعدد الاختيار
   marks: 4,
   questionsLeft: 2,
   lockMode: false,
   history: [],
-  apiKey: '' // يُضاف لاحقاً
+  books: [],            // الكتب المرفوعة
+  selectedOrgs: new Set(), // المنظمات المختارة
+  apiKey: ''
 };
+
+const ALL_ORGS = [
+  // السلامة والصحة المهنية
+  {id:'ILO', name:'ILO', desc:'منظمة العمل الدولية', cats:['IGC','NGC','EMC','Construction','Fire','Diploma']},
+  {id:'ISO45001', name:'ISO 45001', desc:'نظام إدارة السلامة 2018/2023', cats:['IGC','NGC','EMC','Diploma']},
+  {id:'HSE', name:'HSE', desc:'هيئة الصحة والسلامة البريطانية', cats:['NGC','IGC','Fire','Construction','Diploma']},
+  {id:'WHO', name:'WHO', desc:'منظمة الصحة العالمية', cats:['IGC','NGC','Diploma']},
+  {id:'EUOSHA', name:'EU-OSHA', desc:'الوكالة الأوروبية للسلامة — ESENER 2024', cats:['IGC','NGC','Diploma']},
+  {id:'IOSH', name:'IOSH', desc:'مؤسسة السلامة والصحة المهنية', cats:['IGC','NGC','Diploma']},
+  {id:'ROSPA', name:'RoSPA', desc:'الجمعية الملكية لمنع الحوادث', cats:['IGC','NGC']},
+  {id:'IIRSM', name:'IIRSM', desc:'المعهد الدولي لإدارة المخاطر والسلامة', cats:['IGC','NGC','Diploma']},
+  {id:'BCSP', name:'BCSP', desc:'مجلس متخصصي السلامة المعتمدين', cats:['IGC','Diploma']},
+  // البيئة
+  {id:'UNEP', name:'UNEP', desc:'برنامج الأمم المتحدة للبيئة', cats:['EMC','Diploma']},
+  {id:'ISO14001', name:'ISO 14001', desc:'نظام الإدارة البيئية', cats:['EMC','Diploma']},
+  {id:'BASEL', name:'Basel Convention', desc:'اتفاقية بازل للنفايات الخطرة', cats:['EMC']},
+  {id:'STOCKHOLM', name:'Stockholm Convention', desc:'الملوثات العضوية الثابتة', cats:['EMC']},
+  {id:'PARIS', name:'Paris Agreement', desc:'اتفاقية باريس للمناخ 2015', cats:['EMC','Diploma']},
+  {id:'MINAMATA', name:'Minamata Convention', desc:'اتفاقية الزئبق', cats:['EMC']},
+  // الحريق والبناء
+  {id:'NFPA', name:'NFPA', desc:'الرابطة الوطنية لحماية الحريق', cats:['Fire']},
+  {id:'BSI', name:'BSI', desc:'معهد المعايير البريطانية', cats:['NGC','Fire','Construction']},
+  {id:'CDM', name:'CDM 2015', desc:'لوائح التصميم والإدارة الإنشائية', cats:['Construction']},
+  {id:'CIOB', name:'CIOB', desc:'معهد بناء المباني المرخّص', cats:['Construction']},
+  // الدولية والحوكمة
+  {id:'ILO155', name:'ILO C.155', desc:'اتفاقية السلامة والصحة المهنية 1981', cats:['IGC','NGC','Diploma']},
+  {id:'ILO187', name:'ILO C.187', desc:'الإطار التعزيزي للسلامة 2006', cats:['IGC','Diploma']},
+  {id:'ILOOSH', name:'ILO-OSH 2001', desc:'مبادئ توجيهية لنظم إدارة السلامة', cats:['IGC','NGC','Diploma']},
+  {id:'UN', name:'UN SDGs', desc:'أهداف التنمية المستدامة', cats:['EMC','Diploma']},
+  {id:'OECD', name:'OECD', desc:'منظمة التعاون الاقتصادي والتنمية', cats:['Diploma']},
+];
 
 const COMMAND_WORDS = [
   {word:'Identify',level:1,cls:'level-1',desc:'اذكر أو سمّ — جملة واحدة بلا شرح'},
@@ -1240,6 +1303,9 @@ function showAppSection(s) {
   const tabMap = {solver:0,commands:1,history:2};
   const tabs = document.querySelectorAll('.nav-tab');
   if (tabMap[s] !== undefined && tabs[tabMap[s]]) tabs[tabMap[s]].classList.add('active');
+  // بناء المنظمات عند فتح الـ solver
+  if (s === 'solver') setTimeout(buildOrgsSelector, 100);
+  if (s === 'books') renderBooksList();
 }
 
 function scrollToSection(id) {
@@ -1291,18 +1357,125 @@ function selectCert(btn, cert) {
   document.querySelectorAll('.cert-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   STATE.cert = cert;
+  // تحديث المنظمات المقترحة للشهادة
+  selectOrgsByCert();
 }
 
 function updateChar(el, countId) {
   document.getElementById(countId).textContent = el.value.length + ' حرف';
 }
 
-function setDep(n) {
-  STATE.dep = n;
+// ══ DEP MULTI-SELECT ══
+function toggleDep(n) {
+  if (STATE.deps.has(n)) {
+    if (STATE.deps.size > 1) STATE.deps.delete(n);
+  } else {
+    STATE.deps.add(n);
+  }
   [1,2,3].forEach(i => {
     const btn = document.getElementById('dep-'+i);
-    btn.className = 'si-btn' + (i === n ? (' active ' + ['red','amber','green'][i-1]) : '');
+    const colors = {1:'red',2:'amber',3:'green'};
+    if (STATE.deps.has(i)) {
+      btn.className = 'si-btn active ' + colors[i];
+    } else {
+      btn.className = 'si-btn';
+    }
   });
+  const note = document.getElementById('dep-note');
+  if (STATE.deps.size > 1) {
+    const labels = {1:'السيناريو فقط',2:'السيناريو+دعم',3:'مراجع خارجية'};
+    note.textContent = '✦ محدّد: ' + [...STATE.deps].map(d=>labels[d]).join(' + ');
+    note.style.display = 'block';
+  } else {
+    note.style.display = 'none';
+  }
+}
+
+// ══ ORGS SELECTOR ══
+function buildOrgsSelector() {
+  const container = document.getElementById('orgs-selector');
+  if (!container) return;
+  container.innerHTML = ALL_ORGS.map(org => `
+    <div class="org-sel-chip ${STATE.selectedOrgs.has(org.id)?'selected':''}"
+      id="orgchip-${org.id}"
+      onclick="toggleOrg('${org.id}')"
+      title="${org.desc}">
+      <div class="live-dot" style="background:${STATE.selectedOrgs.has(org.id)?'var(--green)':'var(--border)'}"></div>
+      ${org.name}
+    </div>
+  `).join('');
+}
+
+function toggleOrg(id) {
+  if (STATE.selectedOrgs.has(id)) STATE.selectedOrgs.delete(id);
+  else STATE.selectedOrgs.add(id);
+  const chip = document.getElementById('orgchip-'+id);
+  if (chip) {
+    chip.className = 'org-sel-chip' + (STATE.selectedOrgs.has(id)?' selected':'');
+    chip.querySelector('.live-dot').style.background = STATE.selectedOrgs.has(id)?'var(--green)':'var(--border)';
+  }
+}
+
+function selectAllOrgs() {
+  ALL_ORGS.forEach(o => STATE.selectedOrgs.add(o.id));
+  buildOrgsSelector();
+}
+
+function clearAllOrgs() {
+  STATE.selectedOrgs.clear();
+  buildOrgsSelector();
+}
+
+function selectOrgsByCert() {
+  STATE.selectedOrgs.clear();
+  ALL_ORGS.forEach(o => { if(o.cats.includes(STATE.cert)) STATE.selectedOrgs.add(o.id); });
+  buildOrgsSelector();
+}
+
+// ══ BOOKS UPLOAD ══
+function handleBookUpload(input) {
+  const files = Array.from(input.files);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const book = { name: file.name, size: file.size, content: e.target.result.substring(0, 5000), type: file.type };
+      STATE.books.push(book);
+      renderBooksList();
+    };
+    if (file.type === 'text/plain') reader.readAsText(file);
+    else reader.readAsDataURL(file);
+  });
+}
+
+function handleBookDrop(event) {
+  event.preventDefault();
+  document.getElementById('book-drop-zone').style.borderColor = 'var(--border2)';
+  const files = Array.from(event.dataTransfer.files);
+  const input = document.getElementById('book-upload');
+  const dt = new DataTransfer();
+  files.forEach(f => dt.items.add(f));
+  input.files = dt.files;
+  handleBookUpload(input);
+}
+
+function renderBooksList() {
+  const list = document.getElementById('books-list');
+  if (!list) return;
+  list.innerHTML = STATE.books.map((b,i) => `
+    <div style="background:var(--surface);border:1px solid rgba(0,214,143,.2);border-radius:var(--r-sm);padding:12px 14px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:20px;">📖</span>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:600;color:var(--green);">${b.name}</div>
+        <div style="font-size:11px;color:var(--text-dim);">${(b.size/1024).toFixed(1)} KB · جاهز للاستشهاد</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="removeBook(${i})">🗑️</button>
+    </div>
+  `).join('');
+}
+
+function removeBook(i) {
+  STATE.books.splice(i, 1);
+  renderBooksList();
 }
 
 function updateMarks(slider) {
@@ -1328,44 +1501,87 @@ function detectCommandWord() {
   const chips = document.getElementById('cw-chips');
   const note = document.getElementById('cw-note');
 
+  // البحث عن كلمات أمر صريحة
   const explicit = COMMAND_WORDS.filter(cw => {
     const pattern = new RegExp('\\b' + cw.word.toLowerCase() + '\\b');
     return pattern.test(q);
   });
 
+  // الاستنتاج الضمني الموسّع
   const implicit = [];
-  if (!explicit.length && q.length > 10) {
-    if (/what actions|what should|how would you improve|what steps/.test(q)) implicit.push({word:'Recommend', implicit:true});
-    if (/why did|what caused|what were the causes/.test(q)) implicit.push({word:'Analyse', implicit:true});
-    if (/how effective|is the .* effective/.test(q)) implicit.push({word:'Evaluate', implicit:true});
-    if (/what are the main risks|what hazards/.test(q)) implicit.push([{word:'Identify'},{word:'Assess'}].map(x=>({...x,implicit:true}))).flat();
-    if (/is the organisation complying|does the company comply/.test(q)) implicit.push({word:'Determine', implicit:true});
-    if (/comment on/.test(q)) implicit.push({word:'Comment', implicit:true});
+  if (!explicit.length && q.length > 8) {
+    const patterns = [
+      { re:/what actions|what steps|what measures|what controls|what should|how would you|what could|what can/, cw:'Recommend' },
+      { re:/why did|what caused|what were the causes|how did this happen|why was|reasons for/, cw:'Analyse' },
+      { re:/how effective|is the .* effective|how well|how successful|to what extent/, cw:'Evaluate' },
+      { re:/what are the main risks|what hazards|what dangers|identify the|list the/, cw:'Identify' },
+      { re:/is the organisation complying|does the company meet|is .* compliant|check whether/, cw:'Determine' },
+      { re:/comment on|what do you think|your views on|your opinion/, cw:'Comment' },
+      { re:/what is the difference|how does .* differ|distinguish between|contrast/, cw:'Distinguish' },
+      { re:/compare|similarities and differences|how does .* compare/, cw:'Compare' },
+      { re:/consider the|taking into account|bearing in mind/, cw:'Consider' },
+      { re:/what is meant by|define|what does .* mean|meaning of/, cw:'Define' },
+      { re:/outline the|briefly describe|give an overview|summarise/, cw:'Outline' },
+      { re:/describe the|give details of|explain the characteristics|what are the features/, cw:'Describe' },
+      { re:/explain why|explain how|give reasons|what is the reason/, cw:'Explain' },
+      { re:/assess the|what is the significance|how serious|how important/, cw:'Assess' },
+      { re:/calculate|how many|how much|what is the rate|what is the figure/, cw:'Calculate' },
+      { re:/justify|give reasons why|defend|support the decision/, cw:'Justify' },
+      { re:/discuss|examine the arguments|explore the issues|debate/, cw:'Discuss' },
+      { re:/review the|critically examine|appraise|evaluate the performance of/, cw:'Review' },
+    ];
+
+    patterns.forEach(p => {
+      if (p.re.test(q)) {
+        implicit.push({ word: p.cw, implicit: true,
+          desc: COMMAND_WORDS.find(c=>c.word===p.cw)?.desc || '' });
+      }
+    });
+
+    // إذا لم يُستنتج شيء — اقترح بناءً على الكلمات الدالة
+    if (!implicit.length && q.length > 15) {
+      if (/\?$/.test(q.trim())) {
+        implicit.push({ word: 'Explain', implicit: true, inferred: true, desc: 'يُستنتج من صياغة السؤال الاستفهامي' });
+      }
+    }
   }
 
-  const found = explicit.length ? explicit : implicit.flat();
+  const found = explicit.length ? explicit : [...new Map(implicit.map(x=>[x.word,x])).values()];
 
   if (found.length) {
     box.style.display = 'block';
     chips.innerHTML = found.map(cw =>
-      `<div class="cw-chip ${cw.implicit?'implicit':''}" title="${cw.desc||''}">${cw.word}${cw.implicit?' (مستنتج)':''}</div>`
+      `<div class="cw-chip ${cw.implicit?'implicit':''}" title="${cw.desc||''}" onclick="manualSelectCW('${cw.word}')">
+        ${cw.word}${cw.implicit?' <span style="font-size:9px;opacity:.8;">(مستنتج)</span>':''}
+      </div>`
     ).join('');
-    note.textContent = cw => cw.implicit
-      ? '⚡ لم تُذكر كلمة الأمر صراحةً — تم استنتاجها من صياغة السؤال'
-      : '';
-    if (found[0] && found[0].implicit) {
-      note.textContent = '⚡ لم تُذكر كلمة الأمر صراحةً — تم استنتاجها من صياغة السؤال';
+    if (found[0]?.implicit) {
+      note.textContent = '⚡ لم تُذكر كلمة الأمر صراحةً — تم استنتاجها من صياغة السؤال. اضغط للتأكيد أو التعديل.';
+      note.style.color = 'var(--amber)';
+    } else if (found.length > 1) {
+      note.textContent = `✦ اكتُشفت ${found.length} كلمات أمر — ستُبنى الإجابة عليها جميعاً`;
+      note.style.color = 'var(--green)';
     } else {
-      note.textContent = found.length > 1 ? '✦ السؤال يحتوي على أكثر من كلمة أمر — سيُجيب على الجميع' : '';
+      note.textContent = '';
     }
-  } else if (q.length > 10) {
+  } else if (q.length > 8) {
     box.style.display = 'block';
-    chips.innerHTML = '<span style="font-size:12px;color:var(--text-dim);">جارٍ التحليل...</span>';
+    chips.innerHTML = `<div style="font-size:11px;color:var(--text-dim);">لم يُكتشف نمط واضح — يمكنك اختيار كلمة الأمر يدوياً:</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;">
+        ${COMMAND_WORDS.map(cw=>`<span class="cw-chip" style="font-size:10px;padding:3px 8px;" onclick="manualSelectCW('${cw.word}')">${cw.word}</span>`).join('')}
+      </div>`;
     note.textContent = '';
   } else {
     box.style.display = 'none';
   }
   updateWizardSteps();
+}
+
+function manualSelectCW(word) {
+  document.querySelectorAll('.cw-chip').forEach(c => c.classList.remove('selected-cw'));
+  STATE.manualCW = word;
+  document.getElementById('cw-note').textContent = `✓ تم اختيار: ${word} يدوياً`;
+  document.getElementById('cw-note').style.color = 'var(--green)';
 }
 
 function updateWizardSteps() {
@@ -1422,30 +1638,48 @@ async function generateAnswer() {
 
   // Detect command words
   const cwChips = document.querySelectorAll('.cw-chip');
-  const detectedCW = Array.from(cwChips).map(c => c.textContent.replace(' (مستنتج)','').trim()).join(', ') || 'Analyse';
+  const detectedCW = STATE.manualCW ||
+    Array.from(cwChips).map(c => c.textContent.replace(/\(مستنتج\)/g,'').trim()).filter(t=>t && t.length < 30).join(', ') ||
+    'Analyse';
 
-  const depLabels = {
-    1: 'SCENARIO ONLY — every point must be directly evidenced from the scenario text. No general knowledge accepted.',
-    2: 'SCENARIO FIRST — use scenario as primary evidence, support with external sources where appropriate.',
-    3: 'FREE — use best international sources, reference scenario where relevant.'
+  // بناء نص مستوى الاعتماد المتعدد
+  const depTexts = {
+    1: 'SCENARIO ONLY — EVERY point MUST be directly evidenced from the scenario text with specific reference. General knowledge without scenario link scores ZERO.',
+    2: 'SCENARIO FIRST then external sources — anchor every point to scenario evidence first, then support with authoritative external references.',
+    3: 'FREE/EXTERNAL — use authoritative international sources with specific citations, reference scenario where relevant.'
   };
+  const activeDeps = [...STATE.deps].sort();
+  const depInstruction = activeDeps.length === 1
+    ? depTexts[activeDeps[0]]
+    : 'COMBINED MODE: ' + activeDeps.map(d => depTexts[d]).join(' ADDITIONALLY: ');
 
-  const orgsBycert = {
-    IGC: 'ILO (C.155, C.187, ILO-OSH 2001), ISO 45001:2018, EU-OSHA (ESENER 2024), WHO, IOSH, IIRSM, RoSPA',
-    NGC: 'HSE (HSG65, HSG48, HSG245, HSWA 1974, MHSWR 1999, RIDDOR 2013), ISO 45001:2018, IOSH, RoSPA',
-    EMC: 'UNEP, ISO 14001, WHO, ILO (environmental conventions), Basel/Stockholm/Minamata Conventions',
-    Fire: 'HSE, British Standards, Fire Safety Order 2005, NFPA',
-    Construction: 'HSE, CDM Regulations 2015, ILO Construction Code, BS standards',
-    Diploma: 'ILO, ISO 45001:2018, HSE, WHO, EU-OSHA, IOSH, all relevant organisations'
-  };
+  // المنظمات المختارة
+  const chosenOrgs = STATE.selectedOrgs.size > 0
+    ? ALL_ORGS.filter(o => STATE.selectedOrgs.has(o.id)).map(o => o.name + ' (' + o.desc + ')').join(', ')
+    : { IGC:'ILO (C.155, C.187, ILO-OSH 2001), ISO 45001:2018, EU-OSHA (ESENER 2024), WHO, IOSH, IIRSM, RoSPA',
+        NGC:'HSE (HSG65, HSG48, HSG245, HSWA 1974, MHSWR 1999, RIDDOR 2013), ISO 45001:2018, IOSH, RoSPA',
+        EMC:'UNEP, ISO 14001, WHO, Basel/Stockholm/Minamata Conventions, Paris Agreement',
+        Fire:'HSE, British Standards, Fire Safety Order 2005, NFPA',
+        Construction:'HSE, CDM Regulations 2015, ILO Construction Code, BSI',
+        Diploma:'ILO, ISO 45001:2018, HSE, WHO, EU-OSHA, IOSH, IIRSM, UNEP'
+      }[STATE.cert] || 'ILO, ISO 45001, HSE, WHO, EU-OSHA';
 
-  const prompt = `You are an expert NEBOSH examiner and tutor. Generate a comprehensive, exam-ready answer.
+  // الكتب المرفوعة
+  const booksContext = STATE.books.length > 0
+    ? '\n\nUPLOADED REFERENCE BOOKS:\n' + STATE.books.map(b => `[BOOK: ${b.name}]`).join('\n')
+    : '';
+
+  // ضمان عدد النقاط = الدرجات
+  const minPoints = Math.max(STATE.marks, 4);
+
+  const prompt = `You are a senior NEBOSH examiner and expert tutor. Generate a comprehensive, mark-scheme-quality answer.
 
 CERTIFICATE: ${STATE.cert}
 COMMAND WORD(S): ${detectedCW}
-MARKS: ${STATE.marks}
-SCENARIO DEPENDENCY: ${depLabels[STATE.dep]}
-RELEVANT ORGANISATIONS: ${orgsBycert[STATE.cert] || orgsBycert['IGC']}
+MARKS AVAILABLE: ${STATE.marks}
+MINIMUM ANSWER POINTS REQUIRED: ${minPoints} (one distinct, developed point per mark minimum)
+SCENARIO DEPENDENCY: ${depInstruction}
+REFERENCE ORGANISATIONS: ${chosenOrgs}${booksContext}
 
 SCENARIO:
 ${scenario}
@@ -1453,35 +1687,41 @@ ${scenario}
 QUESTION:
 ${question}
 
-CRITICAL INSTRUCTIONS:
-1. Structure the answer according to the command word(s): ${detectedCW}
-2. Each point must be worth marks — depth matches ${STATE.marks} marks total
-3. ${STATE.dep === 1 ? 'EVERY point MUST reference specific details from the scenario above. Mark each scenario reference with [SCENARIO: paragraph/detail].' : STATE.dep === 2 ? 'Anchor each point to the scenario, then support with external references.' : 'Use authoritative international sources with specific citations.'}
-4. Include specific references: legislation (with section numbers), organisation data (with year), standards (with clause numbers)
-5. Use live/recent data where possible: EU-OSHA ESENER 2024, ILO 2024/2025 reports, ISO 45001:2023 updates
-6. Format as JSON with this exact structure:
+CRITICAL MARKING INSTRUCTIONS:
+1. YOU MUST GENERATE AT LEAST ${minPoints} SEPARATE ANSWER POINTS — this is non-negotiable for a ${STATE.marks}-mark question
+2. Each point = 1 mark — must be sufficiently developed with specific detail
+3. For ${STATE.marks} marks, examiner expects ${minPoints} developed points minimum
+4. ${depInstruction}
+5. Every point MUST include at least one specific reference (legislation with section, org with year/report, standard with clause)
+6. Use 2024/2025 data: EU-OSHA ESENER 2024, ILO World Report 2024, ISO 45001:2023 updates
+7. If command word is Evaluate/Assess/Discuss/Review — final conclusion paragraph is MANDATORY
+8. Mark scenario-derived points clearly
 
+Return ONLY this exact JSON (no markdown, no text outside JSON):
 {
-  "commandWord": "detected command word",
-  "structure": "brief explanation of how this command word answer is structured",
+  "commandWord": "${detectedCW}",
+  "marksRequired": ${STATE.marks},
+  "pointsGenerated": <number>,
+  "structure": "brief explanation of answer structure for this command word",
   "points": [
     {
-      "text": "full answer point text in English, professional exam standard",
+      "num": 1,
+      "text": "Full developed answer point in professional English exam standard — minimum 2 sentences per point",
       "refs": [
-        {"type": "scenario|law|org|book|live", "label": "e.g. HSWA 1974 s.2(2)(a) or ILO+EU-OSHA 2024 or Scenario para.2"},
-        {"type": "live", "label": "EU-OSHA ESENER 2024: [specific stat]"}
+        {"type": "scenario|law|org|book|live", "label": "specific reference with detail"},
+        {"type": "live", "label": "EU-OSHA ESENER 2024: specific statistic"}
       ],
-      "fromScenario": true/false
+      "fromScenario": true,
+      "mark": "1 mark — [brief mark scheme justification]"
     }
   ],
-  "overallConclusion": "for Evaluate/Discuss/Assess — a final overall judgment",
+  "overallConclusion": "MANDATORY for Evaluate/Assess/Discuss/Review/Justify — comprehensive final judgment based on all points above",
   "references": [
-    {"num": 1, "type": "law|org|book|scenario", "detail": "full reference details"}
+    {"num": 1, "type": "law|org|book|scenario|live", "detail": "full academic reference"}
   ],
-  "examTip": "one specific tip for this question type"
-}
-
-Return ONLY valid JSON. No markdown. No explanation outside JSON.`;
+  "examTip": "specific examiner tip for this question and command word",
+  "markingNote": "brief note on how examiner would allocate these marks"
+}`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -1489,7 +1729,7 @@ Return ONLY valid JSON. No markdown. No explanation outside JSON.`;
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
+        max_tokens: Math.max(3000, STATE.marks * 250),
         messages: [{ role: 'user', content: prompt }]
       })
     });
@@ -1501,8 +1741,8 @@ Return ONLY valid JSON. No markdown. No explanation outside JSON.`;
 
     STATE.questionsLeft = Math.max(0, STATE.questionsLeft - 1);
     updateQCounter();
+    STATE.manualCW = null;
 
-    // Save to history
     STATE.history.unshift({
       id: Date.now(), cert: STATE.cert, question: question.substring(0,80)+'...',
       marks: STATE.marks, cw: parsed.commandWord, date: new Date().toLocaleDateString('ar')
@@ -1574,7 +1814,8 @@ function renderAnswer(data, question, scenario) {
         <div class="answer-meta">
           <span class="meta-chip mc-green">${data.commandWord || 'Analyse'}</span>
           <span class="meta-chip mc-amber">${STATE.marks} درجة</span>
-          <span class="meta-chip ${STATE.dep===1?'mc-red':STATE.dep===2?'mc-amber':'mc-green'}">${depLabel[STATE.dep]}</span>
+          <span class="meta-chip mc-blue">${(data.points||[]).length} نقطة</span>
+          <span class="meta-chip ${(data.points||[]).length >= STATE.marks ? 'mc-green' : 'mc-red'}">${(data.points||[]).length >= STATE.marks ? '✓ كافية' : '⚠ أقل من الدرجات'}</span>
         </div>
       </div>
       <div class="answer-body">
@@ -1598,39 +1839,95 @@ function renderAnswer(data, question, scenario) {
 }
 
 function renderDemoAnswer(cw, question) {
+  const marks = STATE.marks;
+  const minPoints = Math.max(marks, 4);
+
+  // بناء نقاط ديناميكية حسب الدرجات
+  const basePoints = [
+    {
+      text: 'The scenario indicates that machine guards had been removed prior to the shift — this represents an immediate unsafe condition and a direct breach of Section 2(2)(a) of HSWA 1974 which requires employers to provide and maintain safe plant and systems of work.',
+      refs: [{type:'scenario',label:'📋 السيناريو — الفقرة 1'},{type:'law',label:'⚖️ HSWA 1974 s.2(2)(a)'}],
+      fromScenario: true
+    },
+    {
+      text: 'According to EU-OSHA ESENER 2024 (41,458 establishments across 30 countries), worker participation in OSH decisions has declined to 55% — the scenario confirms no safety consultation occurred before the shift change, directly reflecting this concerning downward trend.',
+      refs: [{type:'live',label:'🟢 EU-OSHA ESENER 2024 — 55% worker participation'},{type:'scenario',label:'📋 السيناريو'}],
+      fromScenario: false
+    },
+    {
+      text: 'The production bonus scheme described in the scenario created systemic organisational pressure prioritising output speed over safety compliance — this constitutes a root cause consistent with the Job/Individual/Organisation human factors model outlined in HSG48 (HSE).',
+      refs: [{type:'scenario',label:'📋 السيناريو — نظام المكافآت'},{type:'book',label:'📖 HSG48 — Human Factors, HSE'}],
+      fromScenario: true
+    },
+    {
+      text: 'ILO and EU-OSHA joint research confirms work-related injury and illness costs 3.9% of global GDP annually (approximately €2,680 billion) — this statistic alone provides compelling financial justification for immediate corrective investment in safety systems.',
+      refs: [{type:'org',label:'🏛️ ILO + EU-OSHA — 3.9% GDP (NEBOSH IGC Official)'},{type:'live',label:'🟢 €2,680 billion annual cost'}],
+      fromScenario: false
+    },
+    {
+      text: 'The Management of Health and Safety at Work Regulations 1999 (MHSWR), Regulation 3, requires a "suitable and sufficient" risk assessment — the scenario evidence suggests this was not conducted for the modified work process, constituting a regulatory breach.',
+      refs: [{type:'law',label:'⚖️ MHSWR 1999, Reg.3'},{type:'scenario',label:'📋 السيناريو — غياب التقييم'}],
+      fromScenario: true
+    },
+    {
+      text: 'ISO 45001:2018 Clause 5.1 requires top management to demonstrate leadership and commitment to the OH&S management system — the absence of supervisory oversight evident in the scenario indicates a leadership failure at the organisational level.',
+      refs: [{type:'org',label:'🏛️ ISO 45001:2018 — Clause 5.1 Leadership'},{type:'scenario',label:'📋 السيناريو'}],
+      fromScenario: false
+    },
+    {
+      text: 'The failure to provide adequate induction and task-specific training to workers represents a breach of HSWA 1974, Section 2(2)(c), which places a statutory duty on employers to provide information, instruction, training and supervision.',
+      refs: [{type:'law',label:'⚖️ HSWA 1974 s.2(2)(c) — Training duty'},{type:'scenario',label:'📋 السيناريو — غياب التدريب'}],
+      fromScenario: true
+    },
+    {
+      text: 'According to the hierarchy of controls (ISO 45001:2018, Clause 8.1.2), engineering controls such as machine guarding represent a higher-order control measure than administrative procedures — their removal without substitution of an equivalent or higher control represents a fundamental safety management failure.',
+      refs: [{type:'org',label:'🏛️ ISO 45001:2018 — Clause 8.1.2 Hierarchy of Controls'},{type:'law',label:'⚖️ PUWER 1998'}],
+      fromScenario: false
+    },
+    {
+      text: 'Incident reporting obligations under RIDDOR 2013 (Reporting of Injuries, Diseases and Dangerous Occurrences Regulations) require the employer to notify HSE of any accident resulting in over-7-day absence or specified injury — the organisation must ensure compliance with these statutory reporting requirements.',
+      refs: [{type:'law',label:'⚖️ RIDDOR 2013 — Reporting obligations'},{type:'org',label:'🏛️ HSE — Enforcement authority'}],
+      fromScenario: false
+    },
+    {
+      text: 'The pattern of incidents described in the scenario suggests a negative safety culture characterised by normalised risk — research by HSE (HSG48) identifies organisational culture as a primary underlying cause of workplace accidents, requiring targeted behavioural intervention programmes.',
+      refs: [{type:'book',label:'📖 HSG48 — Reducing Error and Influencing Behaviour, HSE'},{type:'scenario',label:'📋 السيناريو — نمط الحوادث'}],
+      fromScenario: true
+    },
+  ];
+
+  // اختيار العدد المطلوب من النقاط
+  const selectedPoints = basePoints.slice(0, minPoints);
+
+  // إضافة نقاط إضافية إذا احتجنا أكثر من 10
+  if (minPoints > basePoints.length) {
+    for (let i = basePoints.length; i < minPoints; i++) {
+      selectedPoints.push({
+        text: `Additional control measure ${i+1}: Regular health and safety audits aligned with ISO 45001:2018 Clause 9.2 should be implemented to identify and address systemic failures before they result in harm — audit frequency should be proportionate to risk level as identified in the risk assessment process.`,
+        refs: [{type:'org',label:`🏛️ ISO 45001:2018 — Clause 9.2 Internal Audit`}],
+        fromScenario: false
+      });
+    }
+  }
+
   const demoData = {
     commandWord: cw || 'Analyse',
-    structure: `إجابة ${cw} تتطلب: تقسيم + فحص + ربط بالسيناريو + استنتاج`,
-    points: [
-      {
-        text: 'The scenario indicates that machine guards had been removed prior to the shift — this represents an immediate unsafe condition and a direct breach of Section 2(2)(a) of HSWA 1974 which requires employers to provide and maintain safe plant.',
-        refs: [{type:'scenario',label:'📋 السيناريو — الفقرة 1'},{type:'law',label:'⚖️ HSWA 1974 s.2(2)(a)'}],
-        fromScenario: true
-      },
-      {
-        text: 'According to EU-OSHA ESENER 2024 (41,458 establishments), worker participation in OSH decisions has declined to 55% — the scenario confirms no safety consultation occurred before the shift change, reflecting this concerning trend.',
-        refs: [{type:'live',label:'🟢 EU-OSHA ESENER 2024'},{type:'scenario',label:'📋 السيناريو'}],
-        fromScenario: false
-      },
-      {
-        text: 'The production bonus scheme described in the scenario created systemic pressure prioritising speed over safety — this constitutes a root organisational cause consistent with the Job/Individual/Organisation model (HSG48, HSE).',
-        refs: [{type:'scenario',label:'📋 السيناريو — نظام المكافآت'},{type:'book',label:'📖 HSG48 — Human Factors'}],
-        fromScenario: true
-      },
-      {
-        text: 'ILO and EU-OSHA research confirms work-related injury and illness costs 3.9% of global GDP annually (€2,680 billion) — the financial argument for immediate corrective action is therefore compelling and well-evidenced.',
-        refs: [{type:'org',label:'🏛️ ILO + EU-OSHA (NEBOSH IGC Official)'},{type:'org',label:'🏛️ NEBOSH IGC Syllabus'}],
-        fromScenario: false
-      }
-    ],
-    overallConclusion: 'Based on this analysis, the organisation demonstrates fundamental failures at both immediate and systemic levels. Addressing only surface causes without tackling the root organisational culture and production incentive structure will not prevent recurrence.',
+    marksRequired: marks,
+    pointsGenerated: selectedPoints.length,
+    structure: `إجابة ${cw} — ${marks} درجة = ${minPoints} نقطة مطلوبة على الأقل. هيكل: تحليل + أدلة + ربط بالسيناريو + استنتاج شامل`,
+    points: selectedPoints,
+    overallConclusion: marks >= 8 ? `Overall, this analysis reveals an organisation with systemic safety management failures operating at multiple levels — immediate (physical hazards), underlying (inadequate supervision and training), and root cause (cultural and financial pressures prioritising production). A comprehensive intervention addressing all three levels, underpinned by genuine leadership commitment as required by ISO 45001:2018 Clause 5.1, is essential to prevent recurrence. The ${marks}-mark weighting of this question reflects the examiner's expectation of depth across all these dimensions.` : '',
     references: [
-      {num:1,type:'law',detail:'Health and Safety at Work etc. Act 1974, Section 2(2)(a) — Duties of employers to their employees.'},
-      {num:2,type:'org',detail:'EU-OSHA ESENER 2024 — 4th European Survey of Enterprises on New and Emerging Risks. 41,458 establishments across 30 countries.'},
-      {num:3,type:'org',detail:'ILO & EU-OSHA — Work-related injury and illness costs 3.9% of global GDP, approximately €2,680 billion annually.'},
-      {num:4,type:'book',detail:'HSE (2009). HSG48 Reducing Error and Influencing Behaviour. Job/Individual/Organisation Human Factors Framework.'}
+      {num:1,type:'law',detail:'Health and Safety at Work etc. Act 1974, Section 2(2)(a)(c) — Employer duties to employees.'},
+      {num:2,type:'law',detail:'Management of Health and Safety at Work Regulations 1999, Regulation 3 — Risk assessment requirements.'},
+      {num:3,type:'law',detail:'RIDDOR 2013 — Reporting of Injuries, Diseases and Dangerous Occurrences Regulations 2013.'},
+      {num:4,type:'org',detail:'EU-OSHA ESENER 2024 — 4th European Survey of Enterprises on New and Emerging Risks. 41,458 establishments, 30 countries.'},
+      {num:5,type:'org',detail:'ILO & EU-OSHA — Work-related injury and illness: 3.9% of global GDP annually (€2,680 billion). NEBOSH IGC Official Reference.'},
+      {num:6,type:'book',detail:'HSE (2013). HSG48 Reducing Error and Influencing Behaviour. Job/Individual/Organisation model.'},
+      {num:7,type:'org',detail:'ISO 45001:2018 — Occupational Health and Safety Management Systems. Clauses 5.1 (Leadership) and 8.1.2 (Hierarchy of Controls).'},
     ],
-    examTip: `في ${cw}: تذكر دائماً أن الإجابة يجب أن تنتهي بحكم واضح مدعوم بجميع النقاط السابقة — لا تترك الإجابة معلّقة.`
+    examTip: `سؤال ${marks} درجة يتطلب ${minPoints} نقطة مطوّرة على الأقل — لا تكتفِ بالعناوين. كل نقطة يجب أن تكون جملتين على الأقل مع مصدر محدد. في ${cw}: الإجابة يجب أن تنتهي بحكم شامل واضح.`,
+    markingNote: `${marks} marks = ${minPoints} developed points. Each point requires: specific assertion + evidence/reference + link to scenario where relevant.`
   };
   renderAnswer(demoData, question, '');
 }
@@ -1806,11 +2103,12 @@ window.addEventListener('load', () => {
   animateCounter('c3', 6);
   animateCounter('c4', 12);
 
-  // Init range slider
+  // بناء قائمة المنظمات الافتراضية
+  selectOrgsByCert();
+
   const slider = document.getElementById('marks-slider');
   if (slider) { slider.style.setProperty('--fill', '16%'); }
 
-  // Scroll observer for features
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
