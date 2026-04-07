@@ -97,19 +97,20 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   transition:all .2s;font-family:var(--font-ar);
 }
 .lang-btn-nav:hover{border-color:rgba(0,214,143,.3);color:var(--green);}
+.lang-btn-nav.open{border-color:var(--green);color:var(--green);}
 .lang-dd{
   position:absolute;top:calc(100% + 8px);left:0;
   background:var(--surface);border:1px solid var(--border2);border-radius:var(--r-lg);
-  padding:6px;min-width:180px;box-shadow:0 20px 40px rgba(0,0,0,.4);
-  display:none;z-index:300;
+  padding:6px;min-width:190px;box-shadow:0 20px 40px rgba(0,0,0,.5);
+  display:none;z-index:500;
 }
-.lang-sel:hover .lang-dd{display:block;}
+.lang-dd.open{display:block;}
 .lang-opt{
-  display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:var(--r-sm);
+  display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r-sm);
   font-size:13px;color:var(--text-dim);cursor:pointer;transition:all .15s;font-family:var(--font-ar);
 }
 .lang-opt:hover{background:rgba(0,214,143,.08);color:var(--green);}
-.lang-opt.active{color:var(--green);font-weight:600;}
+.lang-opt.active{color:var(--green);font-weight:600;background:rgba(0,214,143,.05);}
 
 /* ══ BUTTONS ══ */
 .btn{
@@ -387,6 +388,8 @@ textarea::placeholder{color:var(--text-dim);}
 .si-btn.active.red{border-color:rgba(255,71,87,.4);background:rgba(255,71,87,.08);color:var(--red);}
 .si-btn.active.amber{border-color:rgba(245,166,35,.4);background:rgba(245,166,35,.08);color:var(--amber);}
 .si-btn.active.green{border-color:rgba(0,214,143,.4);background:rgba(0,214,143,.08);color:var(--green);}
+.si-btn.active.purple{border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.08);color:var(--purple);}
+.si-btn.active.blue{border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.08);color:var(--blue);}
 
 /* Command word detection */
 .cw-detect-box{
@@ -584,17 +587,21 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="nav-right">
-    <div class="lang-sel">
-      <button class="lang-btn-nav" id="lang-btn">🌐 العربية ▾</button>
+    <div class="lang-sel" id="lang-sel">
+      <button class="lang-btn-nav" id="lang-btn" onclick="toggleLangMenu()">🌐 العربية ▾</button>
       <div class="lang-dd" id="lang-dd">
-        <div class="lang-opt active" onclick="setLang('ar','🇸🇦 العربية')"><span>🇸🇦</span> العربية</div>
-        <div class="lang-opt" onclick="setLang('en','🇬🇧 English')"><span>🇬🇧</span> English</div>
-        <div class="lang-opt" onclick="setLang('fr','🇫🇷 Français')"><span>🇫🇷</span> Français</div>
-        <div class="lang-opt" onclick="setLang('ru','🇷🇺 Русский')"><span>🇷🇺</span> Русский</div>
-        <div class="lang-opt" onclick="setLang('tr','🇹🇷 Türkçe')"><span>🇹🇷</span> Türkçe</div>
-        <div class="lang-opt" onclick="setLang('hi','🇮🇳 हिन्दी')"><span>🇮🇳</span> हिन्दी</div>
-        <div class="lang-opt" onclick="setLang('pt','🇵🇹 Português')"><span>🇵🇹</span> Português</div>
-        <div class="lang-opt" onclick="setLang('id','🇮🇩 Bahasa')"><span>🇮🇩</span> Bahasa</div>
+        <div class="lang-opt active" onclick="setLang('ar','🇸🇦','العربية')"><span>🇸🇦</span> العربية</div>
+        <div class="lang-opt" onclick="setLang('en','🇬🇧','English')"><span>🇬🇧</span> English</div>
+        <div class="lang-opt" onclick="setLang('fr','🇫🇷','Français')"><span>🇫🇷</span> Français</div>
+        <div class="lang-opt" onclick="setLang('ru','🇷🇺','Русский')"><span>🇷🇺</span> Русский</div>
+        <div class="lang-opt" onclick="setLang('tr','🇹🇷','Türkçe')"><span>🇹🇷</span> Türkçe</div>
+        <div class="lang-opt" onclick="setLang('hi','🇮🇳','हिन्दी')"><span>🇮🇳</span> हिन्दी</div>
+        <div class="lang-opt" onclick="setLang('pt','🇵🇹','Português')"><span>🇵🇹</span> Português</div>
+        <div class="lang-opt" onclick="setLang('id','🇮🇩','Bahasa')"><span>🇮🇩</span> Bahasa</div>
+        <div class="lang-opt" onclick="setLang('uk','🇺🇦','Українська')"><span>🇺🇦</span> Українська</div>
+        <div class="lang-opt" onclick="setLang('pl','🇵🇱','Polski')"><span>🇵🇱</span> Polski</div>
+        <div class="lang-opt" onclick="setLang('ha','🇳🇬','Hausa')"><span>🇳🇬</span> Hausa</div>
+        <div class="lang-opt" onclick="setLang('vi','🇻🇳','Tiếng Việt')"><span>🇻🇳</span> Tiếng Việt</div>
       </div>
     </div>
     <button class="btn btn-ghost btn-sm" id="btn-login" onclick="showPage('login')">تسجيل الدخول</button>
@@ -986,15 +993,29 @@ input[type=range]::-webkit-slider-thumb{
             </div>
           </div>
 
-          <!-- Scenario dependency - MULTI SELECT -->
+          <!-- Scenario dependency + Books/Docs - MULTI SELECT -->
           <div style="margin-top:16px;">
-            <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:4px;">مستوى الاعتماد على السيناريو <span style="font-weight:400;color:var(--text-dim);font-size:11px;">(اختر واحداً أو أكثر)</span></div>
-            <div class="scen-indicator">
-              <button class="si-btn active red" id="dep-1" onclick="toggleDep(1)">🔴 السيناريو فقط<br><span style="font-size:10px;">"Using the scenario..."</span></button>
-              <button class="si-btn" id="dep-2" onclick="toggleDep(2)">🟡 السيناريو + دعم<br><span style="font-size:10px;">المرجع الأساسي</span></button>
-              <button class="si-btn" id="dep-3" onclick="toggleDep(3)">🟢 مراجع خارجية<br><span style="font-size:10px;">منظمات + تشريعات</span></button>
+            <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:8px;">
+              مصادر الإجابة <span style="font-weight:400;font-size:11px;">(اختر واحداً أو أكثر بحرية كاملة)</span>
             </div>
-            <div id="dep-note" style="font-size:11px;color:var(--amber);margin-top:6px;display:none;"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+              <button class="si-btn active red" id="dep-1" onclick="toggleDep(1)">
+                🔴 السيناريو فقط<br><span style="font-size:10px;">"Using the scenario..."</span>
+              </button>
+              <button class="si-btn" id="dep-2" onclick="toggleDep(2)">
+                🟡 السيناريو + مراجع<br><span style="font-size:10px;">السيناريو أولاً + دعم خارجي</span>
+              </button>
+              <button class="si-btn" id="dep-3" onclick="toggleDep(3)">
+                🟢 مراجع خارجية<br><span style="font-size:10px;">منظمات + تشريعات</span>
+              </button>
+              <button class="si-btn" id="dep-4" onclick="toggleDep(4)" style="grid-column:span 1;">
+                📚 كتبي الرسمية<br><span style="font-size:10px;" id="dep4-label">لا يوجد كتاب مرفوع</span>
+              </button>
+              <button class="si-btn" id="dep-5" onclick="toggleDep(5)" style="grid-column:span 2;">
+                📂 مستنداتي + سياسات مكان عملي<br><span style="font-size:10px;" id="dep5-label">لا توجد مستندات مرفوعة</span>
+              </button>
+            </div>
+            <div id="dep-note" style="font-size:11px;color:var(--amber);margin-top:8px;padding:6px 10px;background:rgba(245,166,35,.06);border-radius:6px;display:none;"></div>
           </div>
         </div>
 
@@ -1365,30 +1386,45 @@ function updateChar(el, countId) {
   document.getElementById(countId).textContent = el.value.length + ' حرف';
 }
 
-// ══ DEP MULTI-SELECT ══
+// ══ DEP MULTI-SELECT (5 options) ══
 function toggleDep(n) {
   if (STATE.deps.has(n)) {
     if (STATE.deps.size > 1) STATE.deps.delete(n);
   } else {
     STATE.deps.add(n);
   }
-  [1,2,3].forEach(i => {
+  const colors = {1:'red',2:'amber',3:'green',4:'purple',5:'blue'};
+  [1,2,3,4,5].forEach(i => {
     const btn = document.getElementById('dep-'+i);
-    const colors = {1:'red',2:'amber',3:'green'};
-    if (STATE.deps.has(i)) {
-      btn.className = 'si-btn active ' + colors[i];
-    } else {
-      btn.className = 'si-btn';
-    }
+    if (!btn) return;
+    btn.className = STATE.deps.has(i) ? 'si-btn active '+colors[i] : 'si-btn';
   });
   const note = document.getElementById('dep-note');
+  const labels = {
+    1:'🔴 السيناريو فقط',
+    2:'🟡 السيناريو + مراجع',
+    3:'🟢 مراجع خارجية',
+    4:'📚 كتبي الرسمية',
+    5:'📂 مستنداتي'
+  };
+  const active = [...STATE.deps].map(d=>labels[d]);
   if (STATE.deps.size > 1) {
-    const labels = {1:'السيناريو فقط',2:'السيناريو+دعم',3:'مراجع خارجية'};
-    note.textContent = '✦ محدّد: ' + [...STATE.deps].map(d=>labels[d]).join(' + ');
+    note.textContent = '✦ المصادر المحددة: ' + active.join(' + ');
     note.style.display = 'block';
   } else {
     note.style.display = 'none';
   }
+}
+
+function updateDepLabels() {
+  const l4 = document.getElementById('dep4-label');
+  const l5 = document.getElementById('dep5-label');
+  if (l4) l4.textContent = STATE.books.length > 0
+    ? STATE.books.map(b=>b.name.substring(0,20)).join(', ')
+    : 'لا يوجد كتاب مرفوع — ارفع من قسم الكتب';
+  if (l5) l5.textContent = STATE.docs && STATE.docs.length > 0
+    ? STATE.docs.map(d=>d.name.substring(0,20)).join(', ')
+    : 'لا توجد مستندات — ارفع من قسم المستندات';
 }
 
 // ══ ORGS SELECTOR ══
@@ -1496,91 +1532,136 @@ function updateMarks(slider) {
 }
 
 function detectCommandWord() {
-  const q = document.getElementById('question-input').value.toLowerCase();
+  const q = document.getElementById('question-input').value;
+  const qLower = q.toLowerCase();
   const box = document.getElementById('cw-box');
   const chips = document.getElementById('cw-chips');
   const note = document.getElementById('cw-note');
 
-  // البحث عن كلمات أمر صريحة
-  const explicit = COMMAND_WORDS.filter(cw => {
-    const pattern = new RegExp('\\b' + cw.word.toLowerCase() + '\\b');
-    return pattern.test(q);
-  });
+  if (q.length < 8) { box.style.display = 'none'; return; }
 
-  // الاستنتاج الضمني الموسّع
-  const implicit = [];
-  if (!explicit.length && q.length > 8) {
-    const patterns = [
-      { re:/what actions|what steps|what measures|what controls|what should|how would you|what could|what can/, cw:'Recommend' },
-      { re:/why did|what caused|what were the causes|how did this happen|why was|reasons for/, cw:'Analyse' },
-      { re:/how effective|is the .* effective|how well|how successful|to what extent/, cw:'Evaluate' },
-      { re:/what are the main risks|what hazards|what dangers|identify the|list the/, cw:'Identify' },
-      { re:/is the organisation complying|does the company meet|is .* compliant|check whether/, cw:'Determine' },
-      { re:/comment on|what do you think|your views on|your opinion/, cw:'Comment' },
-      { re:/what is the difference|how does .* differ|distinguish between|contrast/, cw:'Distinguish' },
-      { re:/compare|similarities and differences|how does .* compare/, cw:'Compare' },
-      { re:/consider the|taking into account|bearing in mind/, cw:'Consider' },
-      { re:/what is meant by|define|what does .* mean|meaning of/, cw:'Define' },
-      { re:/outline the|briefly describe|give an overview|summarise/, cw:'Outline' },
-      { re:/describe the|give details of|explain the characteristics|what are the features/, cw:'Describe' },
-      { re:/explain why|explain how|give reasons|what is the reason/, cw:'Explain' },
-      { re:/assess the|what is the significance|how serious|how important/, cw:'Assess' },
-      { re:/calculate|how many|how much|what is the rate|what is the figure/, cw:'Calculate' },
-      { re:/justify|give reasons why|defend|support the decision/, cw:'Justify' },
-      { re:/discuss|examine the arguments|explore the issues|debate/, cw:'Discuss' },
-      { re:/review the|critically examine|appraise|evaluate the performance of/, cw:'Review' },
-    ];
+  // ١ — البحث عن كلمات أمر صريحة أولاً
+  const explicit = COMMAND_WORDS.filter(cw =>
+    new RegExp('\\b' + cw.word.toLowerCase() + '\\b').test(qLower)
+  );
 
-    patterns.forEach(p => {
-      if (p.re.test(q)) {
-        implicit.push({ word: p.cw, implicit: true,
-          desc: COMMAND_WORDS.find(c=>c.word===p.cw)?.desc || '' });
-      }
-    });
-
-    // إذا لم يُستنتج شيء — اقترح بناءً على الكلمات الدالة
-    if (!implicit.length && q.length > 15) {
-      if (/\?$/.test(q.trim())) {
-        implicit.push({ word: 'Explain', implicit: true, inferred: true, desc: 'يُستنتج من صياغة السؤال الاستفهامي' });
-      }
-    }
+  if (explicit.length) {
+    box.style.display = 'block';
+    chips.innerHTML = explicit.map(cw =>
+      `<div class="cw-chip" title="${cw.desc}">${cw.word}</div>`
+    ).join('');
+    note.textContent = explicit.length > 1
+      ? `✦ ${explicit.length} كلمات أمر — ستُبنى الإجابة عليها جميعاً`
+      : '';
+    note.style.color = 'var(--green)';
+    STATE.manualCW = explicit.map(c=>c.word).join(', ');
+    return;
   }
 
-  const found = explicit.length ? explicit : [...new Map(implicit.map(x=>[x.word,x])).values()];
-
-  if (found.length) {
+  // ٢ — لا يوجد كلمة صريحة — تحليل AI فوري
+  if (q.length > 15) {
     box.style.display = 'block';
-    chips.innerHTML = found.map(cw =>
-      `<div class="cw-chip ${cw.implicit?'implicit':''}" title="${cw.desc||''}" onclick="manualSelectCW('${cw.word}')">
-        ${cw.word}${cw.implicit?' <span style="font-size:9px;opacity:.8;">(مستنتج)</span>':''}
-      </div>`
-    ).join('');
-    if (found[0]?.implicit) {
-      note.textContent = '⚡ لم تُذكر كلمة الأمر صراحةً — تم استنتاجها من صياغة السؤال. اضغط للتأكيد أو التعديل.';
-      note.style.color = 'var(--amber)';
-    } else if (found.length > 1) {
-      note.textContent = `✦ اكتُشفت ${found.length} كلمات أمر — ستُبنى الإجابة عليها جميعاً`;
-      note.style.color = 'var(--green)';
-    } else {
-      note.textContent = '';
-    }
-  } else if (q.length > 8) {
-    box.style.display = 'block';
-    chips.innerHTML = `<div style="font-size:11px;color:var(--text-dim);">لم يُكتشف نمط واضح — يمكنك اختيار كلمة الأمر يدوياً:</div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;">
-        ${COMMAND_WORDS.map(cw=>`<span class="cw-chip" style="font-size:10px;padding:3px 8px;" onclick="manualSelectCW('${cw.word}')">${cw.word}</span>`).join('')}
-      </div>`;
+    chips.innerHTML = `<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim);">
+      <div class="loading-spinner" style="width:16px;height:16px;border-width:2px;"></div>
+      الذكاء الاصطناعي يحلل السؤال...
+    </div>`;
     note.textContent = '';
+
+    // استدعاء AI لتحليل كلمة الأمر
+    aiDetectCommandWord(q);
   } else {
     box.style.display = 'none';
   }
-  updateWizardSteps();
+}
+
+// ══ AI Command Word Detection ══
+let cwDebounce;
+async function aiDetectCommandWord(question) {
+  clearTimeout(cwDebounce);
+  cwDebounce = setTimeout(async () => {
+    const chips = document.getElementById('cw-chips');
+    const note = document.getElementById('cw-note');
+
+    const prompt = `You are a NEBOSH examiner expert. Analyse this exam question and determine the optimal command word(s) to answer it fully and score maximum marks.
+
+QUESTION: "${question}"
+
+NEBOSH Command Words available: Identify, Give, Define, Outline, Describe, Comment, Explain, Demonstrate, Distinguish, Compare, Consider, Determine, Analyse, Assess, Calculate, Justify, Discuss, Recommend, Evaluate, Review
+
+Rules:
+- If the question uses an explicit command word, use it
+- If no explicit command word, infer the BEST command word(s) based on what the question is actually asking
+- You may recommend 1, 2, or 3 command words if the question requires multiple approaches for a complete answer
+- Consider marks needed: complex questions need deeper command words (Evaluate, Analyse, Discuss)
+- Your goal is to maximise the student's marks
+
+Respond with ONLY this JSON (no other text):
+{
+  "commandWords": ["Word1", "Word2"],
+  "explicit": false,
+  "reasoning": "Brief explanation in Arabic of why these command words were chosen",
+  "answerStructure": "Brief English note on how to structure the answer using these command words"
+}`;
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 300,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await response.json();
+      let text = data.content?.[0]?.text || '';
+      text = text.replace(/```json|```/g,'').trim();
+      const parsed = JSON.parse(text);
+
+      chips.innerHTML = parsed.commandWords.map(w =>
+        `<div class="cw-chip implicit" title="${parsed.answerStructure||''}">${w} <span style="font-size:9px;opacity:.8;">🤖 AI</span></div>`
+      ).join('');
+
+      note.innerHTML = `<span style="color:var(--amber);">🤖 ${parsed.reasoning}</span>`;
+      if (parsed.answerStructure) {
+        note.innerHTML += `<br><span style="color:var(--text-dim);font-size:10px;">📐 ${parsed.answerStructure}</span>`;
+      }
+      note.style.color = 'var(--amber)';
+      STATE.manualCW = parsed.commandWords.join(', ');
+
+    } catch(e) {
+      // Fallback — استنتاج محلي
+      const fallback = localInferCommandWord(question);
+      chips.innerHTML = fallback.map(w =>
+        `<div class="cw-chip implicit">${w} <span style="font-size:9px;opacity:.7;">مستنتج</span></div>`
+      ).join('');
+      note.textContent = '⚡ تم استنتاج كلمة الأمر محلياً';
+      note.style.color = 'var(--amber)';
+      STATE.manualCW = fallback.join(', ');
+    }
+  }, 600); // debounce 600ms
+}
+
+function localInferCommandWord(q) {
+  const t = q.toLowerCase();
+  if (/what actions|what steps|what measures|what should|how would you|recommend/.test(t)) return ['Recommend'];
+  if (/why did|what caused|causes of|analyse/.test(t)) return ['Analyse'];
+  if (/how effective|to what extent|evaluate/.test(t)) return ['Evaluate'];
+  if (/what are the|identify|list the/.test(t)) return ['Identify'];
+  if (/discuss|examine|consider the arguments/.test(t)) return ['Discuss'];
+  if (/assess|how significant|how serious/.test(t)) return ['Assess'];
+  if (/explain why|explain how|give reasons/.test(t)) return ['Explain'];
+  if (/comment on|what do you think/.test(t)) return ['Comment'];
+  if (/justify|give reasons why/.test(t)) return ['Justify'];
+  if (/compare|similarities|differences/.test(t)) return ['Compare'];
+  if (/calculate|how many|what is the rate/.test(t)) return ['Calculate'];
+  if (/review|critically examine/.test(t)) return ['Review'];
+  return ['Explain']; // default
 }
 
 function manualSelectCW(word) {
-  document.querySelectorAll('.cw-chip').forEach(c => c.classList.remove('selected-cw'));
   STATE.manualCW = word;
-  document.getElementById('cw-note').textContent = `✓ تم اختيار: ${word} يدوياً`;
+  document.getElementById('cw-note').textContent = `✓ تم اختيار: ${word}`;
   document.getElementById('cw-note').style.color = 'var(--green)';
 }
 
@@ -2076,11 +2157,102 @@ function resetForm() {
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function setLang(code, label) {
-  document.getElementById('lang-btn').textContent = '🌐 ' + label.split(' ')[1] + ' ▾';
+function toggleLangMenu() {
+  const dd = document.getElementById('lang-dd');
+  const btn = document.getElementById('lang-btn');
+  const isOpen = dd.classList.contains('open');
+  dd.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+
+// إغلاق قائمة اللغة عند الضغط خارجها
+document.addEventListener('click', (e) => {
+  const sel = document.getElementById('lang-sel');
+  if (sel && !sel.contains(e.target)) {
+    document.getElementById('lang-dd')?.classList.remove('open');
+    document.getElementById('lang-btn')?.classList.remove('open');
+  }
+});
+
+function setLang(code, flag, name) {
+  // تحديث النص والأيقونة
+  document.getElementById('lang-btn').textContent = `${flag} ${name} ▾`;
+
+  // تحديث الـ active
   document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('active'));
-  if (code === 'ar') { document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar'; }
-  else { document.documentElement.dir = 'ltr'; document.documentElement.lang = code; }
+  event.currentTarget?.classList.add('active');
+
+  // تغيير اتجاه الصفحة
+  const rtlLangs = ['ar','he','fa','ur'];
+  document.documentElement.dir = rtlLangs.includes(code) ? 'rtl' : 'ltr';
+  document.documentElement.lang = code;
+
+  // إغلاق القائمة
+  document.getElementById('lang-dd').classList.remove('open');
+  document.getElementById('lang-btn').classList.remove('open');
+
+  // تطبيق الترجمة
+  applyTranslation(code);
+}
+
+const TRANSLATIONS = {
+  ar: {
+    heroTitle: 'النيبوش معنا', heroSub: 'أسهل',
+    trialBadge: '🎁 سؤالان مجانيان — بلا بطاقة بنكية',
+    startFree: 'ابدأ مجاناً',
+    login: 'تسجيل الدخول',
+    cert: 'تحديد الشهادة',
+    scenario: 'إدخال السيناريو',
+    question: 'السؤال',
+    generate: 'توليد الإجابة الشاملة',
+    sources: 'مصادر الإجابة',
+  },
+  en: {
+    heroTitle: 'NEBOSH with us', heroSub: 'Easier',
+    trialBadge: '🎁 Two free questions — no credit card',
+    startFree: 'Start Free',
+    login: 'Login',
+    cert: 'Select Certificate',
+    scenario: 'Enter Scenario',
+    question: 'Question',
+    generate: 'Generate Full Answer',
+    sources: 'Answer Sources',
+  },
+  fr: {
+    heroTitle: 'NEBOSH avec nous', heroSub: "C'est plus simple",
+    trialBadge: '🎁 Deux questions gratuites — sans carte',
+    startFree: 'Commencer',
+    login: 'Connexion',
+    generate: 'Générer la réponse complète',
+    sources: 'Sources de réponse',
+  },
+  ru: {
+    heroTitle: 'NEBOSH с нами', heroSub: 'Проще',
+    trialBadge: '🎁 Два бесплатных вопроса',
+    startFree: 'Начать бесплатно',
+    login: 'Войти',
+    generate: 'Создать полный ответ',
+    sources: 'Источники ответа',
+  },
+  tr: {
+    heroTitle: 'NEBOSH bizimle', heroSub: 'Daha kolay',
+    trialBadge: '🎁 İki ücretsiz soru',
+    startFree: 'Ücretsiz Başla',
+    login: 'Giriş',
+    generate: 'Tam Cevap Oluştur',
+    sources: 'Cevap Kaynakları',
+  },
+};
+
+function applyTranslation(code) {
+  const t = TRANSLATIONS[code] || TRANSLATIONS['en'];
+  // تطبيق الترجمات على العناصر الرئيسية
+  const genBtn = document.getElementById('gen-btn-text');
+  if (genBtn && t.generate) genBtn.textContent = t.generate;
+  const loginBtn = document.getElementById('btn-login');
+  if (loginBtn && t.login) loginBtn.textContent = t.login;
+  const signupBtn = document.getElementById('btn-signup');
+  if (signupBtn && t.startFree) signupBtn.textContent = t.startFree;
 }
 
 // Counter animation
