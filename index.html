@@ -198,6 +198,101 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 }
 .cw-chip.selected-cw{border-color:var(--green);background:rgba(0,214,143,.15);}
 
+/* ══ ANSWER LEVELS ══ */
+.answer-level-card{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--surface2);border:1.5px solid var(--border);
+  border-radius:var(--r-lg);padding:14px 16px;cursor:pointer;
+  transition:all .25s;
+}
+.answer-level-card:hover{border-color:var(--border2);background:var(--surface3);}
+.answer-level-card.selected-l1{border-color:rgba(0,214,143,.5);background:rgba(0,214,143,.06);}
+.answer-level-card.selected-l2{border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.06);}
+.answer-level-card.selected-l3{border-color:rgba(245,166,35,.5);background:rgba(245,166,35,.06);}
+.level-radio{
+  width:18px;height:18px;border-radius:50%;
+  border:2px solid var(--border2);flex-shrink:0;margin-top:3px;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.level-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
+.level-desc{font-size:12px;color:var(--text-dim);line-height:1.6;}
+
+/* ══ RAG STATUS ══ */
+.rag-status-chip{
+  font-size:10px;padding:3px 9px;border-radius:100px;font-weight:600;
+  display:inline-block;border:1px solid var(--border);
+}
+.rag-status-chip.ready{background:rgba(0,214,143,.1);border-color:rgba(0,214,143,.3);color:var(--green);}
+.rag-status-chip.processing{background:rgba(245,166,35,.1);border-color:rgba(245,166,35,.3);color:var(--amber);}
+.rag-status-chip.empty{background:var(--surface2);color:var(--text-dim);}
+.rag-ready-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;padding:2px 8px;border-radius:100px;font-weight:600;
+  background:rgba(0,214,143,.1);border:1px solid rgba(0,214,143,.25);color:var(--green);
+}
+
+/* ══ BOOKS ══ */
+.book-cert-btn{
+  font-size:10px;padding:3px 10px;border-radius:100px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text-dim);cursor:pointer;transition:all .2s;font-family:var(--font-ar);
+}
+.book-cert-btn:hover{border-color:rgba(0,214,143,.3);color:var(--green);}
+.book-cert-btn.active{border-color:var(--green);background:rgba(0,214,143,.1);color:var(--green);font-weight:600;}
+.cert-book-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:14px;transition:all .2s;position:relative;cursor:pointer;
+}
+.cert-book-card:hover{border-color:var(--border2);}
+.cert-book-card.has-book{border-color:rgba(0,214,143,.25);background:rgba(0,214,143,.03);}
+.cert-book-card.active-cert{border-color:var(--green);box-shadow:0 0 16px rgba(0,214,143,.15);}
+.cbc-cert{font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px;}
+.cbc-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cbc-status{font-size:10px;color:var(--text-dim);}
+.cbc-active-badge{
+  position:absolute;top:8px;left:8px;
+  background:var(--green);color:var(--ink);
+  font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;
+}
+
+/* ══ PAYMENT ══ */
+.pay-page{max-width:540px;margin:0 auto;padding:20px;}
+.pay-card-main{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;margin-bottom:14px;}
+.pay-header{background:linear-gradient(135deg,rgba(0,214,143,.1),rgba(0,214,143,.04));border-bottom:1px solid rgba(0,214,143,.15);padding:22px;text-align:center;position:relative;}
+.pay-header::before{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);}
+.pay-amount{font-family:var(--font-mono);font-size:40px;font-weight:700;color:var(--text);line-height:1;}
+.pay-amount sup{font-size:18px;color:var(--text-dim);vertical-align:super;}
+.pay-period{font-size:12px;color:var(--text-dim);margin-top:4px;}
+.pay-trial-note{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.15);border-radius:100px;padding:4px 12px;font-size:11px;color:var(--amber);font-weight:600;margin-top:10px;}
+.pay-body{padding:22px;}
+.pay-form-group{margin-bottom:14px;}
+.pay-label{font-size:12px;font-weight:600;color:var(--text-dim);display:block;margin-bottom:5px;}
+.pay-input{width:100%;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:var(--font-ar);font-size:14px;outline:none;transition:border-color .2s;}
+.pay-input:focus{border-color:rgba(0,214,143,.4);}
+.pay-input::placeholder{color:var(--text-dim);}
+.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pay-methods{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;}
+.pay-method-btn{padding:10px 6px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r-sm);text-align:center;cursor:pointer;transition:all .2s;}
+.pay-method-btn:hover,.pay-method-btn.selected{border-color:rgba(0,214,143,.5);background:rgba(0,214,143,.06);}
+.pay-method-icon{font-size:18px;margin-bottom:2px;}
+.pay-method-name{font-size:9px;color:var(--text-dim);font-weight:600;}
+.pay-submit{width:100%;padding:14px;background:var(--green);border:none;border-radius:12px;color:var(--ink);font-family:var(--font-ar);font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 6px 24px rgba(0,214,143,.25);display:flex;align-items:center;justify-content:center;gap:8px;}
+.pay-submit:hover{background:#00f0a0;transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,214,143,.35);}
+.pay-submit:disabled{background:var(--surface3);color:var(--text-dim);cursor:not-allowed;transform:none;box-shadow:none;}
+.pay-secure{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:var(--text-dim);margin-top:10px;}
+.pay-discount-row{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 12px;display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+.pay-discount-input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-family:var(--font-mono);font-size:13px;letter-spacing:1px;}
+.pay-discount-input::placeholder{color:var(--text-dim);font-family:var(--font-ar);letter-spacing:0;}
+.apply-btn{font-size:11px;padding:5px 12px;background:var(--green);color:var(--ink);border:none;border-radius:6px;cursor:pointer;font-family:var(--font-ar);font-weight:600;white-space:nowrap;}
+.pay-summary-box{background:var(--surface2);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:14px;}
+.ps-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid var(--border);color:var(--text-dim);}
+.ps-row:last-child{border-bottom:none;font-weight:700;font-size:14px;color:var(--text);padding-top:8px;margin-top:4px;}
+.ps-row:last-child span:last-child{color:var(--green);}
+.pay-success-box{text-align:center;padding:40px 20px;}
+.psi-icon{font-size:52px;margin-bottom:14px;}
+.psi-title{font-size:20px;font-weight:700;color:var(--green);margin-bottom:6px;}
+.psi-sub{font-size:13px;color:var(--text-dim);margin-bottom:22px;line-height:1.6;}
+
 /* Features */
 .section-wrap{max-width:1180px;margin:0 auto;padding:72px 5%;}
 .section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
@@ -396,6 +491,28 @@ textarea::placeholder{color:var(--text-dim);}
   background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);
   padding:12px 14px;margin-top:12px;
 }
+.gf-structure-step{
+  display:flex;align-items:flex-start;gap:10px;
+  background:var(--surface2);border-radius:var(--r-sm);padding:8px 12px;
+  font-size:12px;line-height:1.5;
+}
+.gf-step-num{
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;flex-shrink:0;
+  background:rgba(0,214,143,.15);color:var(--green);
+}
+.gf-keyword{
+  padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600;
+  background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);color:var(--amber);
+}
+.gf-mistake{
+  display:flex;gap:8px;align-items:flex-start;
+  padding:6px 10px;border-radius:var(--r-sm);
+  background:rgba(255,71,87,.06);border:1px solid rgba(255,71,87,.1);
+  font-size:11px;color:var(--text-dim);line-height:1.5;
+}
+.gf-mistake-icon{color:var(--red);flex-shrink:0;margin-top:1px;}
 .cw-label{font-size:10px;color:var(--text-dim);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
 .cw-chips{display:flex;gap:6px;flex-wrap:wrap;}
 .cw-chip{
@@ -573,7 +690,7 @@ input[type=range]::-webkit-slider-thumb{
 <div id="lock-banner" class="hidden">
   <span>🔒</span>
   <span>موسم اختبارات NEBOSH جارٍ الآن — الفترة التجريبية متوقفة</span>
-  <button class="lock-cta-btn" onclick="showPage('pricing-page')">اشترك الآن — $44.77/شهر</button>
+  <button class="lock-cta-btn" onclick="STATE.user ? showPage('payment') : showPage('signup')">اشترك الآن — $44.77/شهر</button>
 </div>
 
 <!-- ══ NAVBAR ══ -->
@@ -607,6 +724,7 @@ input[type=range]::-webkit-slider-thumb{
     <button class="btn btn-ghost btn-sm" id="btn-login" onclick="showPage('login')">تسجيل الدخول</button>
     <button class="btn btn-green btn-sm" id="btn-signup" onclick="showPage('signup')">ابدأ مجاناً</button>
     <button class="btn btn-ghost btn-sm hidden" id="btn-logout" onclick="logout()">خروج</button>
+    <button class="btn btn-green btn-sm hidden" id="btn-subscribe" onclick="showPaymentPage()" style="animation:pulse-glow 2s infinite;">💳 اشترك</button>
   </div>
 </nav>
 
@@ -763,7 +881,7 @@ input[type=range]::-webkit-slider-thumb{
           <div class="pf"><span class="pf-chk">✓</span>رفع مستندات مكان العمل</div>
           <div class="pf"><span class="pf-chk">✓</span>إلغاء في أي وقت</div>
         </div>
-        <button class="btn-price" onclick="showPage('signup')">ابدأ التجربة المجانية — سؤالان بلا بطاقة</button>
+        <button class="btn-price" onclick="STATE.user ? showPage('payment') : showPage('signup')">اشترك الآن — $44.77/شهر</button>
         <div class="discs-row">
           <div class="disc-sm"><div class="disc-pct">5%</div><div class="disc-lbl">خصم لكل تسجيل بكودك</div></div>
           <div class="disc-sm"><div class="disc-pct">5%</div><div class="disc-lbl">خصم عند كتابة تقييم</div></div>
@@ -983,6 +1101,61 @@ input[type=range]::-webkit-slider-thumb{
             <div class="cw-note" id="cw-note"></div>
           </div>
 
+          <!-- Golden Formula Panel -->
+          <div id="golden-formula-panel" style="display:none;margin-top:12px;">
+            <div style="background:linear-gradient(135deg,rgba(0,214,143,.06),rgba(0,214,143,.02));border:1px solid rgba(0,214,143,.2);border-radius:var(--r-lg);overflow:hidden;">
+
+              <!-- Header قابل للطي -->
+              <div id="gf-header" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;" onclick="toggleGoldenFormula()">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:18px;">✨</span>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:var(--green);" id="gf-title">الفرمولا الذهبية</div>
+                    <div style="font-size:11px;color:var(--text-dim);" id="gf-subtitle">هيكل الإجابة · الكلمات الذهبية · الأخطاء الشائعة</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div id="gf-level-badge" style="font-size:10px;padding:2px 8px;border-radius:100px;font-weight:600;"></div>
+                  <span id="gf-toggle-icon" style="color:var(--green);font-size:14px;transition:transform .3s;">▼</span>
+                </div>
+              </div>
+
+              <!-- Body -->
+              <div id="gf-body" style="border-top:1px solid rgba(0,214,143,.1);padding:16px;">
+
+                <!-- الفرمولا الذهبية -->
+                <div style="margin-bottom:14px;">
+                  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;">✦ الفرمولا الذهبية</div>
+                  <div id="gf-formula" style="background:rgba(0,214,143,.05);border:1px solid rgba(0,214,143,.15);border-radius:var(--r-sm);padding:10px 14px;font-size:13px;font-family:var(--font-mono);color:var(--text);line-height:1.8;letter-spacing:.3px;"></div>
+                </div>
+
+                <!-- هيكل الإجابة -->
+                <div style="margin-bottom:14px;">
+                  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">📐 هيكل الإجابة</div>
+                  <div id="gf-structure" style="display:flex;flex-direction:column;gap:6px;"></div>
+                </div>
+
+                <!-- الكلمات الذهبية -->
+                <div style="margin-bottom:14px;">
+                  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">🔑 الكلمات الذهبية</div>
+                  <div id="gf-keywords" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+                </div>
+
+                <!-- مثال على الإجابة -->
+                <div style="margin-bottom:14px;">
+                  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:8px;">💡 مثال على نقطة ناجحة</div>
+                  <div id="gf-example" style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.15);border-radius:var(--r-sm);padding:10px 14px;font-size:12px;color:var(--text-dim);line-height:1.7;font-style:italic;"></div>
+                </div>
+
+                <!-- الأخطاء الشائعة -->
+                <div>
+                  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">⚠️ الأخطاء الشائعة</div>
+                  <div id="gf-mistakes" style="display:flex;flex-direction:column;gap:5px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Marks -->
           <div style="margin-top:16px;">
             <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:8px;">عدد الدرجات</div>
@@ -993,34 +1166,81 @@ input[type=range]::-webkit-slider-thumb{
             </div>
           </div>
 
-          <!-- Scenario dependency + Books/Docs - MULTI SELECT -->
+          <!-- ══ THREE-LEVEL ANSWER SYSTEM ══ -->
           <div style="margin-top:16px;">
-            <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:8px;">
-              مصادر الإجابة <span style="font-weight:400;font-size:11px;">(اختر واحداً أو أكثر بحرية كاملة)</span>
+            <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+              <span>🎯</span> مستوى الإجابة
+              <span style="font-size:10px;font-weight:400;color:var(--text-dim);">(اختر المستوى المطلوب)</span>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-              <button class="si-btn active red" id="dep-1" onclick="toggleDep(1)">
-                🔴 السيناريو فقط<br><span style="font-size:10px;">"Using the scenario..."</span>
-              </button>
-              <button class="si-btn" id="dep-2" onclick="toggleDep(2)">
-                🟡 السيناريو + مراجع<br><span style="font-size:10px;">السيناريو أولاً + دعم خارجي</span>
-              </button>
-              <button class="si-btn" id="dep-3" onclick="toggleDep(3)">
-                🟢 مراجع خارجية<br><span style="font-size:10px;">منظمات + تشريعات</span>
-              </button>
-              <button class="si-btn" id="dep-4" onclick="toggleDep(4)" style="grid-column:span 1;">
-                📚 كتبي الرسمية<br><span style="font-size:10px;" id="dep4-label">لا يوجد كتاب مرفوع</span>
-              </button>
-              <button class="si-btn" id="dep-5" onclick="toggleDep(5)" style="grid-column:span 2;">
-                📂 مستنداتي + سياسات مكان عملي<br><span style="font-size:10px;" id="dep5-label">لا توجد مستندات مرفوعة</span>
-              </button>
+
+            <div style="display:flex;flex-direction:column;gap:8px;">
+
+              <!-- المستوى الأول -->
+              <div class="answer-level-card" id="level-1-card" onclick="selectAnswerLevel(1)" style="border-color:rgba(0,214,143,.4);background:rgba(0,214,143,.06);">
+                <div class="level-radio" id="level-1-radio" style="background:var(--green);border-color:var(--green);">
+                  <div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>
+                </div>
+                <div style="flex:1;">
+                  <div class="level-title" style="color:var(--green);">
+                    المستوى 1 — المنظمات الدولية الحية
+                    <div class="live-chip2" style="display:inline-flex;margin-right:8px;"><div class="live-dot"></div>بحث حي</div>
+                  </div>
+                  <div class="level-desc">الإجابة مبنية على أحدث بيانات المنظمات الدولية المفعّلة — ILO · ISO · HSE · EU-OSHA · WHO وغيرها · بحث لحظي في أحدث التقارير والإحصاءات والتشريعات</div>
+                  <div id="level-1-orgs-row" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;"></div>
+                </div>
+              </div>
+
+              <!-- المستوى الثاني -->
+              <div class="answer-level-card" id="level-2-card" onclick="selectAnswerLevel(2)">
+                <div class="level-radio" id="level-2-radio"></div>
+                <div style="flex:1;">
+                  <div class="level-title">
+                    المستوى 2 — مستنداتي وكتبي الرسمية
+                  </div>
+                  <div class="level-desc">الإجابة مبنية حصراً على الكتب الرسمية والمستندات التي رفعتها — استشهاد بالفصل والصفحة من كتابك · سياسات مكان العمل · تقارير الحوادث · أي ملفات مرفوعة</div>
+                  <div id="level-2-docs-row" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;">
+                    <span style="font-size:10px;color:var(--text-dim);" id="level-2-status">لا توجد كتب أو مستندات مرفوعة بعد — ارفع من قسم المكتبة</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- المستوى الثالث -->
+              <div class="answer-level-card" id="level-3-card" onclick="selectAnswerLevel(3)">
+                <div class="level-radio" id="level-3-radio"></div>
+                <div style="flex:1;">
+                  <div class="level-title">
+                    المستوى 3 — الإجابة الشاملة المتكاملة
+                    <span style="font-size:10px;padding:2px 8px;border-radius:100px;background:rgba(245,166,35,.15);color:var(--amber);font-weight:600;margin-right:8px;">⭐ الأمثل للاختبار</span>
+                  </div>
+                  <div class="level-desc">دمج المستوى 1 + المستوى 2 + ربط بالسيناريو · كل نقطة تتبع قاعدة <strong style="color:var(--amber);">P.E.E</strong> الذهبية</div>
+                  <!-- PEE Explanation -->
+                  <div style="margin-top:10px;background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.15);border-radius:var(--r-sm);padding:10px 12px;">
+                    <div style="font-size:10px;font-weight:700;color:var(--amber);letter-spacing:1px;margin-bottom:8px;">قاعدة P.E.E — لكل نقطة</div>
+                    <div style="display:flex;flex-direction:column;gap:6px;">
+                      <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;">
+                        <div style="min-width:28px;height:20px;border-radius:6px;background:rgba(0,214,143,.15);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--green);font-family:var(--font-mono);flex-shrink:0;">P</div>
+                        <div><strong style="color:var(--text);">Point — النقطة:</strong> <span style="color:var(--text-dim);">اذكر المبدأ العلمي أو القاعدة من المرجع (مثلاً: ضعف التواصل الداخلي)</span></div>
+                      </div>
+                      <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;">
+                        <div style="min-width:28px;height:20px;border-radius:6px;background:rgba(59,130,246,.15);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);font-family:var(--font-mono);flex-shrink:0;">E</div>
+                        <div><strong style="color:var(--text);">Evidence — الدليل:</strong> <span style="color:var(--text-dim);">استخرج نصاً مباشراً من السيناريو (مثلاً: "لم يتم إبلاغ العمال بتغيير إجراءات العمل")</span></div>
+                      </div>
+                      <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;">
+                        <div style="min-width:28px;height:20px;border-radius:6px;background:rgba(255,71,87,.15);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--red);font-family:var(--font-mono);flex-shrink:0;">E</div>
+                        <div><strong style="color:var(--text);">Explanation — الشرح:</strong> <span style="color:var(--text-dim);">وضّح العواقب والأثر (مثلاً: هذا أدى إلى ارتباك العمال وزيادة احتمالية وقوع الخطأ البشري)</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
             <div id="dep-note" style="font-size:11px;color:var(--amber);margin-top:8px;padding:6px 10px;background:rgba(245,166,35,.06);border-radius:6px;display:none;"></div>
           </div>
         </div>
 
-        <!-- Step 4: Organizations -->
-        <div class="form-card">
+        <!-- Step 4: Organizations (تظهر فقط في المستوى 1 و 3) -->
+        <div class="form-card" id="orgs-card">
           <div class="form-card-title"><span class="form-card-icon">🌐</span>الخطوة 4 — المنظمات الدولية المرجعية <span style="font-size:11px;font-weight:400;color:var(--text-dim);">(اختر بلا حدود)</span></div>
           <div style="display:flex;gap:8px;margin-bottom:12px;">
             <button class="btn btn-surface btn-sm" onclick="selectAllOrgs()">تحديد الكل</button>
@@ -1060,7 +1280,7 @@ input[type=range]::-webkit-slider-thumb{
             <div class="tb-sub2">لقد استخدمت سؤاليك المجانيين<br>اشترك الآن للوصول الكامل بدون حدود</div>
             <div class="tb-countdown" id="lock-timer">--:--:--</div>
             <div class="tb-countdown-label">حتى انتهاء موسم الاختبارات (ستعود التجربة المجانية)</div>
-            <button class="btn btn-green btn-lg" style="margin:0 auto;display:flex;" onclick="showPage('pricing-page')">💳 اشترك الآن — $44.77/شهر</button>
+            <button class="btn btn-green btn-lg" style="margin:0 auto;display:flex;" onclick="showPaymentPage()">💳 اشترك الآن — $44.77/شهر</button>
           </div>
         </div>
 
@@ -1091,27 +1311,58 @@ input[type=range]::-webkit-slider-thumb{
 
       <!-- ── BOOKS SECTION ── -->
       <div id="section-books" style="display:none;">
-        <h2 style="font-size:22px;font-weight:700;margin-bottom:6px;">مكتبة الكتب الرسمية</h2>
-        <p style="color:var(--text-dim);font-size:14px;margin-bottom:20px;">ارفع الكتاب الرسمي لشهادتك — المنصة ستستشهد منه تلقائياً في الإجابات</p>
+        <h2 style="font-size:22px;font-weight:700;margin-bottom:6px;">مكتبة الكتب الرسمية — RAG</h2>
+        <p style="color:var(--text-dim);font-size:14px;margin-bottom:16px;">ارفع الكتاب الرسمي — يُفهرس تلقائياً ويدعم حتى 2000 صفحة</p>
 
-        <div style="background:var(--surface);border:1px dashed var(--border2);border-radius:var(--r-lg);padding:36px;text-align:center;cursor:pointer;transition:all .2s;" id="book-drop-zone"
-          ondragover="event.preventDefault();this.style.borderColor='var(--green)'"
-          ondragleave="this.style.borderColor='var(--border2)'"
+        <!-- حالة RAG -->
+        <div style="background:rgba(0,214,143,.04);border:1px solid rgba(0,214,143,.12);border-radius:var(--r-lg);padding:12px 16px;margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:8px;">📊 حالة فهرس RAG</div>
+          <div id="rag-index-status" style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="rag-status-chip empty">○ IGC</span>
+            <span class="rag-status-chip empty">○ NGC</span>
+            <span class="rag-status-chip empty">○ Fire</span>
+            <span class="rag-status-chip empty">○ EMC</span>
+            <span class="rag-status-chip empty">○ Construction</span>
+            <span class="rag-status-chip empty">○ Diploma</span>
+          </div>
+          <div style="font-size:10px;color:var(--text-dim);margin-top:6px;">✓ مفهرس = RAG جاهز · ⏳ جاري = يُعالج · ○ فارغ = لم يُرفع بعد</div>
+        </div>
+
+        <!-- كيف يعمل RAG -->
+        <div style="background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.12);border-radius:var(--r-lg);padding:12px 16px;margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:5px;">🔍 كيف يعمل نظام RAG</div>
+          <div style="font-size:11px;color:var(--text-dim);line-height:1.7;">
+            رفع كتاب ← قراءة كل صفحة ← تقطيع لأجزاء 400 كلمة ← فهرسة للبحث<br>
+            عند السؤال ← يبحث عن أكثر 8 أجزاء صلةً ← يُرسلها لـ Claude ← إجابة من النص حصراً
+          </div>
+        </div>
+
+        <!-- شبكة الشهادات -->
+        <div id="cert-books-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;"></div>
+
+        <!-- منطقة الرفع -->
+        <div style="background:var(--surface);border:1.5px dashed rgba(0,214,143,.3);border-radius:var(--r-lg);padding:28px;text-align:center;cursor:pointer;transition:all .2s;" id="book-drop-zone"
+          ondragover="event.preventDefault();this.style.borderColor='var(--green)';this.style.background='rgba(0,214,143,.03)'"
+          ondragleave="this.style.borderColor='rgba(0,214,143,.3)';this.style.background='var(--surface)'"
           ondrop="handleBookDrop(event)"
           onclick="document.getElementById('book-upload').click()">
-          <div style="font-size:48px;margin-bottom:14px;">📖</div>
-          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">ارفع الكتاب الرسمي (PDF)</div>
-          <p style="font-size:13px;color:var(--text-dim);margin-bottom:14px;">اسحب وأفلت أو اضغط للاختيار</p>
-          <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-            <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);">International H&S at Work</span>
-            <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);">HSG65</span>
-            <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);">EMC Guide</span>
-            <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);">Diploma Units</span>
+          <div style="font-size:32px;margin-bottom:8px;">📖</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:5px;">ارفع كتاباً رسمياً</div>
+          <p style="font-size:12px;color:var(--text-dim);margin-bottom:14px;">PDF · حتى 2000 صفحة · اسحب وأفلت أو اضغط</p>
+          <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;" id="book-cert-selector">
+            <span style="font-size:11px;color:var(--text-dim);align-self:center;">ارتبط بشهادة:</span>
+            <button class="book-cert-btn active" data-cert="IGC" onclick="selectBookCert(this,'IGC');event.stopPropagation()">IGC</button>
+            <button class="book-cert-btn" data-cert="NGC" onclick="selectBookCert(this,'NGC');event.stopPropagation()">NGC</button>
+            <button class="book-cert-btn" data-cert="Fire" onclick="selectBookCert(this,'Fire');event.stopPropagation()">Fire</button>
+            <button class="book-cert-btn" data-cert="EMC" onclick="selectBookCert(this,'EMC');event.stopPropagation()">EMC</button>
+            <button class="book-cert-btn" data-cert="Construction" onclick="selectBookCert(this,'Construction');event.stopPropagation()">Construction</button>
+            <button class="book-cert-btn" data-cert="Diploma" onclick="selectBookCert(this,'Diploma');event.stopPropagation()">Diploma</button>
+            <button class="book-cert-btn" data-cert="ALL" onclick="selectBookCert(this,'ALL');event.stopPropagation()">الكل</button>
           </div>
           <input type="file" id="book-upload" accept=".pdf,.doc,.docx,.txt" style="display:none;" multiple onchange="handleBookUpload(this)">
         </div>
 
-        <div id="books-list" style="margin-top:16px;display:flex;flex-direction:column;gap:8px;"></div>
+        <div id="books-list" style="margin-top:12px;display:flex;flex-direction:column;gap:8px;"></div>
       </div>
 
       <!-- ── DOCS SECTION ── -->
@@ -1195,8 +1446,149 @@ input[type=range]::-webkit-slider-thumb{
 </div>
 
 <!-- ══════════════════════════════
-     MODALS
+     PAYMENT PAGE
 ══════════════════════════════ -->
+<div class="page" id="page-payment">
+  <div class="pay-page">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:24px;">
+      <div class="nav-logo" style="font-size:22px;display:block;margin-bottom:6px;cursor:pointer;" onclick="showPage('landing')">Nebosh<span>Hub</span></div>
+      <p style="color:var(--text-dim);font-size:13px;">اشتراك آمن — يمكن الإلغاء في أي وقت</p>
+    </div>
+
+    <!-- Success State (hidden) -->
+    <div id="pay-success-state" style="display:none;" class="pay-card-main">
+      <div class="pay-success-box">
+        <div class="psi-icon">🎉</div>
+        <div class="psi-title">تم الاشتراك بنجاح!</div>
+        <div class="psi-sub">مرحباً بك في NeboshHub<br>يمكنك الآن استخدام جميع الميزات بدون حدود</div>
+        <button class="btn btn-green" style="margin:0 auto;" onclick="showPage('app')">ابدأ الآن →</button>
+      </div>
+    </div>
+
+    <!-- Payment Form -->
+    <div id="pay-form-state">
+      <div class="pay-card-main">
+        <!-- Plan Header -->
+        <div class="pay-header">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;">الخطة الشهرية</div>
+          <div class="pay-amount"><sup>$</sup>44<span style="font-size:32px">.77</span></div>
+          <div class="pay-period">شهرياً · يتجدد تلقائياً · إلغاء في أي وقت</div>
+          <div class="pay-trial-note">🎁 سؤالان مجانيان قبل الدفع</div>
+        </div>
+
+        <div class="pay-body">
+
+          <!-- طريقة الدفع -->
+          <div class="pay-form-group">
+            <div class="pay-label">طريقة الدفع</div>
+            <div class="pay-methods">
+              <div class="pay-method-btn selected" id="pm-card" onclick="selectPayMethod('card',this)">
+                <div class="pay-method-icon">💳</div>
+                <div class="pay-method-name">بطاقة</div>
+              </div>
+              <div class="pay-method-btn" id="pm-mada" onclick="selectPayMethod('mada',this)">
+                <div class="pay-method-icon">🇸🇦</div>
+                <div class="pay-method-name">مدى</div>
+              </div>
+              <div class="pay-method-btn" id="pm-apple" onclick="selectPayMethod('apple',this)">
+                <div class="pay-method-icon">🍎</div>
+                <div class="pay-method-name">Apple Pay</div>
+              </div>
+              <div class="pay-method-btn" id="pm-stc" onclick="selectPayMethod('stc',this)">
+                <div class="pay-method-icon">📱</div>
+                <div class="pay-method-name">STC Pay</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- نموذج البطاقة -->
+          <div id="card-form">
+            <div class="pay-form-group">
+              <label class="pay-label">اسم حامل البطاقة</label>
+              <input type="text" class="pay-input" id="card-name" placeholder="الاسم كما هو على البطاقة">
+            </div>
+            <div class="pay-form-group">
+              <label class="pay-label">رقم البطاقة</label>
+              <input type="text" class="pay-input" id="card-num" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCardNum(this)" style="direction:ltr;letter-spacing:2px;">
+            </div>
+            <div class="pay-grid">
+              <div class="pay-form-group">
+                <label class="pay-label">تاريخ الانتهاء</label>
+                <input type="text" class="pay-input" id="card-exp" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)" style="direction:ltr;">
+              </div>
+              <div class="pay-form-group">
+                <label class="pay-label">رمز الأمان CVV</label>
+                <input type="text" class="pay-input" id="card-cvv" placeholder="•••" maxlength="4" style="direction:ltr;letter-spacing:3px;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Apple Pay / STC Pay -->
+          <div id="wallet-form" style="display:none;">
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px;text-align:center;margin-bottom:14px;">
+              <div style="font-size:24px;margin-bottom:8px;" id="wallet-icon">🍎</div>
+              <div style="font-size:13px;color:var(--text-dim);" id="wallet-msg">سيتم فتح تطبيق Apple Pay للإتمام</div>
+            </div>
+          </div>
+
+          <!-- البريد الإلكتروني -->
+          <div class="pay-form-group">
+            <label class="pay-label">البريد الإلكتروني</label>
+            <input type="email" class="pay-input" id="pay-email" placeholder="you@email.com" style="direction:ltr;">
+          </div>
+
+          <!-- كود الخصم -->
+          <div class="pay-form-group">
+            <div class="pay-label">كود خصم (اختياري)</div>
+            <div class="pay-discount-row">
+              <input type="text" class="pay-discount-input" id="discount-code" placeholder="مثال: NEBOSH-AHMED123" oninput="this.value=this.value.toUpperCase()">
+              <button class="apply-btn" onclick="applyDiscount()">تطبيق</button>
+            </div>
+            <div id="discount-msg" style="font-size:11px;margin-top:4px;display:none;"></div>
+          </div>
+
+          <!-- ملخص الدفع -->
+          <div class="pay-summary-box">
+            <div class="ps-row"><span>الاشتراك الشهري</span><span>$44.77</span></div>
+            <div class="ps-row" id="ps-discount-row" style="display:none;color:var(--green);"><span id="ps-discount-label">خصم الكود</span><span id="ps-discount-val">-$0.00</span></div>
+            <div class="ps-row"><span>الإجمالي</span><span id="ps-total">$44.77</span></div>
+          </div>
+
+          <!-- زر الدفع -->
+          <button class="pay-submit" id="pay-btn" onclick="processPayment()">
+            <span>🔒</span>
+            <span id="pay-btn-text">اشترك الآن — $44.77/شهر</span>
+          </button>
+
+          <div class="pay-secure">
+            <span>🔒</span>
+            <span>مدفوعات آمنة مشفّرة · مدعوم بـ ميسر + Stripe</span>
+          </div>
+
+          <p style="text-align:center;font-size:11px;color:var(--text-dim);margin-top:10px;line-height:1.5;">
+            بالاشتراك توافق على <a href="#" style="color:var(--green);">شروط الاستخدام</a> و <a href="#" style="color:var(--green);">سياسة الخصوصية</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- ما تحصل عليه -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;">
+        <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:12px;">ما تحصل عليه باشتراكك</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="font-size:12px;color:var(--text-dim);display:flex;gap:6px;"><span style="color:var(--green);">✓</span>جميع كلمات الأوامر الـ18</div>
+          <div style="font-size:12px;color:var(--text-dim);display:flex;gap:6px;"><span style="color:var(--green);">✓</span>بحث حي للمنظمات الدولية</div>
+          <div style="font-size:12px;color:var(--text-dim);display:flex;gap:6px;"><span style="color:var(--green);">✓</span>توثيق تلقائي للمصادر</div>
+          <div style="font-size:12px;color:var(--text-dim);display:flex;gap:6px;"><span style="color:var(--green);">✓</span>رفع الكتب الرسمية</div>
+          <div style="font-size:12px;color:var(--text-dim);display:flex;gap:6px;"><span style="color:var(--green);">✓</span>جميع شهادات NEBOSH</div>
+          <div style="font-size:12px;color:var(--text-dim);display:flex;gap:6px;"><span style="color:var(--green);">✓</span>12 لغة + RTL</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 <div id="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;backdrop-filter:blur(4px);" onclick="closeModal()">
   <div id="modal-box" style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--r-xl);padding:28px;max-width:460px;width:90%;margin:80px auto;position:relative;" onclick="event.stopPropagation()">
     <div id="modal-content"></div>
@@ -1288,26 +1680,54 @@ const MARKS_HINTS = {
 // ══════════════════════════════════
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  if (id === 'landing') {
-    document.getElementById('page-landing').classList.add('active');
-    document.getElementById('app-tabs').style.display = 'none';
-    document.getElementById('btn-login').classList.remove('hidden');
-    document.getElementById('btn-signup').classList.remove('hidden');
-    document.getElementById('btn-logout').classList.add('hidden');
-  } else if (id === 'login') {
-    document.getElementById('page-login').classList.add('active');
-  } else if (id === 'signup') {
-    document.getElementById('page-signup').classList.add('active');
-  } else if (id === 'app') {
-    document.getElementById('page-app').classList.add('active');
-    document.getElementById('app-tabs').style.display = 'flex';
+  const hideAuthBtns = () => {
     document.getElementById('btn-login').classList.add('hidden');
     document.getElementById('btn-signup').classList.add('hidden');
     document.getElementById('btn-logout').classList.remove('hidden');
+  };
+  const showAuthBtns = () => {
+    document.getElementById('btn-login').classList.remove('hidden');
+    document.getElementById('btn-signup').classList.remove('hidden');
+    document.getElementById('btn-logout').classList.add('hidden');
+  };
+
+  if (id === 'landing') {
+    document.getElementById('page-landing').classList.add('active');
+    document.getElementById('app-tabs').style.display = 'none';
+    showAuthBtns();
+  } else if (id === 'login') {
+    document.getElementById('page-login').classList.add('active');
+    document.getElementById('app-tabs').style.display = 'none';
+  } else if (id === 'signup') {
+    document.getElementById('page-signup').classList.add('active');
+    document.getElementById('app-tabs').style.display = 'none';
+  } else if (id === 'payment') {
+    document.getElementById('page-payment').classList.add('active');
+    document.getElementById('app-tabs').style.display = 'none';
+    // تعبئة الإيميل تلقائياً
+    if (STATE.user?.email) {
+      const pe = document.getElementById('pay-email');
+      if (pe) pe.value = STATE.user.email;
+    }
+    window.scrollTo({top:0});
+  } else if (id === 'app') {
+    document.getElementById('page-app').classList.add('active');
+    document.getElementById('app-tabs').style.display = 'flex';
+    hideAuthBtns();
+    // إظهار زر الاشتراك إذا لم يكن مدفوعاً
+    const subBtn = document.getElementById('btn-subscribe');
+    if (subBtn) subBtn.classList.toggle('hidden', STATE.user?.isPaid === true);
     buildCWGrid();
+    setTimeout(buildOrgsSelector, 100);
+    setTimeout(renderCertBooksGrid, 100);
   } else if (id === 'pricing-page') {
     document.getElementById('page-landing').classList.add('active');
-    setTimeout(() => document.getElementById('pricing-page').scrollIntoView({behavior:'smooth'}),100);
+    document.getElementById('app-tabs').style.display = 'none';
+    showAuthBtns();
+    setTimeout(() => {
+      const el = document.getElementById('pricing-page');
+      if (el) el.scrollIntoView({behavior:'smooth'});
+    }, 100);
   }
 }
 
@@ -1380,6 +1800,19 @@ function selectCert(btn, cert) {
   STATE.cert = cert;
   // تحديث المنظمات المقترحة للشهادة
   selectOrgsByCert();
+  // تحديث شبكة الكتب
+  renderCertBooksGrid();
+  // إشعار إذا يوجد كتاب للشهادة
+  if (STATE.certBooks && STATE.certBooks[cert]) {
+    showToast(`📖 تم تفعيل كتاب ${cert} تلقائياً: ${STATE.certBooks[cert].name}`);
+    STATE.deps.add(4);
+    [1,2,3,4,5].forEach(i => {
+      const b = document.getElementById('dep-'+i);
+      if (!b) return;
+      const colors = {1:'red',2:'amber',3:'green',4:'purple',5:'blue'};
+      b.className = STATE.deps.has(i) ? 'si-btn active '+colors[i] : 'si-btn';
+    });
+  }
 }
 
 function updateChar(el, countId) {
@@ -1469,50 +1902,7 @@ function selectOrgsByCert() {
 }
 
 // ══ BOOKS UPLOAD ══
-function handleBookUpload(input) {
-  const files = Array.from(input.files);
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const book = { name: file.name, size: file.size, content: e.target.result.substring(0, 5000), type: file.type };
-      STATE.books.push(book);
-      renderBooksList();
-    };
-    if (file.type === 'text/plain') reader.readAsText(file);
-    else reader.readAsDataURL(file);
-  });
-}
-
-function handleBookDrop(event) {
-  event.preventDefault();
-  document.getElementById('book-drop-zone').style.borderColor = 'var(--border2)';
-  const files = Array.from(event.dataTransfer.files);
-  const input = document.getElementById('book-upload');
-  const dt = new DataTransfer();
-  files.forEach(f => dt.items.add(f));
-  input.files = dt.files;
-  handleBookUpload(input);
-}
-
-function renderBooksList() {
-  const list = document.getElementById('books-list');
-  if (!list) return;
-  list.innerHTML = STATE.books.map((b,i) => `
-    <div style="background:var(--surface);border:1px solid rgba(0,214,143,.2);border-radius:var(--r-sm);padding:12px 14px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:20px;">📖</span>
-      <div style="flex:1;">
-        <div style="font-size:13px;font-weight:600;color:var(--green);">${b.name}</div>
-        <div style="font-size:11px;color:var(--text-dim);">${(b.size/1024).toFixed(1)} KB · جاهز للاستشهاد</div>
-      </div>
-      <button class="btn btn-ghost btn-sm" onclick="removeBook(${i})">🗑️</button>
-    </div>
-  `).join('');
-}
-
-function removeBook(i) {
-  STATE.books.splice(i, 1);
-  renderBooksList();
-}
+// [Book functions moved to new cert-linked system below]
 
 function updateMarks(slider) {
   const v = parseInt(slider.value);
@@ -1555,6 +1945,8 @@ function detectCommandWord() {
       : '';
     note.style.color = 'var(--green)';
     STATE.manualCW = explicit.map(c=>c.word).join(', ');
+    // ★ عرض الفرمولا الذهبية
+    showGoldenFormula(explicit);
     return;
   }
 
@@ -1574,8 +1966,417 @@ function detectCommandWord() {
   }
 }
 
-// ══ AI Command Word Detection ══
-let cwDebounce;
+// ══════════════════════════════════
+// GOLDEN FORMULA DATABASE
+// ══════════════════════════════════
+const GOLDEN_FORMULA = {
+  Identify: {
+    level: 1, levelLabel: 'مستوى 1 — أساسي',
+    levelColor: 'rgba(0,214,143,.15)', levelText: 'var(--green)',
+    formula: 'اذكر + سمّ = نقطة واحدة',
+    structure: [
+      { text: 'اذكر العنصر بوضوح بجملة واحدة', note: 'بلا شرح ولا سبب' },
+      { text: 'لكل عنصر سطر مستقل', note: 'كل نقطة = درجة واحدة' },
+    ],
+    keywords: ['hazard','risk','factor','source','cause','example','failure','breach','issue','gap'],
+    example: '"The scenario identifies unguarded machinery as a physical hazard in the production area."',
+    mistakes: [
+      'الشرح والتفسير — Identify لا تتطلب "لماذا"',
+      'الجمع بين نقطتين في جملة واحدة',
+      'الغموض — كن محدداً جداً',
+    ]
+  },
+  Give: {
+    level: 1, levelLabel: 'مستوى 1 — أساسي',
+    levelColor: 'rgba(0,214,143,.15)', levelText: 'var(--green)',
+    formula: 'أعطِ مثالاً محدداً = نقطة واحدة',
+    structure: [
+      { text: 'مثال واحد = نقطة واحدة', note: 'مباشر وواضح' },
+      { text: 'ربط المثال بالسياق إن أمكن', note: 'يعطي انطباعاً أفضل' },
+    ],
+    keywords: ['example','instance','type','form','method','way','case','illustration'],
+    example: '"An example of a physical hazard is unguarded rotating machinery, as described in the scenario."',
+    mistakes: [
+      'الإطالة في الشرح — "Give" تعني مثالاً مباشراً',
+      'تقديم أمثلة عامة جداً بلا صلة بالسياق',
+    ]
+  },
+  Define: {
+    level: 1, levelLabel: 'مستوى 1 — أساسي',
+    levelColor: 'rgba(0,214,143,.15)', levelText: 'var(--green)',
+    formula: 'المعنى الدقيق + الحدود المميّزة',
+    structure: [
+      { text: 'التعريف الجوهري — ماذا يعني المصطلح؟', note: 'من مرجع رسمي إن أمكن' },
+      { text: 'ما يميّزه عن غيره', note: 'الحدود الفارقة' },
+    ],
+    keywords: ['means','refers to','is defined as','can be described as','comprises','encompasses'],
+    example: '"Hazard is defined as anything with the potential to cause harm (ILO, 2001). It differs from risk in that it does not consider the likelihood of harm occurring."',
+    mistakes: [
+      'الخلط بين Hazard وRisk في التعريف',
+      'التعريف الدائري — لا تعرّف الكلمة بنفسها',
+      'نسيان الحدود المميّزة',
+    ]
+  },
+  Outline: {
+    level: 1, levelLabel: 'مستوى 1 — متوسط',
+    levelColor: 'rgba(0,214,143,.15)', levelText: 'var(--green)',
+    formula: 'النقاط الرئيسية بلا تفصيل = نقاط × درجات',
+    structure: [
+      { text: 'اذكر النقطة الرئيسية', note: 'جملة واحدة أو جملتان' },
+      { text: 'تفصيل بسيط جداً فقط إن لزم', note: 'لا تدخل في العمق' },
+    ],
+    keywords: ['main','key','primary','major','principal','basic','fundamental','core','include','cover'],
+    example: '"The OSH management system should include: hazard identification and risk assessment; safe systems of work; training and competence arrangements; incident investigation procedures."',
+    mistakes: [
+      'الإطالة كثيراً — Outline = نقاط رئيسية فقط',
+      'الشرح المعمّق — هذا لـ Explain أو Describe',
+      'نسيان الربط بالموضوع',
+    ]
+  },
+  Describe: {
+    level: 2, levelLabel: 'مستوى 2 — متوسط',
+    levelColor: 'rgba(59,130,246,.15)', levelText: 'var(--blue)',
+    formula: 'الخصائص + التفاصيل + الصورة الكاملة',
+    structure: [
+      { text: 'صف العنصر أو العملية بالتفصيل', note: 'ما يمكن ملاحظته' },
+      { text: 'أضف الخصائص والمكونات', note: 'بلا تفسير سببي' },
+      { text: 'اربط بالسياق أو السيناريو', note: 'يعزز الإجابة' },
+    ],
+    keywords: ['features','characteristics','components','elements','steps','process','nature','appearance','condition'],
+    example: '"The permit-to-work system described in the scenario involves a formal written document that specifies the work to be done, the hazards involved, the precautions required, and the authorisation needed before work commences."',
+    mistakes: [
+      'التفسير السببي — "لماذا" ليس مطلوباً في Describe',
+      'الاكتفاء بنقطة واحدة لوصف موضوع معقد',
+    ]
+  },
+  Comment: {
+    level: 2, levelLabel: 'مستوى 2 — متوسط',
+    levelColor: 'rgba(59,130,246,.15)', levelText: 'var(--blue)',
+    formula: 'ملاحظة + رأي مبرر + دليل من السيناريو',
+    structure: [
+      { text: 'الملاحظة — ماذا تلاحظ؟', note: 'من السيناريو مباشرة' },
+      { text: 'التقييم — ماذا يعني ذلك؟', note: 'رأي مبرر بالدليل' },
+      { text: 'الاستنتاج — ما الأثر؟', note: 'ربط بالنتائج' },
+    ],
+    keywords: ['suggests','indicates','appears','seems','implies','demonstrates','reveals','shows','concerns'],
+    example: '"The absence of a formal risk assessment, as indicated in the scenario, suggests a significant gap in the organisation\'s safety management system — this is of particular concern given the high-risk nature of the work."',
+    mistakes: [
+      'التعليق بلا دليل من السيناريو',
+      'الوصف فقط بلا رأي أو تقييم',
+    ]
+  },
+  Explain: {
+    level: 2, levelLabel: 'مستوى 2 — متوسط',
+    levelColor: 'rgba(59,130,246,.15)', levelText: 'var(--blue)',
+    formula: 'ماذا ← لماذا ← كيف ← ربط بالسيناريو',
+    structure: [
+      { text: 'ماذا؟ — اذكر الفكرة الرئيسية', note: 'جملة افتتاحية واضحة' },
+      { text: 'لماذا؟ — اشرح السبب أو المنطق', note: 'الأهم في Explain' },
+      { text: 'كيف؟ — وضّح الآلية أو التأثير', note: 'يعمّق الإجابة' },
+      { text: 'ربط — اربط بالسيناريو أو مرجع', note: 'يثبت الدرجة' },
+    ],
+    keywords: ['because','therefore','consequently','as a result','this means','due to','in order to','which leads to','this is because'],
+    example: '"Regular toolbox talks improve safety culture because they create a continuous dialogue between workers and management about hazards — this means workers are more likely to report near misses, ultimately reducing incident rates as demonstrated by HSE research."',
+    mistakes: [
+      'الوصف فقط بلا شرح السبب — هذا الخطأ الأكثر تكراراً',
+      'نسيان ربط "لماذا" بالموضوع المحدد',
+      'الجمل القصيرة جداً — Explain تحتاج عمقاً',
+    ]
+  },
+  Analyse: {
+    level: 3, levelLabel: 'مستوى 3 — متقدم',
+    levelColor: 'rgba(245,166,35,.15)', levelText: 'var(--amber)',
+    formula: 'تقسيم → فحص العلاقات → استنتاج',
+    structure: [
+      { text: 'قسّم الموضوع إلى أجزاء', note: 'فوري + جذري + ثقافي' },
+      { text: 'افحص كل جزء وعلاقته بالأجزاء الأخرى', note: 'الترابط هو جوهر Analysis' },
+      { text: 'أضف أدلة ومراجع لكل جزء', note: 'من السيناريو + مرجع خارجي' },
+      { text: 'استنتاج يربط الأجزاء معاً', note: 'لا تترك التحليل معلقاً' },
+    ],
+    keywords: ['immediate cause','underlying cause','root cause','contributing factor','relationship','interaction','system failure','breakdown','mechanism'],
+    example: '"An analysis of the incident reveals three interconnected causal layers: the immediate cause (no guard), the underlying cause (inadequate maintenance schedule), and the root cause (production pressure overriding safety — evidenced by the bonus scheme described in the scenario). These causes are not isolated but reinforce each other."',
+    mistakes: [
+      'الوصف فقط بلا تحليل العلاقات بين الأسباب',
+      'نسيان الربط بين الأجزاء — هذا ما يميّز Analysis عن Describe',
+      'إغفال الأسباب الجذرية والتركيز على الفورية فقط',
+    ]
+  },
+  Assess: {
+    level: 3, levelLabel: 'مستوى 3 — متقدم',
+    levelColor: 'rgba(245,166,35,.15)', levelText: 'var(--amber)',
+    formula: 'تحديد المعيار → قياس الأهمية → حكم نسبي',
+    structure: [
+      { text: 'حدد معيار التقييم', note: 'قانون أو معيار أو ممارسة مرجعية' },
+      { text: 'قيّم الأهمية النسبية لكل عنصر', note: 'ما الأكثر تأثيراً؟' },
+      { text: 'أصدر أحكاماً مقارنة', note: 'أكثر/أقل خطورة، عالي/منخفض الأولوية' },
+      { text: 'ادعم بأدلة من السيناريو والمراجع', note: 'ILO، ISO، HSE...' },
+    ],
+    keywords: ['significant','critical','major','minor','high/low priority','severity','likelihood','consequence','tolerable','unacceptable','proportionate'],
+    example: '"Assessing the risks against the MHSWR 1999 Reg.3 "suitable and sufficient" standard, the unguarded machinery represents the most critical risk due to its high severity (potential fatality) and high likelihood (daily exposure) — this must be addressed before the housekeeping issues which present a lower severity risk."',
+    mistakes: [
+      'الوصف بدل التقييم — Assess = أحكام نسبية',
+      'نسيان المعيار المرجعي للتقييم',
+      'عدم التمييز بين درجات الأهمية',
+    ]
+  },
+  Evaluate: {
+    level: 4, levelLabel: 'مستوى 4 — عالي المستوى',
+    levelColor: 'rgba(255,71,87,.15)', levelText: 'var(--red)',
+    formula: 'تحليل + وزن الأدلة المتعارضة + حكم نهائي قاطع',
+    structure: [
+      { text: 'عرض الأدلة الإيجابية', note: 'ما يعمل جيداً؟' },
+      { text: 'عرض الأدلة السلبية', note: 'ما يفشل أو يقصر؟' },
+      { text: 'وزن الأدلة المتعارضة', note: 'أيهما أقوى وأكثر تأثيراً؟' },
+      { text: 'الحكم النهائي القاطع', note: 'إلزامي — لا تترك الإجابة مفتوحة' },
+    ],
+    keywords: ['effective','ineffective','strengths','weaknesses','evidence suggests','on balance','overall','in conclusion','the evidence indicates','notwithstanding','despite'],
+    example: '"While the organisation has implemented some positive measures (PPE provision, some training), the evidence from the scenario strongly outweighs these — the systematic absence of risk assessment, the production-over-safety culture, and the 23% injury rate all indicate a fundamentally ineffective safety management system. On balance, the system fails to meet the ISO 45001:2018 requirements for effective OSH management."',
+    mistakes: [
+      'تقديم الحجج فقط بلا حكم نهائي — هذا Discuss وليس Evaluate',
+      'الحكم في البداية بلا أدلة تدعمه',
+      'الحياد التام — Evaluate تتطلب موقفاً واضحاً',
+      'نسيان الجانب الإيجابي — التوازن ضروري',
+    ]
+  },
+  Discuss: {
+    level: 4, levelLabel: 'مستوى 4 — عالي المستوى',
+    levelColor: 'rgba(255,71,87,.15)', levelText: 'var(--red)',
+    formula: 'عرض الحجج المؤيدة + المعارضة + موازنة + استنتاج',
+    structure: [
+      { text: 'المقدمة — حدد محور النقاش', note: 'جملة موضوع واضحة' },
+      { text: 'الحجج المؤيدة + أدلة', note: 'من مراجع رسمية' },
+      { text: 'الحجج المعارضة أو القيود + أدلة', note: 'أظهر التفكير النقدي' },
+      { text: 'الموازنة وترجيح الأقوى', note: 'أيهما أكثر إقناعاً؟' },
+      { text: 'الاستنتاج', note: 'موقف نهائي مدعوم بالأدلة' },
+    ],
+    keywords: ['argue','contend','proponents suggest','critics argue','however','conversely','on the other hand','balanced view','it can be argued','a counter-argument'],
+    example: '"It can be argued that behavioural safety programmes are effective, as HSG48 evidence suggests that 80% of accidents involve human factors. However, critics contend that such approaches risk "victim-blaming" and divert attention from systemic organisational failures. The evidence from this scenario — where management pressure overrides safety — suggests systemic causes dominate, making a systems-based approach more appropriate than an exclusively behavioural one."',
+    mistakes: [
+      'عرض حجة واحدة فقط — Discuss = تعددية الزوايا',
+      'الغموض في الاستنتاج — لا بد من موقف',
+      'إغفال الأدلة والمراجع',
+    ]
+  },
+  Justify: {
+    level: 4, levelLabel: 'مستوى 4 — عالي المستوى',
+    levelColor: 'rgba(255,71,87,.15)', levelText: 'var(--red)',
+    formula: 'الموقف المحدد + الأدلة الداعمة + الرد على الاعتراضات',
+    structure: [
+      { text: 'اذكر الموقف أو القرار بوضوح', note: 'لا غموض في الموقف' },
+      { text: 'قدّم أدلة قوية من مراجع متعددة', note: 'تشريعات + إحصاءات + سيناريو' },
+      { text: 'توقّع الاعتراض وردّ عليه', note: 'يُظهر تفكيراً نقدياً' },
+      { text: 'أكّد الموقف في الخاتمة', note: 'مدعوم بالأدلة لا بالرأي' },
+    ],
+    keywords: ['because','evidence shows','this is supported by','the data indicates','furthermore','it follows that','therefore','consequently','given that'],
+    example: '"The decision to halt production is justified on the grounds that HSWA 1974 s.2 creates an absolute duty to provide safe systems — continuing operations would constitute a criminal breach. Furthermore, ILO C.155 Article 13 grants workers the right to remove themselves from imminent danger. The short-term financial cost of halting production is outweighed by the legal, financial and human cost of a fatality."',
+    mistakes: [
+      'الرأي بلا دليل — Justify تعتمد على الأدلة لا المشاعر',
+      'إغفال الاعتراضات المحتملة',
+      'نسيان التأكيد على الموقف في الخاتمة',
+    ]
+  },
+  Recommend: {
+    level: 4, levelLabel: 'مستوى 4 — عالي المستوى',
+    levelColor: 'rgba(255,71,87,.15)', levelText: 'var(--red)',
+    formula: 'ماذا تفعل ← لماذا ← كيف تنفّذ ← من المسؤول',
+    structure: [
+      { text: 'التوصية المحددة — ماذا يجب فعله؟', note: 'فعل + هدف + إطار زمني' },
+      { text: 'المبرر — لماذا هذه التوصية؟', note: 'ربط بالسيناريو + مرجع' },
+      { text: 'كيفية التنفيذ — الخطوات العملية', note: 'محددة وقابلة للتطبيق' },
+      { text: 'المسؤولية والأولوية', note: 'من ينفّذ؟ في أي أولوية؟' },
+    ],
+    keywords: ['should','must','recommend','implement','establish','introduce','conduct','review','appoint','ensure','prioritise','immediate','urgent'],
+    example: '"It is recommended that the organisation immediately implements a formal permit-to-work system for all non-routine maintenance activities. This is required under HASAWA 1974 s.2 and would directly address the unsafe system of work identified in the scenario. A competent person should be appointed to develop the system within 30 days, with initial training completed within 60 days."',
+    mistakes: [
+      'التوصيات العامة جداً — "تحسين السلامة" ليست توصية',
+      'نسيان الربط بالسيناريو المحدد',
+      'إغفال "كيف" و"من" — التوصية الجيدة قابلة للتطبيق',
+    ]
+  },
+  Review: {
+    level: 4, levelLabel: 'مستوى 4 — عالي المستوى',
+    levelColor: 'rgba(255,71,87,.15)', levelText: 'var(--red)',
+    formula: 'مسح شامل → فحص نقدي → حساب ما حُقق → فجوات → مسار',
+    structure: [
+      { text: 'نطاق المراجعة — ما الذي يُراجَع؟', note: 'حدد النطاق بوضوح' },
+      { text: 'الفحص النقدي — ما يعمل وما لا يعمل', note: 'بالأدلة من السيناريو' },
+      { text: 'قياس الأداء مقابل المعيار', note: 'HSG65، ISO 45001، HSWA...' },
+      { text: 'تحديد الفجوات والتوصيات', note: 'ما المطلوب تحسينه؟' },
+    ],
+    keywords: ['examined','assessed against','measured against','benchmark','performance indicators','gaps identified','shortfalls','compliance','conformance','recommendations'],
+    example: '"A review of the health and safety management system against HSG65 reveals significant shortfalls in both the Plan and Do stages: while the organisation has a safety policy (Plan ✓), there is no evidence of suitable risk assessments (Plan ✗) or effective implementation of controls (Do ✗). These gaps must be addressed to meet the legal minimum standard under MHSWR 1999."',
+    mistakes: [
+      'الوصف فقط بلا مقارنة بمعيار مرجعي',
+      'إغفال الفجوات والتوصيات',
+      'مراجعة جزء فقط بلا نظرة شاملة',
+    ]
+  },
+  Distinguish: {
+    level: 2, levelLabel: 'مستوى 2 — متوسط',
+    levelColor: 'rgba(59,130,246,.15)', levelText: 'var(--blue)',
+    formula: 'المفهوم أ ≠ المفهوم ب + الفرق الجوهري',
+    structure: [
+      { text: 'عرّف المفهوم الأول بوضوح', note: 'بجملة واحدة دقيقة' },
+      { text: 'عرّف المفهوم الثاني بوضوح', note: 'مع التوازي في الأسلوب' },
+      { text: 'اذكر الفرق الجوهري صراحةً', note: '"الفرق الرئيسي هو..."' },
+      { text: 'مثال يوضح الفرق', note: 'من السيناريو إن أمكن' },
+    ],
+    keywords: ['whereas','unlike','in contrast','the key difference','however','while','as opposed to','the distinction lies in','differs from'],
+    example: '"A hazard is a source of potential harm (e.g., the unguarded machinery in the scenario), whereas risk is the likelihood that the hazard will cause harm combined with the severity of the consequence. The key distinction is that hazard is an inherent property, while risk is a relational concept that considers probability."',
+    mistakes: [
+      'تعريف المفهومين بلا ذكر الفرق صراحةً',
+      'الخلط — اشرح الفرق لا التشابه',
+      'إغفال مثال توضيحي',
+    ]
+  },
+  Compare: {
+    level: 3, levelLabel: 'مستوى 3 — متقدم',
+    levelColor: 'rgba(245,166,35,.15)', levelText: 'var(--amber)',
+    formula: 'أوجه التشابه + أوجه الاختلاف + الحكم المقارن',
+    structure: [
+      { text: 'أوجه التشابه — ما المشترك؟', note: 'لا تتجاهل التشابهات' },
+      { text: 'أوجه الاختلاف — ما المختلف؟', note: 'الجوهرية والعملية' },
+      { text: 'الحكم المقارن — أيهما أفضل/أقوى/أكثر ملاءمة؟', note: 'في السياق المحدد' },
+    ],
+    keywords: ['similarly','likewise','both','in common','shared','however','whereas','by contrast','the main similarity','the principal difference','on balance'],
+    example: '"Both ILO-OSH 2001 and ISO 45001:2018 share the PDCA framework and require hazard identification — however, ISO 45001 is more prescriptive and certifiable, while ILO-OSH 2001 offers guidance rather than requirements. For a large multinational like the one in the scenario, ISO 45001 certification would provide stronger external validation."',
+    mistakes: [
+      'الاقتصار على الاختلافات وإغفال التشابهات',
+      'عدم الوصول لحكم مقارن',
+      'المقارنة بلا أدلة أو مراجع',
+    ]
+  },
+  Consider: {
+    level: 3, levelLabel: 'مستوى 3 — متقدم',
+    levelColor: 'rgba(245,166,35,.15)', levelText: 'var(--amber)',
+    formula: 'تحديد العوامل + تأمل في أهميتها + ربط بالسياق',
+    structure: [
+      { text: 'حدد العوامل أو الجوانب المطلوب أخذها بالاعتبار', note: 'قائمة شاملة' },
+      { text: 'تأمل في أهمية كل عامل في السياق المحدد', note: 'ليس مجرد قائمة' },
+      { text: 'اربط باحتياجات الموقف أو المنظمة', note: 'من السيناريو' },
+    ],
+    keywords: ['factors','considerations','elements','aspects','dimensions','implications','impact','relevance','importance','weighting'],
+    example: '"When considering the selection of personal protective equipment, the following factors must be addressed: the nature and severity of the hazard (physical vs chemical), the duration of exposure, compatibility with other PPE worn, and worker comfort and compliance — the scenario indicates prolonged exposure, making comfort a critical consideration for sustained use."',
+    mistakes: [
+      'مجرد قائمة بلا تأمل في الأهمية',
+      'إغفال ربط العوامل بالسياق المحدد',
+    ]
+  },
+  Determine: {
+    level: 3, levelLabel: 'مستوى 3 — متقدم',
+    levelColor: 'rgba(245,166,35,.15)', levelText: 'var(--amber)',
+    formula: 'تحقيق → تحليل الأدلة → قرار محدد وقاطع',
+    structure: [
+      { text: 'اجمع الأدلة ذات الصلة', note: 'من السيناريو والمراجع' },
+      { text: 'حلّل الأدلة بشكل منهجي', note: 'مقابل معيار واضح' },
+      { text: 'أصدر قراراً محدداً وقاطعاً', note: 'نعم/لا + مبرر' },
+    ],
+    keywords: ['based on the evidence','the findings indicate','it can be concluded','therefore','compliance with','breach of','in accordance with','meets/does not meet'],
+    example: '"Based on the evidence in the scenario, it can be determined that the organisation is not in compliance with MHSWR 1999 Reg.3, as no suitable and sufficient risk assessment has been conducted for the modified process. This constitutes a regulatory breach requiring immediate corrective action."',
+    mistakes: [
+      'التردد في القرار — Determine تعني قراراً قاطعاً',
+      'القرار بلا أدلة تدعمه',
+      'الخلط مع Assess — Determine أكثر قطعية',
+    ]
+  },
+  Demonstrate: {
+    level: 2, levelLabel: 'مستوى 2 — متوسط',
+    levelColor: 'rgba(59,130,246,.15)', levelText: 'var(--blue)',
+    formula: 'ادّعاء + دليل + ربط منطقي صريح',
+    structure: [
+      { text: 'اذكر الادعاء أو المبدأ', note: 'ما تريد إثباته' },
+      { text: 'قدّم الدليل من السيناريو أو المرجع', note: 'مثال محدد وملموس' },
+      { text: 'اربط الدليل بالادعاء صراحةً', note: '"هذا يُثبت أن..."' },
+    ],
+    keywords: ['this demonstrates','this shows','as evidenced by','this confirms','which proves','the evidence shows','this illustrates','as shown by'],
+    example: '"The organisation\'s failure to maintain safe plant can be demonstrated by the fact that machine guards were removed and not replaced (scenario, para.2) — this directly demonstrates non-compliance with HSWA 1974 s.2(2)(a) and establishes employer liability."',
+    mistakes: [
+      'الادعاء بلا دليل',
+      'الدليل بلا ربط صريح بالادعاء',
+      'استخدام أمثلة عامة بدل أدلة محددة',
+    ]
+  },
+  Calculate: {
+    level: 3, levelLabel: 'مستوى 3 — متقدم',
+    levelColor: 'rgba(245,166,35,.15)', levelText: 'var(--amber)',
+    formula: 'المعادلة + التعويض + الحساب + النتيجة بالوحدة',
+    structure: [
+      { text: 'اذكر المعادلة المستخدمة', note: 'صراحةً في البداية' },
+      { text: 'عوّض بالأرقام من السيناريو', note: 'أظهر كل خطوة' },
+      { text: 'أجرِ الحساب خطوة بخطوة', note: 'لا تتجاوز خطوات' },
+      { text: 'النتيجة مع الوحدة الصحيحة', note: 'الوحدة جزء من الإجابة' },
+    ],
+    keywords: ['frequency rate','incidence rate','severity rate','per 1,000 workers','lost time','incidents per','rate formula','accident rate'],
+    example: '"Accident Frequency Rate = (Number of accidents × 1,000,000) ÷ Total hours worked = (12 × 1,000,000) ÷ 250,000 = 48 accidents per million hours worked. This rate of 48 significantly exceeds the industry benchmark of 8, indicating a seriously underperforming safety system."',
+    mistakes: [
+      'إعطاء الإجابة بلا إظهار الخطوات',
+      'نسيان الوحدة في النتيجة',
+      'نسيان تفسير النتيجة في السياق',
+    ]
+  },
+};
+
+let gfOpen = true;
+
+function toggleGoldenFormula() {
+  gfOpen = !gfOpen;
+  document.getElementById('gf-body').style.display = gfOpen ? 'block' : 'none';
+  document.getElementById('gf-toggle-icon').style.transform = gfOpen ? 'rotate(0deg)' : 'rotate(-90deg)';
+}
+
+function showGoldenFormula(words) {
+  const panel = document.getElementById('golden-formula-panel');
+  if (!words || words.length === 0) { panel.style.display = 'none'; return; }
+
+  // خذ أول كلمة صالحة
+  const word = words.find(w => GOLDEN_FORMULA[w.word || w]) || words[0];
+  const key = word.word || word;
+  const data = GOLDEN_FORMULA[key];
+  if (!data) { panel.style.display = 'none'; return; }
+
+  // تحديث المحتوى
+  document.getElementById('gf-title').textContent = `✨ ${key} — الفرمولا الذهبية`;
+  document.getElementById('gf-subtitle').textContent = 'هيكل الإجابة · الكلمات الذهبية · الأخطاء الشائعة';
+  document.getElementById('gf-level-badge').textContent = data.levelLabel;
+  document.getElementById('gf-level-badge').style.background = data.levelColor;
+  document.getElementById('gf-level-badge').style.color = data.levelText;
+  document.getElementById('gf-level-badge').style.border = `1px solid ${data.levelText}40`;
+
+  // الفرمولا
+  document.getElementById('gf-formula').textContent = data.formula;
+
+  // الهيكل
+  document.getElementById('gf-structure').innerHTML = data.structure.map((s, i) => `
+    <div class="gf-structure-step">
+      <div class="gf-step-num">${i + 1}</div>
+      <div style="flex:1;">
+        <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;">${s.text}</div>
+        <div style="font-size:11px;color:var(--text-dim);">${s.note}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // الكلمات الذهبية
+  document.getElementById('gf-keywords').innerHTML = data.keywords.map(k =>
+    `<span class="gf-keyword">${k}</span>`
+  ).join('');
+
+  // المثال
+  document.getElementById('gf-example').textContent = data.example;
+
+  // الأخطاء
+  document.getElementById('gf-mistakes').innerHTML = data.mistakes.map(m => `
+    <div class="gf-mistake">
+      <span class="gf-mistake-icon">✗</span>
+      <span>${m}</span>
+    </div>
+  `).join('');
+
+  panel.style.display = 'block';
+  gfOpen = true;
+  document.getElementById('gf-body').style.display = 'block';
+  document.getElementById('gf-toggle-icon').style.transform = 'rotate(0deg)';
+}
 async function aiDetectCommandWord(question) {
   clearTimeout(cwDebounce);
   cwDebounce = setTimeout(async () => {
@@ -1628,6 +2429,8 @@ Respond with ONLY this JSON (no other text):
       }
       note.style.color = 'var(--amber)';
       STATE.manualCW = parsed.commandWords.join(', ');
+      // ★ عرض الفرمولا الذهبية
+      showGoldenFormula(parsed.commandWords.map(w => ({ word: w, ai: true })));
 
     } catch(e) {
       // Fallback — استنتاج محلي
@@ -1638,6 +2441,8 @@ Respond with ONLY this JSON (no other text):
       note.textContent = '⚡ تم استنتاج كلمة الأمر محلياً';
       note.style.color = 'var(--amber)';
       STATE.manualCW = fallback.join(', ');
+      // ★ عرض الفرمولا الذهبية
+      showGoldenFormula(fallback.map(w => ({ word: w })));
     }
   }, 600); // debounce 600ms
 }
@@ -1685,8 +2490,264 @@ function updateQCounter() {
 }
 
 // ══════════════════════════════════
-// GENERATE ANSWER
+// THREE-LEVEL ANSWER SYSTEM
 // ══════════════════════════════════
+STATE.answerLevel = 1; // افتراضي: المستوى الأول
+
+function selectAnswerLevel(level) {
+  STATE.answerLevel = level;
+
+  // تحديث الـ UI
+  [1, 2, 3].forEach(l => {
+    const card = document.getElementById(`level-${l}-card`);
+    const radio = document.getElementById(`level-${l}-radio`);
+    if (!card) return;
+    card.className = 'answer-level-card' + (l === level ? ` selected-l${l}` : '');
+    if (l === level) {
+      const colors = { 1: 'var(--green)', 2: 'var(--blue)', 3: 'var(--amber)' };
+      radio.style.background = colors[l];
+      radio.style.borderColor = colors[l];
+      radio.innerHTML = '<div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>';
+    } else {
+      radio.style.background = 'transparent';
+      radio.style.borderColor = 'var(--border2)';
+      radio.innerHTML = '';
+    }
+  });
+
+  // إظهار/إخفاء بطاقة المنظمات
+  const orgsCard = document.getElementById('orgs-card');
+  if (orgsCard) {
+    orgsCard.style.display = level === 2 ? 'none' : 'block';
+  }
+
+  // تحديث زر التوليد
+  const btnLabels = {
+    1: '✨ توليد الإجابة — المستوى 1 (منظمات دولية)',
+    2: '📚 توليد الإجابة — المستوى 2 (مستنداتي)',
+    3: '⭐ توليد الإجابة الشاملة P.E.E — المستوى 3'
+  };
+  const genText = document.getElementById('gen-btn-text');
+  if (genText) genText.textContent = btnLabels[level];
+
+  // تحديث status المستوى الثاني
+  updateLevel2Status();
+}
+
+function updateLevel2Status() {
+  const statusEl = document.getElementById('level-2-status');
+  const docsRow = document.getElementById('level-2-docs-row');
+  if (!statusEl || !docsRow) return;
+
+  const book = STATE.certBooks?.[STATE.cert];
+  const docs = STATE.docs || [];
+  const allDocs = [book, ...docs].filter(Boolean);
+
+  if (allDocs.length === 0) {
+    statusEl.textContent = 'لا توجد كتب أو مستندات مرفوعة — ارفع من قسم المكتبة';
+    statusEl.style.color = 'var(--text-dim)';
+  } else {
+    docsRow.innerHTML = allDocs.map(d => `
+      <span style="font-size:10px;padding:2px 8px;border-radius:100px;
+        background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);
+        color:var(--blue);">📖 ${d.name?.substring(0, 20) || 'مستند'}</span>
+    `).join('');
+  }
+}
+
+function updateLevel1OrgsRow() {
+  const row = document.getElementById('level-1-orgs-row');
+  if (!row) return;
+  const active = [...STATE.selectedOrgs].slice(0, 6);
+  if (active.length === 0) return;
+  const allOrgsMap = {};
+  ALL_ORGS.forEach(o => allOrgsMap[o.id] = o.name);
+  row.innerHTML = active.map(id =>
+    `<span style="font-size:10px;padding:2px 8px;border-radius:100px;
+      background:rgba(0,214,143,.08);border:1px solid rgba(0,214,143,.15);
+      color:var(--green);display:inline-flex;align-items:center;gap:4px;">
+      <div style="width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 2s infinite;"></div>
+      ${allOrgsMap[id] || id}
+    </span>`
+  ).join('') + (STATE.selectedOrgs.size > 6 ? `<span style="font-size:10px;color:var(--text-dim);">+${STATE.selectedOrgs.size - 6} أخرى</span>` : '');
+}
+
+// بناء الـ prompt حسب المستوى
+function buildPromptByLevel(level, { certificate, scenario, question, commandWords, marks, selectedOrgs, booksContext, docsContext }) {
+  const minPoints = Math.max(marks, 4);
+  const cwStr = commandWords?.join(', ') || 'Analyse';
+  const orgsStr = selectedOrgs?.join(', ') || 'ILO, ISO 45001, HSE, WHO, EU-OSHA';
+
+  // ══ المستوى 1: المنظمات الدولية الحية ══
+  if (level === 1) {
+    return `You are a senior NEBOSH examiner. Generate a mark-scheme-quality answer using ONLY international organisations and authoritative references.
+
+CERTIFICATE: ${certificate}
+COMMAND WORD(S): ${cwStr}
+MARKS: ${marks} (minimum ${minPoints} developed points required)
+REFERENCE ORGANISATIONS: ${orgsStr}
+
+SCENARIO (for context only — do not cite as primary evidence):
+${scenario}
+
+QUESTION: ${question}
+
+LEVEL 1 INSTRUCTIONS — INTERNATIONAL ORGANISATIONS ONLY:
+1. Every point MUST cite a specific international organisation with report/year/clause
+2. Use 2024/2025 live data: EU-OSHA ESENER 2024, ILO World Report 2024, ISO 45001:2023
+3. Include specific statistics, figures, and legal obligations
+4. Reference: ILO conventions (C.155, C.187), ISO 45001 clauses, HSE guidance docs (HSG65, HSG48), MHSWR 1999, HSWA 1974, RIDDOR 2013
+5. Generate EXACTLY ${minPoints}+ points
+6. Each point = 2+ sentences: claim + organisation reference + specific data
+
+Return ONLY valid JSON:
+{
+  "level": 1,
+  "levelLabel": "المستوى 1 — المنظمات الدولية",
+  "commandWord": "${cwStr}",
+  "marksRequired": ${marks},
+  "points": [
+    {
+      "num": 1,
+      "P": "The principle/claim from the organisation",
+      "orgRef": "Specific org + year + report/clause",
+      "stat": "Specific statistic or data point",
+      "fullText": "Complete point text combining P + org evidence + implication",
+      "refs": [{"type": "org|law|live", "label": "specific reference"}],
+      "fromScenario": false
+    }
+  ],
+  "overallConclusion": "mandatory for Evaluate/Assess/Discuss/Review",
+  "references": [{"num": 1, "type": "org|law", "detail": "full reference"}],
+  "examTip": "tip for this command word"
+}`;
+  }
+
+  // ══ المستوى 2: المستندات المرفوعة فقط ══
+  if (level === 2) {
+    const allDocs = [];
+    if (booksContext) allDocs.push(booksContext);
+    if (docsContext) allDocs.push(docsContext);
+    const docsText = allDocs.length > 0 ? allDocs.join('\n\n') : 'No documents uploaded — use general NEBOSH principles';
+
+    return `You are a senior NEBOSH examiner. Generate an answer based EXCLUSIVELY on the uploaded documents and books.
+
+CERTIFICATE: ${certificate}
+COMMAND WORD(S): ${cwStr}
+MARKS: ${marks} (minimum ${minPoints} points required)
+
+UPLOADED DOCUMENTS AND BOOKS:
+${docsText}
+
+SCENARIO (for context):
+${scenario}
+
+QUESTION: ${question}
+
+LEVEL 2 INSTRUCTIONS — UPLOADED DOCUMENTS ONLY:
+1. Every point MUST reference the uploaded book/document by name, chapter, or page
+2. Quote or paraphrase directly from the uploaded content
+3. If a book is uploaded, cite as: "[Book Name], Chapter X, p.XX"
+4. If workplace documents uploaded, cite policies/procedures by name
+5. Generate EXACTLY ${minPoints}+ points
+6. Each point must trace back to specific uploaded content
+
+Return ONLY valid JSON:
+{
+  "level": 2,
+  "levelLabel": "المستوى 2 — المستندات المرفوعة",
+  "commandWord": "${cwStr}",
+  "marksRequired": ${marks},
+  "points": [
+    {
+      "num": 1,
+      "P": "The principle from the book/document",
+      "docRef": "Book name + chapter/page or document name",
+      "quote": "Direct quote or close paraphrase from the document",
+      "fullText": "Complete point text referencing the uploaded material",
+      "refs": [{"type": "book|doc", "label": "document reference"}],
+      "fromScenario": false
+    }
+  ],
+  "overallConclusion": "mandatory for Evaluate/Assess/Discuss/Review",
+  "references": [{"num": 1, "type": "book|doc", "detail": "full document reference"}],
+  "examTip": "tip for using uploaded documents effectively"
+}`;
+  }
+
+  // ══ المستوى 3: الإجابة الشاملة P.E.E ══
+  if (level === 3) {
+    const allDocs = [];
+    if (booksContext) allDocs.push(booksContext);
+    if (docsContext) allDocs.push(docsContext);
+
+    return `You are a senior NEBOSH examiner. Generate the HIGHEST QUALITY comprehensive answer using ALL sources with the P.E.E framework.
+
+CERTIFICATE: ${certificate}
+COMMAND WORD(S): ${cwStr}
+MARKS: ${marks} (minimum ${minPoints} P.E.E points required)
+ORGANISATIONS: ${orgsStr}
+${allDocs.length > 0 ? `UPLOADED DOCUMENTS:\n${allDocs.join('\n\n')}` : ''}
+
+SCENARIO:
+${scenario}
+
+QUESTION: ${question}
+
+LEVEL 3 — COMPREHENSIVE P.E.E ANSWER:
+Every single point MUST follow the P.E.E framework:
+
+P (Point): State the scientific principle or concept from international orgs/legislation/book
+E (Evidence): Extract SPECIFIC text/data from the scenario (quote directly where possible)
+E (Explanation): Explain the consequence, implication, or why this matters
+
+COMBINED SOURCES REQUIRED:
+- International organisations with 2024/2025 data (ILO, ISO 45001, EU-OSHA, HSE)
+- Uploaded books/documents (cite by name and page)
+- Scenario evidence (direct quotes with "as stated in the scenario...")
+- Legislation (HSWA 1974, MHSWR 1999, RIDDOR 2013, relevant standards)
+
+Generate EXACTLY ${minPoints}+ P.E.E points. Each point = 3 elements minimum.
+
+Return ONLY valid JSON:
+{
+  "level": 3,
+  "levelLabel": "المستوى 3 — الإجابة الشاملة P.E.E",
+  "commandWord": "${cwStr}",
+  "marksRequired": ${marks},
+  "peePoints": [
+    {
+      "num": 1,
+      "P": {
+        "text": "The scientific principle/concept",
+        "source": "Organisation/legislation/book reference",
+        "refs": [{"type": "org|law|book", "label": "specific reference"}]
+      },
+      "E1": {
+        "text": "Direct evidence from the scenario",
+        "scenarioQuote": "Exact or close quote from scenario text",
+        "refs": [{"type": "scenario", "label": "scenario reference"}]
+      },
+      "E2": {
+        "text": "Explanation of consequence and implication",
+        "impact": "What this means for safety/health/compliance"
+      },
+      "fullText": "Complete integrated P.E.E paragraph (3+ sentences)",
+      "refs": [
+        {"type": "org|law|book", "label": "P reference"},
+        {"type": "scenario", "label": "E1 reference"}
+      ],
+      "fromScenario": true
+    }
+  ],
+  "overallConclusion": "MANDATORY comprehensive judgment integrating all P.E.E evidence",
+  "references": [{"num": 1, "type": "org|law|book|scenario", "detail": "full reference"}],
+  "examTip": "P.E.E framework tip for maximum marks"
+}`;
+  }
+}
+
+// ══ تحديث generateAnswer لاستخدام المستوى ══
 async function generateAnswer() {
   if (!STATE.user) { showPage('login'); return; }
 
@@ -1746,63 +2807,21 @@ async function generateAnswer() {
       }[STATE.cert] || 'ILO, ISO 45001, HSE, WHO, EU-OSHA';
 
   // الكتب المرفوعة
-  const booksContext = STATE.books.length > 0
-    ? '\n\nUPLOADED REFERENCE BOOKS:\n' + STATE.books.map(b => `[BOOK: ${b.name}]`).join('\n')
-    : '';
+  const booksContext = getActiveBookContext(question + " " + scenario.substring(0, 200)) || "";
+  const docsContext = (STATE.docs || []).map(d => `[DOC: ${d.name}]\n${d.content || ''}`).join('\n\n');
 
-  // ضمان عدد النقاط = الدرجات
-  const minPoints = Math.max(STATE.marks, 4);
-
-  const prompt = `You are a senior NEBOSH examiner and expert tutor. Generate a comprehensive, mark-scheme-quality answer.
-
-CERTIFICATE: ${STATE.cert}
-COMMAND WORD(S): ${detectedCW}
-MARKS AVAILABLE: ${STATE.marks}
-MINIMUM ANSWER POINTS REQUIRED: ${minPoints} (one distinct, developed point per mark minimum)
-SCENARIO DEPENDENCY: ${depInstruction}
-REFERENCE ORGANISATIONS: ${chosenOrgs}${booksContext}
-
-SCENARIO:
-${scenario}
-
-QUESTION:
-${question}
-
-CRITICAL MARKING INSTRUCTIONS:
-1. YOU MUST GENERATE AT LEAST ${minPoints} SEPARATE ANSWER POINTS — this is non-negotiable for a ${STATE.marks}-mark question
-2. Each point = 1 mark — must be sufficiently developed with specific detail
-3. For ${STATE.marks} marks, examiner expects ${minPoints} developed points minimum
-4. ${depInstruction}
-5. Every point MUST include at least one specific reference (legislation with section, org with year/report, standard with clause)
-6. Use 2024/2025 data: EU-OSHA ESENER 2024, ILO World Report 2024, ISO 45001:2023 updates
-7. If command word is Evaluate/Assess/Discuss/Review — final conclusion paragraph is MANDATORY
-8. Mark scenario-derived points clearly
-
-Return ONLY this exact JSON (no markdown, no text outside JSON):
-{
-  "commandWord": "${detectedCW}",
-  "marksRequired": ${STATE.marks},
-  "pointsGenerated": <number>,
-  "structure": "brief explanation of answer structure for this command word",
-  "points": [
-    {
-      "num": 1,
-      "text": "Full developed answer point in professional English exam standard — minimum 2 sentences per point",
-      "refs": [
-        {"type": "scenario|law|org|book|live", "label": "specific reference with detail"},
-        {"type": "live", "label": "EU-OSHA ESENER 2024: specific statistic"}
-      ],
-      "fromScenario": true,
-      "mark": "1 mark — [brief mark scheme justification]"
-    }
-  ],
-  "overallConclusion": "MANDATORY for Evaluate/Assess/Discuss/Review/Justify — comprehensive final judgment based on all points above",
-  "references": [
-    {"num": 1, "type": "law|org|book|scenario|live", "detail": "full academic reference"}
-  ],
-  "examTip": "specific examiner tip for this question and command word",
-  "markingNote": "brief note on how examiner would allocate these marks"
-}`;
+  // ══ بناء الـ prompt حسب المستوى المختار ══
+  const level = STATE.answerLevel || 1;
+  const prompt = buildPromptByLevel(level, {
+    certificate: STATE.cert,
+    scenario,
+    question,
+    commandWords: [detectedCW],
+    marks: STATE.marks,
+    selectedOrgs: [...STATE.selectedOrgs].map(id => ALL_ORGS.find(o => o.id === id)?.name).filter(Boolean),
+    booksContext,
+    docsContext
+  });
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -1810,7 +2829,7 @@ Return ONLY this exact JSON (no markdown, no text outside JSON):
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: Math.max(3000, STATE.marks * 250),
+        max_tokens: Math.max(4000, STATE.marks * 300),
         messages: [{ role: 'user', content: prompt }]
       })
     });
@@ -1856,10 +2875,140 @@ function animateLoadingSteps() {
 }
 
 function renderAnswer(data, question, scenario) {
-  const depColors = {1:'rt-scenario mc-red',2:'rt-scenario mc-amber',3:'rt-org mc-green'};
-  const depLabel = {1:'🔴 سيناريو فقط',2:'🟡 سيناريو + دعم',3:'🟢 حر'};
-  const refTypeClass = {scenario:'rt-scenario',law:'rt-law',org:'rt-org',book:'rt-book',live:'rt-live'};
-  const refTypeIcon = {scenario:'📋',law:'⚖️',org:'🏛️',book:'📖',live:'🟢'};
+  const refTypeClass = {scenario:'rt-scenario',law:'rt-law',org:'rt-org',book:'rt-book',live:'rt-live',doc:'rt-book'};
+  const refTypeIcon = {scenario:'📋',law:'⚖️',org:'🏛️',book:'📖',live:'🟢',doc:'📂'};
+  const level = data.level || STATE.answerLevel || 1;
+
+  const levelMeta = {
+    1: { chip: 'mc-green', label: '🌐 المستوى 1 — منظمات دولية', color: 'var(--green)' },
+    2: { chip: 'mc-blue',  label: '📚 المستوى 2 — مستنداتي', color: 'var(--blue)' },
+    3: { chip: 'mc-amber', label: '⭐ المستوى 3 — P.E.E شامل', color: 'var(--amber)' },
+  };
+  const lm = levelMeta[level] || levelMeta[1];
+
+  // ══ عرض نقاط المستوى 1 و 2 ══
+  let pointsHTML = '';
+  const points = data.points || data.peePoints || [];
+  const pointCount = points.length;
+
+  if (level === 3 && data.peePoints) {
+    // عرض P.E.E مميّز
+    pointsHTML = data.peePoints.map((pt, i) => `
+      <div class="answer-point" style="padding:16px 0;">
+        <div style="font-size:12px;font-weight:700;color:${lm.color};font-family:var(--font-mono);margin-bottom:10px;">نقطة ${pt.num} من ${data.peePoints.length}</div>
+
+        <!-- P: Point -->
+        <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px 12px;background:rgba(0,214,143,.05);border-radius:var(--r-sm);border-right:3px solid var(--green);">
+          <div style="min-width:28px;height:24px;border-radius:6px;background:rgba(0,214,143,.15);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--green);font-family:var(--font-mono);font-size:13px;flex-shrink:0;">P</div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:3px;">Point — النقطة</div>
+            <div style="font-size:13px;line-height:1.65;">${pt.P?.text || ''}</div>
+            ${pt.P?.source ? `<div style="margin-top:5px;display:flex;gap:5px;flex-wrap:wrap;">${(pt.P?.refs||[]).map(r=>`<span class="ref-tag ${refTypeClass[r.type]||'rt-org'}">${refTypeIcon[r.type]||'📌'} ${r.label}</span>`).join('')}</div>` : ''}
+          </div>
+        </div>
+
+        <!-- E1: Evidence -->
+        <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px 12px;background:rgba(59,130,246,.05);border-radius:var(--r-sm);border-right:3px solid var(--blue);">
+          <div style="min-width:28px;height:24px;border-radius:6px;background:rgba(59,130,246,.15);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);font-family:var(--font-mono);font-size:13px;flex-shrink:0;">E</div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--blue);margin-bottom:3px;">Evidence — الدليل من السيناريو</div>
+            <div style="font-size:13px;line-height:1.65;">${pt.E1?.text || ''}</div>
+            ${pt.E1?.scenarioQuote ? `<div style="margin-top:5px;font-style:italic;font-size:12px;color:var(--text-dim);padding:5px 10px;background:rgba(0,0,0,.15);border-radius:4px;">"${pt.E1.scenarioQuote}"</div>` : ''}
+            <span class="scen-tag-inline" style="margin-top:5px;display:inline-block;">من السيناريو</span>
+          </div>
+        </div>
+
+        <!-- E2: Explanation -->
+        <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px 12px;background:rgba(255,71,87,.05);border-radius:var(--r-sm);border-right:3px solid var(--red);">
+          <div style="min-width:28px;height:24px;border-radius:6px;background:rgba(255,71,87,.15);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--red);font-family:var(--font-mono);font-size:13px;flex-shrink:0;">E</div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px;">Explanation — الشرح والعواقب</div>
+            <div style="font-size:13px;line-height:1.65;">${pt.E2?.text || ''}</div>
+            ${pt.E2?.impact ? `<div style="margin-top:4px;font-size:11px;color:var(--text-dim);">⚡ ${pt.E2.impact}</div>` : ''}
+          </div>
+        </div>
+
+        <!-- النقطة الكاملة المدمجة -->
+        ${pt.fullText ? `
+        <div style="padding:10px 14px;background:rgba(245,166,35,.04);border:1px solid rgba(245,166,35,.1);border-radius:var(--r-sm);margin-top:6px;">
+          <div style="font-size:10px;font-weight:600;color:var(--amber);margin-bottom:5px;">✍️ النقطة الكاملة للكتابة في الاختبار</div>
+          <div style="font-size:13px;line-height:1.75;">${pt.fullText}</div>
+        </div>` : ''}
+
+        <!-- المراجع -->
+        <div class="point-refs" style="margin-top:8px;">
+          ${(pt.refs||[]).map(r=>`<span class="ref-tag ${refTypeClass[r.type]||'rt-org'}">${refTypeIcon[r.type]||'📌'} ${r.label}</span>`).join('')}
+        </div>
+      </div>
+    `).join('<div style="height:1px;background:var(--border);margin:4px 0;"></div>');
+
+  } else {
+    // عرض المستوى 1 و 2 — نقاط عادية
+    pointsHTML = points.map((pt, i) => `
+      <div class="answer-point">
+        <div class="point-text">
+          <strong style="color:${lm.color};font-family:var(--font-mono);">${i+1}.</strong>
+          ${pt.fromScenario ? '<span class="scen-tag-inline">من السيناريو</span>' : ''}
+          ${pt.text || pt.fullText || ''}
+          ${pt.orgRef ? `<div style="font-size:11px;color:var(--text-dim);margin-top:3px;">📍 ${pt.orgRef}${pt.stat ? ` · ${pt.stat}` : ''}</div>` : ''}
+          ${pt.docRef ? `<div style="font-size:11px;color:var(--blue);margin-top:3px;">📖 ${pt.docRef}${pt.quote ? ` — "${pt.quote}"` : ''}</div>` : ''}
+        </div>
+        <div class="point-refs">
+          ${(pt.refs||[]).map(r=>`<span class="ref-tag ${refTypeClass[r.type]||'rt-org'}">${refTypeIcon[r.type]||'📌'} ${r.label}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  if (data.overallConclusion) {
+    pointsHTML += `
+      <div style="background:rgba(0,214,143,.06);border:1px solid rgba(0,214,143,.15);border-radius:var(--r-sm);padding:14px;margin-top:14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--green);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">الحكم النهائي الإجمالي</div>
+        <div style="font-size:14px;line-height:1.7;">${data.overallConclusion}</div>
+      </div>
+    `;
+  }
+
+  const refsHTML = (data.references||[]).map(r => {
+    const cls = {law:'rn-red',org:'rn-blue',book:'rn-purple',scenario:'rn-green',live:'rn-green',doc:'rn-blue'}[r.type] || 'rn-blue';
+    return `<div class="ref-row"><div class="ref-num ${cls}">${r.num}</div><div class="ref-detail">${r.detail}</div></div>`;
+  }).join('');
+
+  const html = `
+    <div class="answer-section">
+      <div class="answer-header">
+        <div class="answer-title">✅ ${data.levelLabel || 'الإجابة الشاملة'} — ${STATE.cert}</div>
+        <div class="answer-meta">
+          <span class="meta-chip ${lm.chip}">${data.commandWord || 'Analyse'}</span>
+          <span class="meta-chip mc-amber">${STATE.marks} درجة</span>
+          <span class="meta-chip mc-blue">${pointCount} نقطة</span>
+          <span class="meta-chip ${pointCount >= STATE.marks ? 'mc-green' : 'mc-red'}">${pointCount >= STATE.marks ? '✓ كافية' : '⚠ أقل'}</span>
+        </div>
+      </div>
+      <div class="answer-body">
+        ${level === 3 ? `
+          <div style="background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.2);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:18px;">⭐</span>
+            <div style="font-size:12px;color:var(--amber);">إجابة شاملة بقاعدة <strong>P.E.E</strong> — كل نقطة تحتوي: المبدأ ← الدليل من السيناريو ← الشرح والعواقب</div>
+          </div>
+        ` : ''}
+        ${pointsHTML}
+        ${data.examTip ? `<div style="background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.15);border-radius:var(--r-sm);padding:10px 14px;margin-top:14px;font-size:12px;color:var(--amber);">💡 <strong>نصيحة الاختبار:</strong> ${data.examTip}</div>` : ''}
+        <div class="answer-actions">
+          <button class="btn btn-surface btn-sm" onclick="copyAnswer()">📋 نسخ الإجابة</button>
+          <button class="btn btn-surface btn-sm" onclick="showAppSection('history')">💾 حفظ</button>
+          <button class="btn btn-ghost btn-sm" onclick="resetForm()">🔄 سؤال جديد</button>
+        </div>
+      </div>
+      ${refsHTML ? `<div class="refs-section"><div class="refs-title">📚 قائمة المراجع</div>${refsHTML}</div>` : ''}
+    </div>
+  `;
+
+  const el = document.getElementById('answer-section');
+  el.innerHTML = html;
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
   let pointsHTML = (data.points || []).map((pt, i) => `
     <div class="answer-point">
@@ -1882,42 +3031,6 @@ function renderAnswer(data, question, scenario) {
       </div>
     `;
   }
-
-  const refsHTML = (data.references||[]).map(r => {
-    const cls = {law:'rn-red',org:'rn-blue',book:'rn-purple',scenario:'rn-green'}[r.type] || 'rn-blue';
-    return `<div class="ref-row"><div class="ref-num ${cls}">${r.num}</div><div class="ref-detail">${r.detail}</div></div>`;
-  }).join('');
-
-  const html = `
-    <div class="answer-section">
-      <div class="answer-header">
-        <div class="answer-title">✅ الإجابة الشاملة — ${STATE.cert}</div>
-        <div class="answer-meta">
-          <span class="meta-chip mc-green">${data.commandWord || 'Analyse'}</span>
-          <span class="meta-chip mc-amber">${STATE.marks} درجة</span>
-          <span class="meta-chip mc-blue">${(data.points||[]).length} نقطة</span>
-          <span class="meta-chip ${(data.points||[]).length >= STATE.marks ? 'mc-green' : 'mc-red'}">${(data.points||[]).length >= STATE.marks ? '✓ كافية' : '⚠ أقل من الدرجات'}</span>
-        </div>
-      </div>
-      <div class="answer-body">
-        ${data.structure ? `<div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--blue);">📐 <strong>هيكل الإجابة:</strong> ${data.structure}</div>` : ''}
-        ${pointsHTML}
-        ${data.examTip ? `<div style="background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.15);border-radius:var(--r-sm);padding:10px 14px;margin-top:14px;font-size:12px;color:var(--amber);">💡 <strong>نصيحة الاختبار:</strong> ${data.examTip}</div>` : ''}
-        <div class="answer-actions">
-          <button class="btn btn-surface btn-sm" onclick="copyAnswer()">📋 نسخ الإجابة</button>
-          <button class="btn btn-surface btn-sm" onclick="showAppSection('history')">💾 حفظ</button>
-          <button class="btn btn-ghost btn-sm" onclick="resetForm()">🔄 سؤال جديد</button>
-        </div>
-      </div>
-      ${refsHTML ? `<div class="refs-section"><div class="refs-title">📚 قائمة المراجع</div>${refsHTML}</div>` : ''}
-    </div>
-  `;
-
-  const el = document.getElementById('answer-section');
-  el.innerHTML = html;
-  el.style.display = 'block';
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
 
 function renderDemoAnswer(cw, question) {
   const marks = STATE.marks;
@@ -2255,6 +3368,731 @@ function applyTranslation(code) {
   if (signupBtn && t.startFree) signupBtn.textContent = t.startFree;
 }
 
+// ══════════════════════════════════
+// BOOKS — CERT LINKED SYSTEM
+// ══════════════════════════════════
+// ══════════════════════════════════════════════════════
+// RAG ENGINE — نظام قراءة وبحث ذكي للكتب الكبيرة
+// يدعم حتى 2000 صفحة / ملفات ضخمة
+// ══════════════════════════════════════════════════════
+
+const RAG = {
+  // مخزن الـ chunks لكل شهادة
+  index: {},       // { certId: [{ id, text, page, chunk, score }] }
+  meta: {},        // { certId: { name, pages, chunks, size, cert } }
+  processing: {},  // { certId: true/false }
+  progress: {},    // { certId: { done, total, phase } }
+};
+
+const RAG_CONFIG = {
+  CHUNK_SIZE: 400,       // كلمة لكل chunk
+  OVERLAP: 60,           // overlap بين الـ chunks
+  TOP_K: 8,              // عدد الـ chunks المُسترجعة للإجابة
+  MAX_CONTEXT: 12000,    // حد الحروف المرسلة للـ API
+  MIN_SCORE: 0.05,       // الحد الأدنى لدرجة الصلة
+};
+
+// ══ 1. استخراج النص من PDF باستخدام PDF.js ══
+async function extractPDFText(file, certId) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      updateRagProgress(certId, 0, 0, 'جاري تحميل PDF.js...');
+
+      // تحميل PDF.js ديناميكياً
+      if (!window.pdfjsLib) {
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      }
+
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      const totalPages = pdf.numPages;
+
+      updateRagProgress(certId, 0, totalPages, `استخراج النص من ${totalPages} صفحة...`);
+
+      const pages = [];
+      const BATCH = 20; // معالجة 20 صفحة دفعة واحدة
+
+      for (let i = 1; i <= totalPages; i += BATCH) {
+        const batchEnd = Math.min(i + BATCH - 1, totalPages);
+        const batchPromises = [];
+
+        for (let p = i; p <= batchEnd; p++) {
+          batchPromises.push(
+            pdf.getPage(p).then(async page => {
+              const content = await page.getTextContent();
+              const text = content.items.map(item => item.str).join(' ')
+                .replace(/\s+/g, ' ').trim();
+              return { page: p, text };
+            })
+          );
+        }
+
+        const batchResults = await Promise.all(batchPromises);
+        pages.push(...batchResults.filter(p => p.text.length > 20));
+        updateRagProgress(certId, batchEnd, totalPages, `استخراج الصفحة ${batchEnd} من ${totalPages}...`);
+
+        // إعطاء المتصفح فرصة للتنفس
+        await new Promise(r => setTimeout(r, 10));
+      }
+
+      resolve(pages);
+    } catch (err) {
+      // fallback: قراءة كنص عادي
+      try {
+        const text = await file.text();
+        resolve([{ page: 1, text }]);
+      } catch {
+        reject(err);
+      }
+    }
+  });
+}
+
+// ══ 2. التقطيع الذكي ══
+function chunkPages(pages) {
+  const chunks = [];
+  let chunkId = 0;
+
+  for (const { page, text } of pages) {
+    const words = text.split(/\s+/).filter(w => w.length > 0);
+    const step = RAG_CONFIG.CHUNK_SIZE - RAG_CONFIG.OVERLAP;
+
+    for (let i = 0; i < words.length; i += step) {
+      const chunkWords = words.slice(i, i + RAG_CONFIG.CHUNK_SIZE);
+      if (chunkWords.length < 20) continue; // تجاهل الـ chunks الصغيرة جداً
+
+      chunks.push({
+        id: chunkId++,
+        text: chunkWords.join(' '),
+        page,
+        wordStart: i,
+        // استخراج الكلمات المفتاحية للبحث
+        keywords: extractKeywords(chunkWords.join(' ')),
+      });
+    }
+  }
+
+  return chunks;
+}
+
+// ══ 3. استخراج الكلمات المفتاحية (TF-IDF بسيط) ══
+function extractKeywords(text) {
+  const stopWords = new Set(['the','a','an','and','or','but','in','on','at','to','for',
+    'of','with','by','from','as','is','are','was','were','be','been','have','has',
+    'had','do','does','did','will','would','could','should','may','might','must',
+    'this','that','these','those','it','its','they','their','we','our','you','your',
+    'he','his','she','her','i','my','me','him','us','them','what','which','who',
+    'when','where','how','why','all','any','each','every','both','either','neither']);
+
+  return text.toLowerCase()
+    .replace(/[^\w\s]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w.length > 3 && !stopWords.has(w))
+    .reduce((acc, w) => {
+      acc[w] = (acc[w] || 0) + 1;
+      return acc;
+    }, {});
+}
+
+// ══ 4. حساب درجة الصلة BM25-like ══
+function scoreChunk(chunk, queryTerms) {
+  const k1 = 1.5, b = 0.75;
+  const avgChunkLen = 400;
+  const chunkLen = Object.values(chunk.keywords).reduce((a, b) => a + b, 0);
+
+  let score = 0;
+  for (const term of queryTerms) {
+    const tf = chunk.keywords[term.toLowerCase()] || 0;
+    if (tf === 0) continue;
+    const idf = 1; // بدون قاعدة بيانات نفترض IDF = 1
+    const norm = tf * (k1 + 1) / (tf + k1 * (1 - b + b * chunkLen / avgChunkLen));
+    score += idf * norm;
+  }
+
+  // Bonus لتطابق عبارات كاملة
+  const chunkTextLower = chunk.text.toLowerCase();
+  const queryStr = queryTerms.join(' ').toLowerCase();
+  if (chunkTextLower.includes(queryStr)) score += 3;
+
+  return score;
+}
+
+// ══ 5. البحث الدلالي ══
+function retrieveRelevantChunks(certId, query, topK = RAG_CONFIG.TOP_K) {
+  const chunks = RAG.index[certId];
+  if (!chunks || chunks.length === 0) return [];
+
+  const queryTerms = Object.keys(extractKeywords(query));
+  if (queryTerms.length === 0) return chunks.slice(0, topK);
+
+  // تسجيل كل chunk
+  const scored = chunks.map(chunk => ({
+    ...chunk,
+    score: scoreChunk(chunk, queryTerms),
+  }));
+
+  // ترتيب تنازلي
+  scored.sort((a, b) => b.score - a.score);
+
+  // أخذ أفضل K مع تنويع الصفحات
+  const selected = [];
+  const usedPages = new Set();
+
+  for (const chunk of scored) {
+    if (chunk.score < RAG_CONFIG.MIN_SCORE) break;
+    if (selected.length >= topK) break;
+
+    // تجنب 3 chunks من نفس الصفحة
+    const pageCount = [...usedPages].filter(p => p === chunk.page).length;
+    if (pageCount >= 3) continue;
+
+    selected.push(chunk);
+    usedPages.add(chunk.page);
+  }
+
+  // إذا لم نجد كافياً — أضف الأعلى درجةً بغض النظر
+  if (selected.length < 3) {
+    for (const chunk of scored.slice(0, topK)) {
+      if (!selected.find(s => s.id === chunk.id)) {
+        selected.push(chunk);
+        if (selected.length >= topK) break;
+      }
+    }
+  }
+
+  return selected;
+}
+
+// ══ 6. بناء الـ context للـ prompt ══
+function buildRAGContext(certId, query, level) {
+  const chunks = retrieveRelevantChunks(certId, query);
+  const meta = RAG.meta[certId];
+  if (!chunks.length || !meta) return '';
+
+  // ترتيب الـ chunks حسب رقم الصفحة للقراءة المنطقية
+  const sorted = [...chunks].sort((a, b) => a.page - b.page);
+
+  let context = `\n\n═══════════════════════════════════
+OFFICIAL REFERENCE BOOK: "${meta.name}"
+Total: ${meta.pages} pages · ${meta.chunks} indexed sections
+Retrieved: ${sorted.length} most relevant sections for this question
+═══════════════════════════════════\n\n`;
+
+  let totalChars = context.length;
+
+  for (const chunk of sorted) {
+    const block = `[PAGE ${chunk.page} — Relevance Score: ${chunk.score.toFixed(2)}]\n${chunk.text}\n\n`;
+    if (totalChars + block.length > RAG_CONFIG.MAX_CONTEXT) break;
+    context += block;
+    totalChars += block.length;
+  }
+
+  if (level === 2) {
+    context += `\n═══════════════════════════════════
+CRITICAL INSTRUCTION FOR LEVEL 2:
+- Answer EXCLUSIVELY from the text sections above
+- Every point MUST cite: "${meta.name}, p.[page number]"
+- If information is not in the retrieved sections, say "not covered in provided text"
+- NO external knowledge — only what appears in the book text above
+═══════════════════════════════════\n`;
+  } else if (level === 3) {
+    context += `\n═══════════════════════════════════
+INSTRUCTION FOR LEVEL 3 P.E.E:
+- Use text above as primary E (Evidence) source
+- Quote directly from the book when possible
+- Cite page numbers for every book reference
+- Combine with international organisations for P (Point)
+═══════════════════════════════════\n`;
+  }
+
+  return context;
+}
+
+// ══ 7. المعالج الرئيسي — رفع + فهرسة ══
+async function processBookRAG(file, certId) {
+  RAG.processing[certId] = true;
+  showRagProgressUI(certId, file.name);
+
+  try {
+    // أ. استخراج النص
+    updateRagProgress(certId, 0, 100, 'قراءة الملف...');
+    const pages = await extractPDFText(file, certId);
+
+    // ب. التقطيع
+    updateRagProgress(certId, 30, 100, `تقطيع ${pages.length} صفحة...`);
+    await new Promise(r => setTimeout(r, 50));
+    const chunks = chunkPages(pages);
+
+    // ج. حفظ الفهرس
+    RAG.index[certId] = chunks;
+    RAG.meta[certId] = {
+      name: file.name,
+      pages: pages.length,
+      chunks: chunks.length,
+      size: file.size,
+      cert: certId,
+      indexedAt: new Date().toLocaleDateString('ar'),
+    };
+
+    updateRagProgress(certId, 100, 100, 'اكتمل!');
+
+    // د. تحديث الـ STATE
+    const bookData = {
+      name: file.name,
+      size: file.size,
+      cert: certId,
+      ragReady: true,
+      pages: pages.length,
+      chunks: chunks.length,
+      uploadedAt: new Date().toLocaleDateString('ar'),
+    };
+
+    if (certId === 'ALL') {
+      ['IGC','NGC','Fire','EMC','Construction','Diploma'].forEach(c => {
+        STATE.certBooks[c] = bookData;
+        RAG.index[c] = chunks;
+        RAG.meta[c] = { ...RAG.meta[certId], cert: c };
+      });
+    } else {
+      STATE.certBooks[certId] = bookData;
+    }
+
+    STATE.books = STATE.books.filter(b => b.cert !== certId);
+    STATE.books.push(bookData);
+
+    showToast(`✅ "${file.name}" — ${pages.length} صفحة · ${chunks.length} قسم مفهرس`);
+    renderBooksList();
+    renderCertBooksGrid();
+    updateLevel2Status();
+
+    // تفعيل تلقائي إذا الشهادة مطابقة
+    if (certId === STATE.cert || certId === 'ALL') {
+      STATE.answerLevel === 1 || selectAnswerLevel(STATE.answerLevel);
+      showToast(`📖 RAG مفعّل لشهادة ${STATE.cert} — جاهز للإجابة من الكتاب`, 'success');
+    }
+
+  } catch (err) {
+    console.error('RAG Error:', err);
+    showToast(`❌ خطأ في معالجة الملف: ${err.message}`, 'error');
+    // Fallback: حفظ بسيط
+    const book = {
+      name: file.name, size: file.size, cert: certId,
+      ragReady: false,
+      content: 'PDF uploaded — text extraction failed, using filename reference',
+      uploadedAt: new Date().toLocaleDateString('ar'),
+    };
+    STATE.certBooks[certId] = book;
+    STATE.books.push(book);
+    renderBooksList();
+    renderCertBooksGrid();
+  } finally {
+    RAG.processing[certId] = false;
+    hideRagProgressUI(certId);
+  }
+}
+
+// ══ 8. تحديث handleBookUpload ══
+function handleBookUpload(input) {
+  const files = Array.from(input.files);
+  files.forEach(file => {
+    const certId = STATE.pendingBookCert;
+    // استخدام RAG للـ PDF والملفات الكبيرة
+    if (file.type === 'application/pdf' || file.size > 500 * 1024) {
+      processBookRAG(file, certId);
+    } else {
+      // ملفات نصية صغيرة — قراءة مباشرة
+      const reader = new FileReader();
+      reader.onload = e => {
+        const text = e.target.result;
+        const book = {
+          name: file.name, size: file.size, cert: certId,
+          ragReady: false,
+          content: text.substring(0, 15000),
+          uploadedAt: new Date().toLocaleDateString('ar'),
+        };
+        if (certId === 'ALL') {
+          ['IGC','NGC','Fire','EMC','Construction','Diploma'].forEach(c => {
+            STATE.certBooks[c] = book;
+          });
+        } else {
+          STATE.certBooks[certId] = book;
+        }
+        STATE.books.push(book);
+        renderBooksList();
+        renderCertBooksGrid();
+        updateLevel2Status();
+        showToast(`✅ تم رفع "${file.name}" بنجاح`);
+      };
+      reader.readAsText(file);
+    }
+  });
+}
+
+// ══ 9. loadScript Helper ══
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+    const s = document.createElement('script');
+    s.src = src; s.onload = resolve; s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+// ══ 10. واجهة تقدم المعالجة ══
+function showRagProgressUI(certId, fileName) {
+  let overlay = document.getElementById('rag-progress-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'rag-progress-overlay';
+    overlay.style.cssText = `
+      position:fixed;bottom:24px;right:24px;z-index:9999;
+      background:var(--surface);border:1px solid rgba(0,214,143,.3);
+      border-radius:var(--r-lg);padding:16px 20px;width:320px;
+      box-shadow:0 12px 40px rgba(0,0,0,.4);
+      font-family:var(--font-ar);direction:rtl;
+    `;
+    document.body.appendChild(overlay);
+  }
+  overlay.innerHTML = `
+    <div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:4px;">
+      📖 جاري فهرسة الكتاب...
+    </div>
+    <div style="font-size:11px;color:var(--text-dim);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+      ${fileName}
+    </div>
+    <div style="background:var(--surface2);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px;">
+      <div id="rag-progress-bar" style="height:100%;background:var(--green);border-radius:4px;width:0%;transition:width .3s;"></div>
+    </div>
+    <div id="rag-progress-text" style="font-size:11px;color:var(--text-dim);">جاري التحضير...</div>
+    <div style="font-size:10px;color:var(--text-dim);margin-top:6px;">
+      يمكنك متابعة العمل أثناء الفهرسة
+    </div>
+  `;
+  overlay.style.display = 'block';
+}
+
+function updateRagProgress(certId, done, total, phase) {
+  const bar = document.getElementById('rag-progress-bar');
+  const text = document.getElementById('rag-progress-text');
+  if (bar && total > 0) bar.style.width = Math.round((done / total) * 100) + '%';
+  if (text) text.textContent = phase;
+  RAG.progress[certId] = { done, total, phase };
+}
+
+function hideRagProgressUI(certId) {
+  setTimeout(() => {
+    const overlay = document.getElementById('rag-progress-overlay');
+    if (overlay) overlay.style.display = 'none';
+  }, 2000);
+}
+
+// ══ 11. getActiveBookContext المحدّثة — تستخدم RAG ══
+function getActiveBookContext(query) {
+  const certId = STATE.cert;
+  const book = STATE.certBooks?.[certId];
+  if (!book) return '';
+
+  // إذا RAG جاهز — استخدمه
+  if (RAG.index[certId] && RAG.index[certId].length > 0 && query) {
+    return buildRAGContext(certId, query, STATE.answerLevel);
+  }
+
+  // Fallback: المحتوى النصي البسيط
+  if (book.content) {
+    return `\n\nOFFICIAL REFERENCE BOOK: "${book.name}"\n${book.content.substring(0, 8000)}\n`;
+  }
+
+  return `\n\nOFFICIAL REFERENCE BOOK: "${book.name}" — uploaded but text not extracted.\n`;
+}
+
+// ══ 12. renderBooksList المحدّثة ══
+function renderBooksList() {
+  const list = document.getElementById('books-list');
+  if (!list) return;
+  list.innerHTML = STATE.books.length === 0
+    ? '<p style="text-align:center;color:var(--text-dim);font-size:13px;padding:20px;">لم يُرفع أي كتاب بعد</p>'
+    : STATE.books.map((b, i) => {
+        const meta = RAG.meta[b.cert];
+        const ragReady = meta && RAG.index[b.cert]?.length > 0;
+        return `
+        <div style="background:var(--surface);border:1px solid ${ragReady?'rgba(0,214,143,.3)':'rgba(255,255,255,.07)'};border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">${ragReady?'📗':'📖'}</span>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:600;color:${ragReady?'var(--green)':'var(--text)'};">${b.name}</div>
+            <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">
+              ${b.cert} · ${(b.size/1024/1024).toFixed(1)} MB
+              ${ragReady ? `· <span style="color:var(--green);">✓ RAG جاهز: ${meta.pages} صفحة · ${meta.chunks} قسم</span>` : '· جاري الفهرسة...'}
+            </div>
+          </div>
+          <button onclick="removeBook(${i})" style="background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-size:12px;padding:4px 8px;">✕</button>
+        </div>
+        `;
+    }).join('');
+}
+
+// ══ 13. إضافة قسم RAG في صفحة الكتب ══
+function renderRAGStatus() {
+  const statusEl = document.getElementById('rag-index-status');
+  if (!statusEl) return;
+  const certs = ['IGC','NGC','Fire','EMC','Construction','Diploma'];
+  statusEl.innerHTML = certs.map(cert => {
+    const meta = RAG.meta[cert];
+    const processing = RAG.processing[cert];
+    if (processing) return `<div class="rag-status-chip processing">⏳ ${cert}</div>`;
+    if (meta) return `<div class="rag-status-chip ready" title="${meta.chunks} قسم مفهرس">✓ ${cert} (${meta.pages}p)</div>`;
+    return `<div class="rag-status-chip empty">○ ${cert}</div>`;
+  }).join('');
+}
+
+function renderCertBooksGrid() {
+  const grid = document.getElementById('cert-books-grid');
+  if (!grid) return;
+  const certs = ['IGC','NGC','Fire','EMC','Construction','Diploma'];
+  const certNames = {
+    IGC:'International GC', NGC:'National GC', Fire:'Fire Safety',
+    EMC:'Environmental', Construction:'Construction', Diploma:'Diploma'
+  };
+  grid.innerHTML = certs.map(cert => {
+    const book = STATE.certBooks[cert];
+    const isActive = STATE.cert === cert;
+    return `
+      <div class="cert-book-card ${book?'has-book':''} ${isActive?'active-cert':''}" onclick="selectCertFromBook('${cert}')">
+        ${isActive ? '<div class="cbc-active-badge">مفعّل</div>' : ''}
+        <div class="cbc-cert">${cert}</div>
+        <div class="cbc-name" title="${book?book.name:'لا يوجد كتاب'}">${book ? book.name.substring(0,22)+(book.name.length>22?'...':'') : 'لا يوجد كتاب'}</div>
+        <div class="cbc-status">${book ? `📖 ${(book.size/1024).toFixed(0)}KB · ${book.uploadedAt}` : 'ارفع الكتاب الرسمي'}</div>
+        ${book ? `<button onclick="event.stopPropagation();removeCertBook('${cert}')" style="position:absolute;top:8px;right:8px;background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-size:12px;">✕</button>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function selectCertFromBook(cert) {
+  // يُوجّه للـ solver ويختار الشهادة
+  showAppSection('solver');
+  document.querySelectorAll('.cert-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim().startsWith(cert));
+  });
+  STATE.cert = cert;
+  selectOrgsByCert();
+  renderCertBooksGrid();
+  if (STATE.certBooks[cert]) {
+    showToast(`📖 تم تفعيل كتاب ${cert}: ${STATE.certBooks[cert].name}`);
+  }
+}
+
+function removeCertBook(cert) {
+  const book = STATE.certBooks[cert];
+  if (book) {
+    STATE.books = STATE.books.filter(b => b !== book);
+    STATE.certBooks[cert] = null;
+    renderBooksList();
+    renderCertBooksGrid();
+    updateDepLabels();
+  }
+}
+
+function renderBooksList() {
+  const list = document.getElementById('books-list');
+  if (!list) return;
+  list.innerHTML = STATE.books.length === 0
+    ? '<p style="text-align:center;color:var(--text-dim);font-size:13px;padding:20px;">لم يُرفع أي كتاب بعد</p>'
+    : STATE.books.map((b,i) => `
+    <div style="background:var(--surface);border:1px solid rgba(0,214,143,.2);border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:18px;">📖</span>
+      <div style="flex:1;">
+        <div style="font-size:12px;font-weight:600;color:var(--green);">${b.name}</div>
+        <div style="font-size:10px;color:var(--text-dim);">${b.cert} · ${(b.size/1024).toFixed(1)} KB · ${b.uploadedAt}</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="removeBook(${i})" style="padding:4px 8px;font-size:11px;">✕</button>
+    </div>
+  `).join('');
+}
+
+function removeBook(i) {
+  const book = STATE.books[i];
+  if (book) {
+    Object.keys(STATE.certBooks).forEach(c => {
+      if (STATE.certBooks[c] === book) STATE.certBooks[c] = null;
+    });
+  }
+  STATE.books.splice(i, 1);
+  renderBooksList();
+  renderCertBooksGrid();
+  updateDepLabels();
+}
+
+function handleBookDrop(event) {
+  event.preventDefault();
+  document.getElementById('book-drop-zone').style.borderColor = 'rgba(0,214,143,.3)';
+  document.getElementById('book-drop-zone').style.background = 'var(--surface)';
+  const files = Array.from(event.dataTransfer.files);
+  const input = document.getElementById('book-upload');
+  const dt = new DataTransfer();
+  files.forEach(f => dt.items.add(f));
+  input.files = dt.files;
+  handleBookUpload(input);
+}
+
+// تحديث context الكتاب في الـ prompt
+// getActiveBookContext replaced by RAG engine
+
+// ══════════════════════════════════
+// PAYMENT SYSTEM
+// ══════════════════════════════════
+const PAYMENT_CONFIG = {
+  // ضع مفاتيح ميسر هنا عند الحصول عليها
+  moyasar_publishable_key: 'pk_test_MOYASAR_KEY_HERE',
+  // أو Stripe
+  stripe_publishable_key: 'pk_test_STRIPE_KEY_HERE',
+  price_usd: 44.77,
+  price_sar: 167.89 // تقريبي — يُحدَّث من API
+};
+
+STATE.selectedPayMethod = 'card';
+STATE.appliedDiscount = 0;
+STATE.appliedCode = '';
+
+function showPaymentPage() {
+  if (!STATE.user) { showPage('signup'); return; }
+  showPage('payment');
+}
+
+function selectPayMethod(method, btn) {
+  STATE.selectedPayMethod = method;
+  document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  const cardForm = document.getElementById('card-form');
+  const walletForm = document.getElementById('wallet-form');
+
+  if (method === 'card' || method === 'mada') {
+    cardForm.style.display = 'block';
+    walletForm.style.display = 'none';
+    if (method === 'mada') {
+      document.getElementById('card-num').placeholder = 'رقم بطاقة مدى';
+    }
+  } else {
+    cardForm.style.display = 'none';
+    walletForm.style.display = 'block';
+    const icons = {apple:'🍎',stc:'📱'};
+    const msgs = {apple:'سيتم فتح Apple Pay للإتمام',stc:'سيتم فتح STC Pay للإتمام'};
+    document.getElementById('wallet-icon').textContent = icons[method];
+    document.getElementById('wallet-msg').textContent = msgs[method];
+  }
+}
+
+function formatCardNum(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,16);
+  input.value = v.match(/.{1,4}/g)?.join(' ') || v;
+}
+
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g,'');
+  if (v.length >= 2) v = v.substring(0,2)+'/'+v.substring(2,4);
+  input.value = v;
+}
+
+function applyDiscount() {
+  const code = document.getElementById('discount-code').value.trim().toUpperCase();
+  const msg = document.getElementById('discount-msg');
+  const discountRow = document.getElementById('ps-discount-row');
+
+  if (!code) return;
+
+  // التحقق من نوع الكود
+  let discount = 0;
+  let label = '';
+
+  if (code.startsWith('NEBOSH-')) {
+    discount = 0.05; label = 'خصم كود الإحالة (5%)';
+  } else if (code === 'REVIEW5') {
+    discount = 0.05; label = 'خصم التقييم (5%)';
+  } else if (code === 'SOCIAL10') {
+    discount = 0.10; label = 'خصم النشر الاجتماعي (10%)';
+  } else if (code === 'WELCOME20') {
+    discount = 0.20; label = 'خصم الترحيب (20%)';
+  } else {
+    msg.textContent = '❌ كود غير صحيح';
+    msg.style.color = 'var(--red)';
+    msg.style.display = 'block';
+    return;
+  }
+
+  STATE.appliedDiscount = discount;
+  STATE.appliedCode = code;
+
+  const discountAmt = PAYMENT_CONFIG.price_usd * discount;
+  const total = PAYMENT_CONFIG.price_usd - discountAmt;
+
+  document.getElementById('ps-discount-label').textContent = label;
+  document.getElementById('ps-discount-val').textContent = `-$${discountAmt.toFixed(2)}`;
+  document.getElementById('ps-total').textContent = `$${total.toFixed(2)}`;
+  document.getElementById('pay-btn-text').textContent = `اشترك الآن — $${total.toFixed(2)}/شهر`;
+  discountRow.style.display = 'flex';
+
+  msg.textContent = `✅ تم تطبيق: ${label}`;
+  msg.style.color = 'var(--green)';
+  msg.style.display = 'block';
+}
+
+async function processPayment() {
+  const email = document.getElementById('pay-email').value.trim();
+  if (!email) { showToast('❌ يرجى إدخال البريد الإلكتروني', 'error'); return; }
+
+  if (STATE.selectedPayMethod === 'card' || STATE.selectedPayMethod === 'mada') {
+    const cardNum = document.getElementById('card-num').value.replace(/\s/g,'');
+    const cardExp = document.getElementById('card-exp').value;
+    const cardCVV = document.getElementById('card-cvv').value;
+    if (!cardNum || cardNum.length < 16) { showToast('❌ رقم البطاقة غير صحيح', 'error'); return; }
+    if (!cardExp || !cardExp.includes('/')) { showToast('❌ تاريخ الانتهاء غير صحيح', 'error'); return; }
+    if (!cardCVV || cardCVV.length < 3) { showToast('❌ رمز CVV غير صحيح', 'error'); return; }
+  }
+
+  // تغيير حالة الزر
+  const btn = document.getElementById('pay-btn');
+  const btnText = document.getElementById('pay-btn-text');
+  btn.disabled = true;
+  btnText.textContent = '⏳ جاري معالجة الدفع...';
+
+  // محاكاة معالجة الدفع (ستُستبدل بـ API حقيقي)
+  await new Promise(r => setTimeout(r, 2000));
+
+  // ملاحظة: هنا تُضاف مكالمة ميسر أو Stripe API الحقيقية
+  // const moyasarResult = await chargeMoyasar({...});
+  // if (!moyasarResult.success) { showError(); return; }
+
+  // نجاح الدفع
+  STATE.user.isPaid = true;
+  STATE.user.plan = 'monthly';
+  STATE.user.planExpiry = new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString('ar');
+  STATE.questionsLeft = 999;
+  document.getElementById('q-badge').textContent = '∞ غير محدود';
+  document.getElementById('q-counter').textContent = '∞';
+
+  document.getElementById('pay-form-state').style.display = 'none';
+  document.getElementById('pay-success-state').style.display = 'block';
+}
+
+// Toast notifications
+function showToast(message, type = 'success') {
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+    background:${type==='error'?'var(--red)':'var(--surface)'};
+    border:1px solid ${type==='error'?'var(--red)':'rgba(0,214,143,.3)'};
+    color:${type==='error'?'#fff':'var(--text)'};
+    padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;
+    z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.3);
+    font-family:var(--font-ar);animation:fadeUp .3s ease;
+  `;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
 // Counter animation
 function animateCounter(id, target) {
   let current = 0;
@@ -2274,6 +4112,9 @@ window.addEventListener('load', () => {
   animateCounter('c2', 9);
   animateCounter('c3', 6);
   animateCounter('c4', 12);
+
+  // تهيئة المستوى الافتراضي (المستوى 1)
+  selectAnswerLevel(1);
 
   // بناء قائمة المنظمات الافتراضية
   selectOrgsByCert();
