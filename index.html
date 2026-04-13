@@ -4,265 +4,82 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NeboshHub — Choose Your Language</title>
-<meta name="description" content="NeboshHub — Smart educational platform for NEBOSH students. Available in 6 languages.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --green:#00D68F;
-  --ink:#07111E;
-  --surface:#111F2F;
-  --border:rgba(255,255,255,.08);
-  --text:#E8EDF5;
-  --dim:#7A8AA0;
-}
-html,body{
-  min-height:100vh;
-  background:var(--ink);
-  color:var(--text);
-  font-family:'Segoe UI','Inter',system-ui,sans-serif;
-  overflow-x:hidden;
-}
-
-/* Grid bg */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(0,214,143,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,214,143,.03) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:radial-gradient(ellipse 80% 70% at 50% 0%,black,transparent);
-  pointer-events:none;z-index:0;
-}
-
-/* Glow */
-body::after{
-  content:'';
-  position:fixed;
-  width:600px;height:600px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(0,214,143,.07) 0%,transparent 65%);
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  pointer-events:none;z-index:0;
-}
-
-.page{
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:40px 20px;
-  position:relative;z-index:1;
-}
-
-/* Logo */
-.logo{
-  font-family:'JetBrains Mono','Courier New',monospace;
-  font-size:28px;font-weight:700;
-  color:var(--text);
-  margin-bottom:8px;
-  text-decoration:none;
-}
+:root{--green:#00D68F;--ink:#07111E;--surface:#111F2F;--border:rgba(255,255,255,.08);--text:#E8EDF5;--dim:#7A8AA0;}
+html,body{min-height:100vh;background:var(--ink);color:var(--text);font-family:'Segoe UI','Inter',system-ui,sans-serif;}
+.page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
+.logo{font-size:28px;font-weight:700;color:var(--text);margin-bottom:8px;text-decoration:none;}
 .logo span{color:var(--green);}
-
-.tagline{
-  font-size:14px;color:var(--dim);
-  margin-bottom:52px;
-  text-align:center;
-}
-
-/* Title */
-.title{
-  font-size:clamp(22px,4vw,36px);
-  font-weight:700;
-  letter-spacing:-0.5px;
-  margin-bottom:8px;
-  text-align:center;
-}
-.subtitle{
-  font-size:15px;color:var(--dim);
-  margin-bottom:40px;
-  text-align:center;
-}
-
-/* Language grid */
-.langs{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  max-width:680px;
-  width:100%;
-  margin-bottom:36px;
-}
-
-.lang-card{
-  background:var(--surface);
-  border:1.5px solid var(--border);
-  border-radius:16px;
-  padding:22px 18px;
-  cursor:pointer;
-  transition:all .2s;
-  text-align:center;
-  text-decoration:none;
-  color:var(--text);
-  display:block;
-  position:relative;
-  overflow:hidden;
-}
-.lang-card::before{
-  content:'';
-  position:absolute;inset:0;
-  background:rgba(0,214,143,.04);
-  opacity:0;
-  transition:opacity .2s;
-}
-.lang-card:hover{
-  border-color:rgba(0,214,143,.4);
-  transform:translateY(-3px);
-  box-shadow:0 12px 36px rgba(0,0,0,.3);
-}
-.lang-card:hover::before{opacity:1;}
-
+.tagline{font-size:14px;color:var(--dim);margin-bottom:52px;text-align:center;}
+.title{font-size:clamp(22px,4vw,36px);font-weight:700;margin-bottom:8px;text-align:center;}
+.subtitle{font-size:15px;color:var(--dim);margin-bottom:40px;text-align:center;}
+.langs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:680px;width:100%;margin-bottom:36px;}
+.lang-card{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:22px 18px;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none;color:var(--text);display:block;position:relative;}
+.lang-card:hover{border-color:rgba(0,214,143,.4);transform:translateY(-3px);}
 .lang-flag{font-size:32px;margin-bottom:10px;display:block;}
 .lang-name{font-size:15px;font-weight:700;margin-bottom:4px;}
 .lang-native{font-size:12px;color:var(--dim);}
-.lang-badge{
-  position:absolute;top:10px;right:10px;
-  font-size:9px;font-weight:700;
-  padding:2px 7px;border-radius:100px;
-  background:rgba(0,214,143,.15);
-  color:var(--green);
-  border:1px solid rgba(0,214,143,.2);
-}
-
-/* Footer note */
-.note{
-  font-size:12px;color:var(--dim);
-  text-align:center;
-  max-width:400px;
-}
-
-/* Animation */
+.lang-badge{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;background:rgba(0,214,143,.15);color:var(--green);border:1px solid rgba(0,214,143,.2);}
+.note{font-size:12px;color:var(--dim);text-align:center;max-width:400px;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-.logo{animation:fadeUp .5s ease both;}
-.tagline{animation:fadeUp .5s .1s ease both;}
-.title{animation:fadeUp .5s .15s ease both;}
-.subtitle{animation:fadeUp .5s .2s ease both;}
-.langs{animation:fadeUp .5s .25s ease both;}
-.note{animation:fadeUp .5s .35s ease both;}
-
-/* Blink */
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
-.live-dot{
-  display:inline-block;width:7px;height:7px;
-  border-radius:50%;background:var(--green);
-  animation:blink 2s infinite;
-  vertical-align:middle;margin-left:4px;
-}
-
-@media(max-width:500px){
-  .langs{grid-template-columns:repeat(2,1fr);}
-}
+.page > *{animation:fadeUp .5s ease both;}
+@media(max-width:500px){.langs{grid-template-columns:repeat(2,1fr);}}
 </style>
 </head>
 <body>
 <div class="page">
-
   <a href="#" class="logo">Nebosh<span>Hub</span></a>
-  <p class="tagline">
-    Smart NEBOSH learning platform
-    <span class="live-dot"></span>
-  </p>
-
+  <p class="tagline">Smart NEBOSH learning platform</p>
   <h1 class="title">Choose your language</h1>
   <p class="subtitle">اختر لغتك · Choose your language · Choisissez votre langue</p>
-
-  <div class="langs" id="langs-grid">
-
-    <a class="lang-card" href="ar/index.html" onclick="saveLang('ar')">
+  <div class="langs">
+    <a class="lang-card" href="ar/" onclick="saveLang('ar')">
       <span class="lang-flag">🇸🇦</span>
       <div class="lang-name">العربية</div>
-      <div class="lang-native" style="font-family:'Tajawal',sans-serif;">النيبوش معنا أسهل</div>
+      <div class="lang-native">النيبوش معنا أسهل</div>
     </a>
-
-    <a class="lang-card" href="en/index.html" onclick="saveLang('en')">
+    <a class="lang-card" href="en/" onclick="saveLang('en')">
       <span class="lang-badge">Most Popular</span>
       <span class="lang-flag">🇬🇧</span>
       <div class="lang-name">English</div>
       <div class="lang-native">Pass NEBOSH first time</div>
     </a>
-
-    <a class="lang-card" href="fr/index.html" onclick="saveLang('fr')">
+    <a class="lang-card" href="fr/" onclick="saveLang('fr')">
       <span class="lang-flag">🇫🇷</span>
       <div class="lang-name">Français</div>
       <div class="lang-native">Réussissez NEBOSH</div>
     </a>
-
-    <a class="lang-card" href="ru/index.html" onclick="saveLang('ru')">
+    <a class="lang-card" href="ru/" onclick="saveLang('ru')">
       <span class="lang-flag">🇷🇺</span>
       <div class="lang-name">Русский</div>
       <div class="lang-native">Сдайте NEBOSH</div>
     </a>
-
-    <a class="lang-card" href="tr/index.html" onclick="saveLang('tr')">
+    <a class="lang-card" href="tr/" onclick="saveLang('tr')">
       <span class="lang-flag">🇹🇷</span>
       <div class="lang-name">Türkçe</div>
       <div class="lang-native">NEBOSH'u geçin</div>
     </a>
-
-    <a class="lang-card" href="hi/index.html" onclick="saveLang('hi')">
+    <a class="lang-card" href="hi/" onclick="saveLang('hi')">
       <span class="lang-flag">🇮🇳</span>
       <div class="lang-name">हिन्दी</div>
       <div class="lang-native">NEBOSH पास करें</div>
     </a>
-
   </div>
-
-  <p class="note">
-    Your language preference will be saved — you won't need to choose again next visit.
-  </p>
-
+  <p class="note">Your language preference will be saved automatically.</p>
 </div>
-
 <script>
-// إعادة توجيه تلقائي إذا اختار اللغة من قبل
 (function(){
-  const saved = localStorage.getItem('nebosh_lang_v2');
-  const paths = {ar:'ar/',en:'en/',fr:'fr/',ru:'ru/',tr:'tr/',hi:'hi/'};
-  if(saved && paths[saved]){
-    // تجنب redirect loop
-    const cur = window.location.pathname;
-    if(!cur.includes('/ar/')&&!cur.includes('/en/')&&!cur.includes('/fr/')&&
-       !cur.includes('/ru/')&&!cur.includes('/tr/')&&!cur.includes('/hi/')){
-      window.location.href = paths[saved] + 'index.html';
+  var saved=localStorage.getItem('nebosh_lang_v2');
+  var paths={ar:'ar/',en:'en/',fr:'fr/',ru:'ru/',tr:'tr/',hi:'hi/'};
+  if(saved&&paths[saved]){
+    var cur=window.location.pathname;
+    if(cur==='/'||cur==='/index.html'||cur===''){
+      window.location.replace(paths[saved]);
     }
   }
 })();
-
-function saveLang(code){
-  localStorage.setItem('nebosh_lang_v2', code);
-}
-
-// كشف لغة المتصفح تلقائياً واقتراحها
-(function(){
-  const bl = navigator.language?.toLowerCase().split('-')[0];
-  const map = {ar:'ar',en:'en',fr:'fr',ru:'ru',tr:'tr',hi:'hi'};
-  const detected = map[bl];
-  if(detected){
-    const cards = document.querySelectorAll('.lang-card');
-    cards.forEach(c => {
-      if(c.href.includes('/'+detected+'/')){
-        if(!c.querySelector('.lang-badge')){
-          const b = document.createElement('span');
-          b.className = 'lang-badge';
-          b.textContent = 'Detected';
-          c.appendChild(b);
-        }
-        c.style.borderColor = 'rgba(0,214,143,.3)';
-      }
-    });
-  }
-})();
+function saveLang(code){localStorage.setItem('nebosh_lang_v2',code);}
 </script>
 </body>
 </html>
