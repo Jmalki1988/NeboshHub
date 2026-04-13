@@ -1,0 +1,145 @@
+-- ══════════════════════════════════════
+-- NeboshHub — Supabase Database Schema
+-- انسخ هذا في Supabase SQL Editor
+-- ══════════════════════════════════════
+
+-- جدول المستخدمين
+CREATE TABLE public.profiles (
+  id UUID REFERENCES auth.users PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  full_name TEXT,
+  avatar_url TEXT,
+  referral_code TEXT UNIQUE DEFAULT 'NEBOSH-' || UPPER(SUBSTR(MD5(RANDOM()::TEXT), 1, 8)),
+  referred_by TEXT,  -- الكود الذي سجّل به
+  plan TEXT DEFAULT 'trial',  -- trial | monthly | cancelled
+  plan_expires_at TIMESTAMPTZ,
+  questions_used INTEGER DEFAULT 0,
+  questions_limit INTEGER DEFAULT 2,  -- 2 للتجريبي
+  total_discount_pct DECIMAL DEFAULT 0,  -- إجمالي الخصم المكتسب
+  review_discount BOOLEAN DEFAULT FALSE,
+  social_discount_expires TIMESTAMPTZ,
+  referral_count INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- جدول الاشتراكات
+CREATE TABLE public.subscriptions (
+  id UUID DEFAULT GEN_RANDOM_UUID() PRIMARY KEY,
+  user_id UUID REFERENCES public.profiles(id),
+  plan TEXT NOT NULL,  -- monthly | annual
+  status TEXT NOT NULL,  -- active | cancelled | expired | past_due
+  amount_usd DECIMAL NOT NULL,
+  discount_pct DECIMAL DEFAULT 0,
+  discount_code TEXT,
+  payment_method TEXT,  -- moyasar | stripe | apple_pay | mada
+  payment_id TEXT,  -- معرّف المعاملة من بوابة الدفع
+  started_at TIMESTAMPTZ DEFAULT NOW(),
+  expires_at TIMESTAMPTZ,
+  cancelled_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- جدول الأسئلة والإجابات
+CREATE TABLE public.questions (
+  id UUID DEFAULT GEN_RANDOM_UUID() PRIMARY KEY,
+  user_id UUID REFERENCES public.profiles(id),
+  certificate TEXT NOT NULL,  -- IGC | NGC | Fire | EMC | Construction | Diploma
+  scenario TEXT,
+  question TEXT NOT NULL,
+  command_words TEXT[],  -- ['Evaluate', 'Analyse']
+  marks INTEGER DEFAULT 4,
+  dep_modes INTEGER[],  -- [1,2,3,4,5]
+  selected_orgs TEXT[],
+  answer_json JSONB,  -- الإجابة الكاملة
+  tokens_used INTEGER,
+  is_trial BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- جدول التقييمات
+CREATE TABLE public.reviews (
+  id UUID DEFAULT GEN_RANDOM_UUID() PRIMARY KEY,
+  user_id UUID REFERENCES public.profiles(id),
+  rating INTEGER CHECK (rating BETWEEN 1 AND 5),
+  review_text TEXT NOT NULL,
+  certificate TEXT,
+  is_published BOOLEAN DEFAULT FALSE,
+  discount_applied BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- جدول نشر التواصل الاجتماعي
+CREATE TABLE public.social_posts (
+  id UUID DEFAULT GEN_RANDOM_UUID() PRIMARY KEY,
+  user_id UUID REFERENCES public.profiles(id),
+  platform TEXT,  -- linkedin | twitter | instagram | facebook | tiktok
+  post_url TEXT NOT NULL,
+  status TEXT DEFAULT 'pending',  -- pending | approved | rejected
+  discount_applied BOOLEAN DEFAULT FALSE,
+  valid_until TIMESTAMPTZ,
+  verified_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- جدول الكتب المرفوعة
+CREATE TABLE public.books (
+  id UUID DEFAULT GEN_RANDOM_UUID() PRIMARY KEY,
+  user_id UUID REFERENCES public.profiles(id),
+  name TEXT NOT NULL,
+  certificate TEXT NOT NULL,  -- الشهادة المرتبطة
+  file_path TEXT,  -- مسار في Supabase Storage
+  file_size INTEGER,
+  content_preview TEXT,  -- أول 5000 حرف للاستشهاد
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- إعدادات المنصة (للمسؤول)
+CREATE TABLE public.admin_settings (
+  key TEXT PRIMARY KEY,
+  value TEXT,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- إعدادات افتراضية
+INSERT INTO public.admin_settings VALUES
+  ('trial_locked', 'false', NOW()),
+  ('trial_lock_message', 'موسم اختبارات NEBOSH جارٍ — الفترة التجريبية متوقفة مؤقتاً', NOW()),
+  ('monthly_price_usd', '44.77', NOW()),
+  ('max_referral_discount', '20', NOW());
+
+-- ══ Row Level Security ══
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.questions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.subscriptions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.reviews ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.books ENABLE ROW LEVEL SECURITY;
+
+-- سياسات الأمان - كل مستخدم يرى بياناته فقط
+CREATE POLICY "Users see own profile" ON public.profiles FOR ALL USING (auth.uid() = id);
+CREATE POLICY "Users see own questions" ON public.questions FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "Users see own subscriptions" ON public.subscriptions FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "Users manage own reviews" ON public.reviews FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "Users manage own books" ON public.books FOR ALL USING (auth.uid() = user_id);
+
+-- التقييمات المنشورة يراها الجميع
+CREATE POLICY "Published reviews are public" ON public.reviews FOR SELECT USING (is_published = true);
+
+-- ══ Functions ══
+-- دالة إنشاء profile تلقائياً عند التسجيل
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.profiles (id, email, full_name)
+  VALUES (
+    NEW.id,
+    NEW.email,
+    COALESCE(NEW.raw_user_meta_data->>'full_name', SPLIT_PART(NEW.email, '@', 1))
+  );
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
