@@ -1,15 +1,12 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/ar", "destination": "/ar/index.html" },
+    { "source": "/en", "destination": "/en/index.html" },
+    { "source": "/fr", "destination": "/fr/index.html" },
+    { "source": "/ru", "destination": "/ru/index.html" },
+    { "source": "/tr", "destination": "/tr/index.html" },
+    { "source": "/hi", "destination": "/hi/index.html" }
   ]
 }
