@@ -4013,13 +4013,138 @@ function applyTranslation(code) {
       if (sectionLabels[ar]) el.textContent = sectionLabels[ar];
     });
   } else {
-    // استعادة العربية
     document.querySelectorAll('.section-label').forEach(el => {
       const en = el.textContent.trim();
       const arKey = Object.keys(sectionLabels).find(k => sectionLabels[k] === en);
       if (arKey) el.textContent = arKey;
     });
   }
+
+  // ── 13. الحل الجذري: استبدال كل نصوص التطبيق الداخلي ──
+  applyAppTranslation(code);
+}
+
+// ══ قاموس ترجمة التطبيق الداخلي ══
+const APP_STRINGS = {
+  // كل نص عربي → ترجمته الإنجليزية
+  // يُطبَّق على textContent مباشرة بدون data-i18n
+  en: {
+    // Sidebar sections
+    'الرئيسية': 'Main',
+    'المكتبة': 'Library',
+    'حسابي': 'My Account',
+    // Sidebar items
+    'حل الأسئلة': 'Solve Questions',
+    'كلمات الأوامر': 'Command Words',
+    'سجل الإجابات': 'Answer History',
+    'الكتب الرسمية': 'Official Books',
+    'مستنداتي': 'My Documents',
+    'كودي التسويقي': 'My Referral Code',
+    'المكافآت والخصومات': 'Rewards & Discounts',
+    'الإعدادات': 'Settings',
+    // Steps
+    'الخطوة 1 — اختر الشهادة': 'Step 1 — Select Certificate',
+    'الخطوة 2 — السيناريو': 'Step 2 — Scenario',
+    'الخطوة 3 — السؤال وكلمة الأمر': 'Step 3 — Question & Command Word',
+    'الخطوة 4 — المنظمات الدولية المرجعية': 'Step 4 — Reference Organisations',
+    // Answer levels
+    'مستوى الإجابة': 'Answer Level',
+    'المستوى 1 — المنظمات الدولية الحية': 'Level 1 — Live International Organisations',
+    'المستوى 2 — مستنداتي وكتبي الرسمية': 'Level 2 — My Documents & Official Books',
+    'المستوى 3 — الإجابة الشاملة P.E.E': 'Level 3 — Comprehensive P.E.E Answer',
+    'الأمثل للاختبار': 'Best for exam',
+    // Org buttons
+    'تحديد الكل': 'Select All',
+    'إلغاء الكل': 'Clear All',
+    'المقترحة لشهادتي': 'Suggested for my cert',
+    // CW
+    'كلمة الأمر المكتشفة': 'Detected Command Word',
+    'الذكاء الاصطناعي يحلل السؤال...': 'AI is analysing the question...',
+    // Marks
+    'عدد الدرجات': 'Number of Marks',
+    // Buttons
+    'توليد الإجابة الشاملة': 'Generate Full Answer',
+    'توليد الإجابة — المستوى 1 (منظمات دولية)': 'Generate — Level 1 (Organisations)',
+    'توليد الإجابة — المستوى 2 (مستنداتي)': 'Generate — Level 2 (My Docs)',
+    'توليد الإجابة الشاملة P.E.E — المستوى 3': 'Generate Comprehensive P.E.E — Level 3',
+    // Loading steps
+    'تحليل كلمة الأمر': 'Analysing command word',
+    'فحص مستوى الاعتماد على السيناريو': 'Checking scenario dependency',
+    'البحث الحي في المنظمات الدولية': 'Live search in international organisations',
+    'بناء هيكل الإجابة': 'Building answer structure',
+    'توثيق المصادر والمراجع': 'Documenting sources and references',
+    // Nav tabs
+    'حل الأسئلة ': 'Solve ',
+    // Trial
+    'متبقي': 'remaining',
+    'مجاني': 'free',
+    'فترة تجريبية': 'trial',
+    // Certificate descriptions
+    'دولي': 'International',
+    'بريطاني': 'British',
+    // Placeholders
+    'الصق نص السيناريو الكامل هنا...': 'Paste the full scenario text here...',
+    'اكتب السؤال كاملاً مع كلمة الأمر...': 'Write the full question with command word...',
+  },
+};
+
+function applyAppTranslation(code) {
+  if (code === 'ar') {
+    // إعادة تحميل الصفحة لاستعادة العربية الكاملة
+    if (localStorage.getItem('nebosh_lang_prev') !== 'ar') {
+      localStorage.setItem('nebosh_lang_prev', 'ar');
+      location.reload();
+    }
+    return;
+  }
+
+  const dict = APP_STRINGS[code] || APP_STRINGS['en'];
+  if (!dict) return;
+
+  localStorage.setItem('nebosh_lang_prev', code);
+
+  // تطبيق على كل عناصر التطبيق
+  const appPage = document.getElementById('page-app');
+  if (!appPage) return;
+
+  // استخراج كل العناصر النصية
+  const walker = document.createTreeWalker(
+    appPage,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode(node) {
+        // تجاهل script و style
+        const tag = node.parentElement?.tagName;
+        if (['SCRIPT','STYLE','TEXTAREA'].includes(tag)) return NodeFilter.FILTER_REJECT;
+        // قبول النصوص العربية فقط
+        if (/[\u0600-\u06FF]/.test(node.textContent)) return NodeFilter.FILTER_ACCEPT;
+        return NodeFilter.FILTER_SKIP;
+      }
+    }
+  );
+
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+
+  nodes.forEach(node => {
+    const orig = node.textContent.trim();
+    if (dict[orig]) {
+      node.textContent = node.textContent.replace(orig, dict[orig]);
+    } else {
+      // بحث جزئي للنصوص الطويلة
+      let text = node.textContent;
+      Object.entries(dict).forEach(([ar, en]) => {
+        if (text.includes(ar)) text = text.replace(ar, en);
+      });
+      node.textContent = text;
+    }
+  });
+
+  // تطبيق خاص على placeholder
+  appPage.querySelectorAll('textarea, input[type="text"]').forEach(el => {
+    const ph = el.placeholder;
+    if (ph && dict[ph]) el.placeholder = dict[ph];
+  });
 }
 
 // ══════════════════════════════════
